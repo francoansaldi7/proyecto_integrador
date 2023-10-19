@@ -1,15 +1,12 @@
 package com.booking.backend.controllers;
 
-import java.util.UUID;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @RestController
+@RequestMapping("/api/v1/services")
 public class ServiceController {
-  private UUID id;
+  
 }
