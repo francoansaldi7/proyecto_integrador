@@ -10,7 +10,7 @@ This is the `dev` branch, here the new changes will be uploaded, and after the t
 git clone <Repository_URL>
 ```
 
-2. Create a New Branch: From the 'dev' branch, create a new branch with a descriptive name for the feature or fix you're going to implement. This ensures that each task has its own separate branch:
+2. Create a New Branch: From the `dev` branch, create a new branch with a descriptive name for the feature or fix you're going to implement. This ensures that each task has its own separate branch:
 
 
 ```BASH
@@ -23,7 +23,7 @@ git checkout -b feature-name
 git add .
 git commit -m "Change Description"
 ```
-4. Keep Your Branch Updated: Before finalizing your work, sync your branch with the 'dev' branch to ensure it's up-to-date. This reduces the chance of conflicts:
+4. Keep Your Branch Updated: Before finalizing your work, sync your branch with the `dev` branch to ensure it's up-to-date. This reduces the chance of conflicts:
 
 ``` BASH
 git checkout dev
