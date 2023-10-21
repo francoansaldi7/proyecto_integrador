@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.booking.backend.models.Reservation;
+
 @SpringBootTest
 public class ReservationServiceTest {
   private static ReservationService reservationService;
@@ -54,8 +56,10 @@ public class ReservationServiceTest {
     // Preconditions: None
     // Expected outcome: The reservation is updated successfully
     UUID validId = UUID.randomUUID();
-    reservationService.updateReservation(validId);
+    Reservation reservation = new Reservation(validId);
+    Reservation updatedReservation = reservationService.updateReservation(reservation);
     // Add assertions to check if the reservation is updated correctly
+    
 
     // Test case 2: Updating a reservation with a null ID
     // Description: Verify that an exception is thrown when updating a reservation

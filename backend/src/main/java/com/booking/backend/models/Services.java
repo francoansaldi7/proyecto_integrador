@@ -2,19 +2,20 @@ package com.booking.backend.models;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.Type;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-public class User {
+public class Services {
   @Id
   private UUID id;
+
   private String name;
-  public User(UUID id) {
+  public Services(UUID id, String name) {
     this.id = id;
+    this.name = name;
   }
 }
