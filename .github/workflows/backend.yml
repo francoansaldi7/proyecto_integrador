@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: ['dev']
     types: [opened, synchronize]
+  push:
+    branches: ['partialDevelopmentOfControllerLogic']
 
 jobs:
   build:
