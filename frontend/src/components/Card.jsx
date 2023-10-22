@@ -1,6 +1,9 @@
 function Card() {
   return (
-    <div>Card</div>
+    <div className="flex h-[200px] w-[300px] flex-col gap-5 bg-secondary rounded-md shadow-lg shadow-secondary">
+      <img src="" alt="" className="service-profile" />
+      <h4 className="text-white font font-semibold">Service Name</h4>
+    </div>
   )
 }
 
