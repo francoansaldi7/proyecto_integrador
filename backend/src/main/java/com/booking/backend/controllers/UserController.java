@@ -24,41 +24,55 @@ public class UserController {
 
   /**
    * Retrieves all users.
+   *
+   * @return List of users.
    */
   @GetMapping
-  public void getAllUsers() {
-    // Call the getAllUsers method from the userService to retrieve all users
-    userService.getAllUsers();
+  public List<User> getAllUsers() {
+    return userService.getAllUsers();
   }
 
-  
-/**
- * Retrieves a user by their ID.
- *
- * @param userId The ID of the user to retrieve.
- */
-@GetMapping("/{userId}")
-public void getUserById(@PathVariable UUID userId) {
-  // Call the userService to get the user by ID
-  userService.getUser(userId);
-}
+  /**
+   * Retrieves a user by their ID.
+   *
+   * @param userId The ID of the user to retrieve.
+   * @return The user with the specified ID.
+   */
+  @GetMapping("/{userId}")
+  public User getUserById(@PathVariable UUID userId) {
+    return userService.getUser(userId);
+  }
 
-  // Endpoint para crear un nuevo usuario
+  /**
+   * Creates a new user.
+   *
+   * @param user The user to be created.
+   * @return The created user.
+   */
   @PostMapping
-  public void createUser(@RequestBody User user) {
-    userService.saveUser();
+  public User createUser(@RequestBody User user) {
+    return userService.saveUser(user);
   }
 
-  // // Endpoint para actualizar un usuario existente
-  // @PutMapping("/{userId}")
-  // public User updateUser(@PathVariable Long userId, @RequestBody User user) {
-  //   return userService.updateUser(userId, user);
-  // }
+  /**
+   * Updates an existing user.
+   *
+   * @param userId      The ID of the user to update.
+   * @param updatedUser The user object with the updated information.
+   * @return The updated user.
+   */
+  @PutMapping("/{userId}")
+  public User updateUser(@PathVariable UUID userId, @RequestBody User updatedUser) {
+    return userService.updateUser(userId, updatedUser);
+  }
 
-  // // Endpoint para eliminar un usuario por su ID
-  // @DeleteMapping("/{userId}")
-  // public void deleteUser(@PathVariable Long userId) {
-  //   userService.deleteUser(userId);
-  // }
-
+  /**
+   * Deletes a user by their ID.
+   *
+   * @param userId The ID of the user to delete.
+   */
+  @DeleteMapping("/{userId}")
+  public void deleteUser(@PathVariable UUID userId) {
+    userService.deleteUser(userId);
+  }
 }

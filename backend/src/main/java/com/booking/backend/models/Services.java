@@ -1,23 +1,23 @@
 package com.booking.backend.models;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
+import org.hibernate.annotations.Type;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Entity
 @Getter
-public class Review {
+public class Services {
   @Id
   private UUID id;
-  public Review(UUID id) {
-    this.id = id;
-  }
-  private String comment;
-  private String description;
-  private float rating;
-  private LocalDate date;
 
+  private String name;
+  public Services(UUID id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 }

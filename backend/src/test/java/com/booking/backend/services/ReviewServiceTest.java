@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.booking.backend.models.Reservation;
+import com.booking.backend.models.Review;
+
 @SpringBootTest
 public class ReviewServiceTest {
 
@@ -28,7 +31,7 @@ public class ReviewServiceTest {
         // Preconditions: None
         // Expected outcome: An exception is thrown
         try {
-            reviewService.saveReview();
+            reviewService.saveReview(null);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected
@@ -66,17 +69,19 @@ public class ReviewServiceTest {
       // Description: Verify that the updateReview method successfully updates a review with a valid ID
       // Preconditions: None
       // Expected outcome: Review is updated successfully
+        Review validReservation = new Review(UUID.randomUUID());
         UUID validId = UUID.randomUUID();
-        reviewService.updateReview(validId);
+        reviewService.updateReview(validId, validReservation);
         // Add assertions to check if the review is updated correctly
 
         // Test case 2: Updating a review with a null ID
         // Description: Verify that an exception is thrown when updating a review with a null ID
         // Preconditions: None
         // Expected outcome: An exception is thrown
+        Review nullReservation = null;
         UUID nullId = null;
         try {
-            reviewService.updateReview(nullId);
+            reviewService.updateReview(nullId, nullReservation);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected

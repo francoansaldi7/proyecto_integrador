@@ -1,7 +1,13 @@
 package com.booking.backend.services;
 
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
+import com.booking.backend.models.Reservation;
+
+@Service
 public class ReservationService {
   
   public ReservationService() {
@@ -10,8 +16,10 @@ public class ReservationService {
   /**
  * Saves the reservation.
  */
-public void saveReservation() {
+public Reservation saveReservation(Reservation reservation) {
   // TODO: Implement saving logic here
+  return reservation;
+  //El siguiente código es solo de muestra 
 }
 
 /**
@@ -27,9 +35,11 @@ public void deleteReservation(UUID id) {
  * Updates a reservation with the specified ID.
  *
  * @param id The ID of the reservation to update.
+ * @return The updated reservation.
  */
-public void updateReservation(UUID id) {
+public Reservation updateReservation(UUID id, Reservation reservation) {
   // TODO: Implement reservation update logic here
+  return reservation;
 }
 
 /**
@@ -38,14 +48,15 @@ public void updateReservation(UUID id) {
  * @param id the ID of the reservation to retrieve
  * @return the reservation with the specified ID, or null if not found
  */
-public void getReservation(UUID id) {
-  
+public Reservation getReservation(UUID id) {
+  return new Reservation(id);
 }
 
 /**
  * Retrieves all reservations from the database.
  */
-public void getAllReservations() {
+public List<Reservation> getAllReservations() {
     // TODO: Implement method logic
+    return null;
 }
 }

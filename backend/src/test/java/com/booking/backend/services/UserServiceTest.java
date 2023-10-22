@@ -1,7 +1,10 @@
 package com.booking.backend.services;
 
+import com.booking.backend.models.User;
 import com.booking.backend.services.UserService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
@@ -25,9 +28,11 @@ public class UserServiceTest {
         // Description: Verify that the saveUser method successfully saves a new user
         // Preconditions: None
         // Expected outcome: User is saved successfully
-        userService.saveUser();
+        User user = new User(UUID.randomUUID());
+        User savedUser = userService.saveUser(user);
         // Add assertions to verify the expected outcome
-
+        assertNotNull(savedUser);
+        assertEquals(savedUser.getId(), user.getId());
         // Test case 2: Saving an existing user
         // Description: Verify that the saveUser method updates an existing user
         // Preconditions: The user already exists in the database
@@ -67,14 +72,16 @@ public class UserServiceTest {
   public void testUpdateUser() {
     // Test case: Updating existing user
     UUID id = UUID.randomUUID();
+    User user = new User(id);
     // Call the updateUser method
-    userService.updateUser(id);
+    userService.updateUser(id, user);
     // Assert that the user information has been updated
 
     // Test case: Updating non-existing user
     UUID nonExistingId = UUID.randomUUID();
+    User nonExistingUser = new User(nonExistingId);
     // Call the updateUser method
-    userService.updateUser(nonExistingId);
+    userService.updateUser(nonExistingId, nonExistingUser);
     // Assert that an exception is thrown or appropriate error handling is done
 
   }

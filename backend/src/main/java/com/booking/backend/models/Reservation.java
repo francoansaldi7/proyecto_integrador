@@ -5,12 +5,11 @@ import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
 
 @Entity
-
+@Getter
 public class Reservation {
-  public Reservation(Reservation user2, String string) {
-  }
   @Id
   private UUID id;
   private Service service;
