@@ -12,6 +12,9 @@ import lombok.Getter;
 public class Reservation {
   @Id
   private UUID id;
+  public Reservation(UUID id) {
+    this.id = id;
+  }
   private Service service;
   private User user;
   private LocalDate startingDatetime;
