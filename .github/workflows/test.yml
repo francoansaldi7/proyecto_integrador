@@ -13,3 +13,5 @@ jobs:
     steps:
     - name: echo message
       run: echo "hello world"
+    - name: Checkout code
+      uses: actions/checkout@v2
