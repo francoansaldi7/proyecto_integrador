@@ -20,3 +20,7 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: 17
+    - name: Run Maven Tests
+      run: |
+        cd backend/
+        mvn test -Dtest=ReservationControllerTest,ReviewControllerTest,ServiceControllerTest,UserControllerTest
