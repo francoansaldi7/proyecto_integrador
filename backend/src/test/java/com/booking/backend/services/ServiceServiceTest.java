@@ -1,5 +1,7 @@
 package com.booking.backend.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.UUID;
@@ -7,6 +9,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.booking.backend.models.Services;
 import com.booking.backend.services.ServiceService;
 
 @SpringBootTest
@@ -26,8 +30,10 @@ public class ServiceServiceTest {
         // Preconditions: None
         // Expected outcome: Service is saved successfully
         // UUID validId = UUID.randomUUID();
-        serviceService.saveService();
-        // Add assertions to check if the service is saved correctly
+        Services service = new Services(UUID.randomUUID(), "Service");
+        Services savedService = serviceService.saveService(service);
+        // Add assertions to check if the savedService is saved correctly
+        assertNotNull(savedService);
 
         // Test case 2: Saving a service with null data
         // Description: Verify that an exception is thrown when saving a service with null data
@@ -72,17 +78,20 @@ public class ServiceServiceTest {
         // Description: Verify that the service is updated successfully with a valid ID
         // Preconditions: None
         // Expected outcome: Service is updated successfully
+        Services service = new Services(UUID.randomUUID(), "Service");
         UUID validId = UUID.randomUUID();
-        serviceService.updateService(validId);
+        Services updatedService = serviceService.updateService(validId, service);
         // Add assertions to check if the service is updated correctly
-
+        assertNotNull(updatedService);
+        assertEquals(service, updatedService);
         // Test case 2: Updating a service with a null ID
         // Description: Verify that an exception is thrown when updating a service with a null ID
         // Preconditions: None
         // Expected outcome: An exception is thrown
         UUID nullId = null;
+        Services nullService = null;    
         try {
-            serviceService.updateService(nullId);
+            serviceService.updateService(nullId, nullService);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected
