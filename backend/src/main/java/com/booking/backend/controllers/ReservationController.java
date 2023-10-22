@@ -1,5 +1,6 @@
 package com.booking.backend.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ public class ReservationController {
    * Retrieves all reservations.
    */
   @GetMapping
-  public void getAllUsers() {
+  public List<Reservation> getAllReservations() {
     // Call the getAllReservation method from the reservationService to retrieve all
     // reservations
-    reservationService.getAllReservations();
+    return reservationService.getAllReservations();
   }
 
   /**
@@ -37,9 +38,9 @@ public class ReservationController {
    * @param reservationId The ID of the reservation to retrieve.
    */
   @GetMapping("/{reservationId}")
-  public void getUserById(@PathVariable UUID reservationId) {
+  public Reservation getReservationById(@PathVariable UUID reservationId) {
     // Call the reservationService to get the reservation by ID
-    reservationService.getReservation(reservationId);
+    return reservationService.getReservation(reservationId);
   }
 
   /**
@@ -48,8 +49,8 @@ public class ReservationController {
    * @param reservation The reservation to be created.
    */
   @PostMapping
-  public void createReservation(@RequestBody Reservation reservation) {
-    reservationService.saveReservation(reservation);
+  public Reservation createReservation(@RequestBody Reservation reservation) {
+    return reservationService.saveReservation(reservation);
   }
 
   /**
@@ -59,8 +60,8 @@ public class ReservationController {
    * @return The updated reservation.
    */
   @PutMapping("/{reservationId}")
-  public Reservation updateReservation(@RequestBody Reservation reservation) {
-    return reservationService.updateReservation(reservation);
+  public Reservation updateReservation(@PathVariable UUID reservationId ,@RequestBody Reservation reservation) {
+    return reservationService.updateReservation(reservationId ,reservation);
   }
 
   /**
@@ -69,7 +70,7 @@ public class ReservationController {
    * @param reservationId The ID of the reservation to delete.
    */
   @DeleteMapping("/{reservationId}")
-  public void deleteUser(@PathVariable UUID reservationId) {
+  public void deleteReservation(@PathVariable UUID reservationId) {
     reservationService.deleteReservation(reservationId);
   }
 }

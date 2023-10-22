@@ -37,7 +37,7 @@ public void deleteReservation(UUID id) {
  * @param id The ID of the reservation to update.
  * @return The updated reservation.
  */
-public Reservation updateReservation(Reservation reservation) {
+public Reservation updateReservation(UUID id, Reservation reservation) {
   // TODO: Implement reservation update logic here
   return reservation;
 }

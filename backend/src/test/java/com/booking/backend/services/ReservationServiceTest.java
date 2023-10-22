@@ -57,9 +57,9 @@ public class ReservationServiceTest {
     // Expected outcome: The reservation is updated successfully
     UUID validId = UUID.randomUUID();
     Reservation reservation = new Reservation(validId);
-    Reservation updatedReservation = reservationService.updateReservation(reservation);
+    Reservation updatedReservation = reservationService.updateReservation(validId,reservation);
     // Add assertions to check if the reservation is updated correctly
-    
+
 
     // Test case 2: Updating a reservation with a null ID
     // Description: Verify that an exception is thrown when updating a reservation
@@ -68,7 +68,7 @@ public class ReservationServiceTest {
     // Expected outcome: An exception is thrown
     UUID nullId = null;
     try {
-      reservationService.updateReservation(nullId);
+      reservationService.updateReservation(nullId,reservation);
       fail("Expected an exception to be thrown");
     } catch (Exception e) {
       // Exception is expected
