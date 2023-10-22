@@ -1,0 +1,12 @@
+name: Testing
+
+on:
+  push:
+    branches: ['partialDevelopmentOfControllerLogic']
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: echo message
+      run: echo "hello world"
