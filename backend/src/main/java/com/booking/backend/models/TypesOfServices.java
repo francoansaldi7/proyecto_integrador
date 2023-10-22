@@ -1,6 +1,6 @@
 package com.booking.backend.models;
 
+
 public enum TypesOfServices {
-
-
+ANIMATION_STUDY, FILMING_STUDY, PHOTOGRAPHER, VIDEOGRAPHER, EDITOR, MODELED, ILLUSTRATOR, DESIGNER
 }

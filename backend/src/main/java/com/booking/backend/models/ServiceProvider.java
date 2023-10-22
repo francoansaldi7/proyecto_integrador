@@ -1,19 +1,27 @@
 package com.booking.backend.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.UUID;
 
-public class ServiceProvider extends Service{
+@Entity
+@Getter
+public class ServiceProvider extends User{
     @Id
     private UUID id;
-
+    
     private List<String> facilitiesAvailable;
-
+    
     private List<String> availableEquipment;
     private List<String> team;
-    //va service?
-    private Service service;
-
+    @OneToMany(mappedBy = "serviceProvider")
+    private List<Services> service;
+    
+    public ServiceProvider(UUID id, String name) {
+        super(id);
+    }
 }
