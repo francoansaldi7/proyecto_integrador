@@ -1,6 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
+import { useLayoutEffect } from "react";
 
 function Header() {
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  });
+
   return (
     <>
       <div className="flex justify-between flex-row  bg-primary p-7 fixed w-screen">

@@ -1,8 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
-import heart from '../assets/heart.png'
+import heart from '../assets/heart.png';
+import { useLayoutEffect } from "react";
 
 function Footer() {
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  });
+  
   return (
     <>
     <div className="bg-primary">
@@ -20,7 +26,7 @@ function Footer() {
 
       <div>
         <p className='flex gap-2 mt-5 justify-center bg-primary mt-14'>
-          @{new Date().getFullYear()} Made with  <img src={heart} alt="love" className='h-7 w-7'/>  by Team 1. All rights reserved
+          @{new Date().getFullYear()} Made with  <img src={heart} alt="love" className='h-5 w-5'/>  by Team 1. All rights reserved
         </p>
     </div>
   </div>
