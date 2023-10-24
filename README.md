@@ -70,7 +70,7 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 
 ## Technologies Used
 
-This project was built using React Js & Java with Spring Boot 
+This project was built using React Js, Tailwind CSS & Java with Spring Boot 
 
 ## Features
 
