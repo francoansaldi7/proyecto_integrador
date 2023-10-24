@@ -5,7 +5,7 @@ on:
     branches: ['dev']
     types: [opened, synchronize]
   push:
-    branches: ['partialDevelopmentOfControllerLogic']
+    branches: ['dev']
 
 jobs:
   build:
