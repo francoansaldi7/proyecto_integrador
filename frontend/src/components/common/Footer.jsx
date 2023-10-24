@@ -1,13 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
-import heart from '../assets/heart.png';
-import { useLayoutEffect } from "react";
+import heart from '../../assets/heart.png';
 
 function Footer() {
-
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0)
-  });
   
   return (
     <>
