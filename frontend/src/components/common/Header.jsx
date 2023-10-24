@@ -1,20 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Header() {
-
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0, // Scroll hasta la parte superior de la página
-      behavior: 'smooth', // Desplazamiento suave
-    });
-  }
 
   return (
     <>
       <div className="flex justify-between flex-row  bg-primary p-7 fixed w-screen">
         <div className="ml-10 flex flex-row">
           <Link to="/">
-            <img onClick={scrollToTop} src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-5px]" />
+            <img src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-5px]" />
           </Link>
           <h1 className="mt-0 ml-[7px] text-2xl">GloCast</h1>
         </div>
@@ -42,7 +35,7 @@ function Header() {
         </div>
       </div>
 
-      <Outlet />
+
     </>
   );
 }

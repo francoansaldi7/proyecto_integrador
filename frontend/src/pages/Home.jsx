@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Card from "../components/common/Card";
 import PrincipalBanner from "../components/common/PrincipalBanner";
 
@@ -14,7 +15,10 @@ function Home() {
         <Card img="https://crehana-blog.imgix.net/media/filer_public/78/d5/78d5f21a-c41b-4bac-9a03-7279a1120436/estudios-de-animacion.jpg" title={"Edit with pros"} description={"Complete animation studio, includes editing"} />
         <Card img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg" title={"Photo Studio"} description={"Complete animation studio, includes editing"} />
       </div>
+      <Outlet />
     </div>
+
+    
     </>
   )
 }
