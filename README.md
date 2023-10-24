@@ -53,20 +53,20 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 
 # Table of Contents
 
-*Project Title
-*Project Description
-*Table of Contents
-*Technologies Used
-*Features
-*Installation
-*Usage
-*API Documentation
-*Database Schema
-*Testing
-*Deployment
-*Contributing
-*Acknowledgments
-*Contact Information
+* Project Title
+* Project Description
+* Table of Contents
+* Technologies Used
+* Features
+* Installation
+* Usage
+* API Documentation
+* Database Schema
+* Testing
+* Deployment
+* Contributing
+* Acknowledgments
+* Contact Information
 
 # Technologies Used
 
