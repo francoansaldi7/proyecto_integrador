@@ -1,4 +1,4 @@
-# GloCast Graphic Services Booking App
+# GloCast - Graphic Services Booking App
 
 ## Project Description
 
@@ -51,9 +51,9 @@ Our mission is to simplify the process of booking graphic design services, provi
 
 GloCast is where creativity meets innovation, and we're here to transform the way you experience graphic design services.
 
-# Table of Contents
+## Table of Contents
 
-* Project Title
+*** Project Title
 * Project Description
 * Table of Contents
 * Technologies Used
@@ -68,54 +68,54 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 * Acknowledgments
 * Contact Information
 
-# Technologies Used
+## Technologies Used
 
 This project was built using React Js & Java with Spring Boot 
 
-# Features
+## Features
 
 TO DO - List the key features of your project.
 
-# Installation
+## Installation
 
 TO DO - Provide step-by-step instructions on how to install and set up your project locally.
 Include any prerequisites or dependencies that need to be installed.
 
-# Usage
+## Usage
 
 TO DO - Explain how to use your application, including any user guides or tutorials.
 Provide examples or screenshots of how the application works.
 
-# API Documentation
+## API Documentation
 
 TO DO - If your project includes an API, document the endpoints, request methods, and response formats.
 Include sample API requests and responses.
 
-# Database Schema
+## Database Schema
 
 TO DO - Present the structure of your database, including tables, relationships, and field descriptions.
 
-# Testing
+## Testing
 
 TO DO - Describe the testing process, frameworks, and libraries used for testing.
 Provide information on how to run tests.
 
-# Deployment
+## Deployment
 
 TO DO - Explain how to deploy your application to a production environment.
 Include any configuration settings or environment variables needed for deployment.
 
-# Contributing
+## Contributing
 
 TO DO - Explain how others can contribute to your project.
 Include guidelines for submitting issues or pull requests.
 
-# Acknowledgments
+## Acknowledgments
 
 TO DO - Give credit to anyone who contributed to your project or inspired you during its development.
 Mention any third-party libraries, tools, or resources you used.
 
-# Contact Information
+## Contact Information
 
 Students that contributed on this project: 
 
