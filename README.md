@@ -53,7 +53,7 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 
 ## Table of Contents
 
-*** Project Title
+* Project Title
 * Project Description
 * Table of Contents
 * Technologies Used
