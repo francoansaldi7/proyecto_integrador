@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <PrincipalBanner />
-      <div className="flex flex-col  gap-7 min-h-screen p-10 bg-background">
+      <div className="flex flex-col gap-7 min-h-screen p-10 bg-background">
         <h1 className="text-primary text-2xl font-bold justify-center flex">
           Featured
         </h1>
@@ -33,7 +33,7 @@ function Home() {
               {({ isNext }) => (
       
               <Card
-                img="testPhoto.jpg"
+                img="/testPhoto.jpg"
                 title={"Animation Studio"}
                 description={"Step into the captivating world of animation with GloCast Animation Studio. Our studio is a hub for creativity, where artists and animators come together to craft imaginative, compelling, and visually stunning animated content. From 2D to 3D animation, we offer a cutting-edge, fully-equipped environment to bring your ideas to life. Whether you're a seasoned animator or just starting your journey, GloCast is the canvas for your dreams. Our team of experienced animators and state-of-the-art technology ensures that your projects soar to new heights. Join us at GloCast Animation Studio and embark on a mesmerizing animation adventure."}        moreBig={isNext}
                 price={399}
