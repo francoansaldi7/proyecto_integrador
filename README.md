@@ -119,11 +119,11 @@ Mention any third-party libraries, tools, or resources you used.
 
 Students that contributed on this project: 
 
-* Carmen Zeballos - 
-* Magdalena Calasso -
+* Carmen Zeballos - czeballosricci@gmail.com
+* Magdalena Calasso - calassom@gmail.com 
 * Franco Ansaldi - fansaldi7@gmail.com 
-* Deivid Gonzalez - 
-* Ana Ferreira -
-* Enzo Clavijo -
+* Deivid Gonzalez - deividgonzalezdev@gmail.com
+* Ana Ferreira - ana.ferreirabna@gmail.com
+* Enzo Clavijo - enzoclavijo07@gmail.com
 * Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com
-* Agustin Bruno - 
+* Agustin Bruno - sav_agus@hotmail.com
