@@ -11,8 +11,8 @@ function Header() {
 
   return (
     <>
-      <div className="flex justify-between flex-row  bg-primary p-7 fixed w-screen">
-        <div className="ml-10 flex flex-row">
+      <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30  to-primary/30 p-5 backdrop-blur-lg fixed w-screen  shadow-secondary/50 shadow-md rounded-lg z-50">
+        <div className="ml-10 flex flex-row relative">
           <Link to="/">
             <img onClick={scrollToTop} src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-5px]" />
           </Link>
