@@ -70,7 +70,14 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 
 ## Technologies Used
 
-This project was built using [React Js](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/) & [Java with Spring Boot](https://spring.io/projects/spring-boot) 
+This project was built using [React Js](https://react.dev/) & [Java with Spring Boot](https://spring.io/projects/spring-boot) 
+
+Other libraries & resources: 
+* [Tailwind CSS](https://tailwindcss.com/)
+* [React DOM](https://es.legacy.reactjs.org/docs/react-dom.html)
+* [React-Icons](https://icons8.com/icons)
+* [Swiper](https://swiperjs.com/demos)
+
 
 ## Features
 
