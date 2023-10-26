@@ -15,7 +15,7 @@ const PrincipalBanner = () => {
             </a> 
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="/svg_for_banner.png" alt="mockup" />
+            <img src="https://app.svgator.com/assets/svgator.webapp/log-in-girl.svg" alt="mockup" />
         </div>                
     </div>
 </section>
