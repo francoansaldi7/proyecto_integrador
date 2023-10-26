@@ -18,7 +18,7 @@ function Home() {
           Featured
         </h1>
         <span className="h-[1px] w-full bg-secondary opacity-25"></span>
-        <div className="featured-services flex flex-wrap justify-around mt-5 gap-[-20px]">
+        <div className="featured-services flex flex-wrap ml-[10vw] mt-5 gap-[-20px]">
           <Swiper
             spaceBetween={50}
             slidesPerView={3}

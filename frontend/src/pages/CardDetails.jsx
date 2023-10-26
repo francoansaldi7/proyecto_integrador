@@ -19,7 +19,7 @@ function CardDetails() {
           <AiOutlineHeart className="text-3xl text-primary pointer" />
         </div>
         <Link to="/" className="absolute right-[10px] top-[-5px]">
-          <p className="text-red-700 ml-14 text-2xl">x</p>
+          <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
           </Link>
         <div className="flex items-center gap-2 p-2">
           <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
@@ -45,16 +45,21 @@ function CardDetails() {
         </div>
     </div>
     </div>
-    <div className="p-5 flex flex-col">
+    <div className="flex justify-end mr-14 mt-[-60px] text-[130%]">
+      <Link to="/">
+        <button  className="hover:text-violet-600">view more...</button>
+      </Link>
+    </div>
+    <div className="p-5 ml-7 flex flex-col">
       <h3 className="text-5xl font-bold">{state.title}</h3>
       <h4 className="">${state.price}/per hour</h4>
     </div>
     <div className="p-10 m-10 rounded-md bg-secondary shadow-md shadow-black/30">
-      <p className="description text-gray-700">{state.description}</p>
+      <p className="description text-white">{state.description}</p>
     </div>
     
     <div className="flex justify-end mr-20 mb-10">
-    <Link to="" className="w-[120px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
+    <Link to="" className="w-[120px] text-white bg-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
     </div>
 
     </div>
