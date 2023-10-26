@@ -20,7 +20,7 @@ function CardDetails() {
         </div>
         <Link to="/" className="absolute right-[10px] top-[-5px]">
           <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
-          </Link>
+        </Link>
         <div className="flex items-center gap-2 p-2">
           <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
@@ -46,7 +46,7 @@ function CardDetails() {
     </div>
     </div>
     <div className="flex justify-end mr-14 mt-[-60px] text-[130%]">
-      <Link to="/">
+      <Link to="/carousel">
         <button  className="hover:text-violet-600">view more...</button>
       </Link>
     </div>
@@ -59,7 +59,7 @@ function CardDetails() {
     </div>
     
     <div className="flex justify-end mr-20 mb-10">
-    <Link to="" className="w-[120px] text-white bg-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
+    <Link to="/" className="w-[120px] text-white bg-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
     </div>
 
     </div>
