@@ -45,26 +45,16 @@ function CardDetails() {
           
       </div>
 
-<<<<<<< HEAD
-        <div className="flex flex-row flex-wrap justify-between gap-2 w-full h-full mt-[2px] rounded-md relative">
-            <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://img.freepik.com/free-photo/female-editor-using-stylus-graphic-tablet-retouch-photo-creating-professional-photography-content-production-freelancer-editing-picture-with-creative-retouching-software-close-up_482257-48037.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698019200&semt=ais" alt="test image" />
+        <div className="flex flex-row flex-wrap justify-between gap-2 w-full h-full mt-[2px] rounded-md relative cursor-pointer" onClick={()=> handleCarrousel()}>
+        <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://img.freepik.com/free-photo/female-editor-using-stylus-graphic-tablet-retouch-photo-creating-professional-photography-content-production-freelancer-editing-picture-with-creative-retouching-software-close-up_482257-48037.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698019200&semt=ais" alt="test image" />
             <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGhvdG9ncmFwaHl8ZW58MHx8MHx8fDA%3D" alt="test image" />
             <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://www.iim.fr/ecole-web/wp-content/uploads/2018/10/illu-studio-.jpg" alt="test image" />
             <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://music.utexas.edu/sites/bsom/files/styles/utexas_image_style_2000w/public/2022-11/EMSFacilities005.jpg?itok=hYmAjl6q" alt="test image" />
-=======
-        <div className="flex flex-row flex-wrap justify-between gap-2 w-full h-full mt-[2px] rounded-md relative cursor-pointer" onClick={()=> handleCarrousel()}>
-            <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg" alt="test image" />
-            <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg" alt="test image" />
-            <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg" alt="test image" />
-            <img className="w-[48.9%] h-[48.9%] rounded-md object-cover" src="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg" alt="test image" />
->>>>>>> 662bc75aacea476946e70727696ad30f4827bf50
         </div>
     </div>
     </div>
     <div className="flex justify-end mr-14 mt-[-60px] text-[130%]">
-      <Link to="/">
-        <button  className="hover:text-violet-600">view more...</button>
-      </Link>
+        <button  className="hover:text-violet-600" onClick={()=> handleCarrousel()}>view more...</button>
     </div>
     <div className="p-5 ml-7 flex flex-col">
       <h3 className="text-5xl font-bold">{state.title}</h3>
@@ -79,8 +69,7 @@ function CardDetails() {
     </div>
 
     </div>
-    </>
-    
+    </> 
   )
 }
 
