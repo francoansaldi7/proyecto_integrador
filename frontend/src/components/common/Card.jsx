@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 function Card({img, title, description, price, moreBig = false}) {
   return (
     
-<div className={`w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125 mx-10 translate-x-[-40px]' : ''} transition duration-500`}>
+<div className={`w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125 mx-10 translate-x-[-40px]' : ''} transition duration-500`}>
   <div className="h-[200px] overflow-hidden">
+    <div className="absolute top-0 right-[-10px] h-20 w-20 rotate-12">
+      <img src="disscount.svg" alt="" />
+    </div>
     <Link to="/details" state={{img, title, description, price}}>
         <img className="rounded-t-lg" src={img} alt="product image" />
     </Link>
