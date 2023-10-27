@@ -4,7 +4,7 @@ This is the `dev` branch, here the new changes will be uploaded, and after the t
 
 ## Rules to contribute to repository
 
-1. Clone the Repository: Before you start contributing, clone the repository to your local development environment:
+1. Clone the Repository: Before you start contributing, clone the repository to your local development environment: 
 
 ```BASH 
 git clone <Repository_URL>
