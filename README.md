@@ -2,9 +2,11 @@
 
 This is the `dev` branch, here the new changes will be uploaded, and after the tests are done, a merge will be done to the `main` branch.
 
+### Test Title
+
 ## Rules to contribute to repository
 
-1. Clone the Repository: Before you start contributing, clone the repository to your local development environment:
+1. Clone the Repository: Before you start contributing, clone the repository to your local development environment: 
 
 ```BASH 
 git clone <Repository_URL>
