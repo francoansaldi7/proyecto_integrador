@@ -22,6 +22,10 @@ public class ServiceController {
   @Autowired
   private ServiceService serviceService;
 
+  public List<Services> getSomeServices(int quantity) {
+    return serviceService.getSomeServices(quantity);
+  }
+  
   /**
    * Retrieves all services.
    *
