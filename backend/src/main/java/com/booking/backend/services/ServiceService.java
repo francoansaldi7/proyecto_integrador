@@ -1,5 +1,6 @@
 package com.booking.backend.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,6 +78,10 @@ public class ServiceService {
     // TODO: Implement method logic here
     // Sample code:
     // return Database.getAllServices();
+    return new ArrayList<>();
+  }
+
+  public List<Services> getSomeServices(int quantity) {
     return null;
   }
 }

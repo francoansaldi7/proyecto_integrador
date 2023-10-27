@@ -20,7 +20,7 @@ import lombok.Getter;
 @Getter
 public class Services {
   @Id
-  private UUID id;
+  private UUID id = UUID.randomUUID();
   private String name;
   private String title;
   private String description;
@@ -42,8 +42,12 @@ public class Services {
   private List<Review> reservations;
 
 
-  public Services(UUID id, String name) {
-    this.id = id;
+  public Services(UUID id , String name) {
+    if (id == null) {
+      id = UUID.randomUUID();
+    } else{
+      this.id = id;
+    }
     this.name = name;
   }
 }
