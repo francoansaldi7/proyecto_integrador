@@ -10,7 +10,7 @@ function Footer() {
       <p className="flex flex-row  justify-center bg-primary p-5">Thank's for visiting GloCast!</p>
 
       <div className="flex justify-center">
-        <Link to="/"><img src="\public\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>
+        <Link to="/"><img src="\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>
       </div>
 
       <div className="flex flex-row justify-center bg-primary mt-10 gap-7">
