@@ -10,39 +10,48 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CategorysSection from "../components/common/CategorysSection";
 
+import React from 'react';
+
+
+
 function Home() {
   return (
     <>
       <PrincipalBanner />
-      <div className=" flex flex-col  gap-7 min-h-screen p-10 bg-background">
+      <div className="flex flex-col gap-7 md:p-10 bg-background md:max-lg:flex">
         <CategorysSection />
         
         <span className="h-[1px] w-full bg-secondary opacity-25"></span>
-        <div className="featured-services flex flex-wrap ml-[10vw] mt-5 gap-[-20px]">
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
-            loop={true}
-            pagination={{ clickable: true }}
-            modules={[Navigation, Pagination]}
-            className="py-[90px]"
-          >
-            <SwiperSlide>
-              {({ isNext }) => (
-      
-              <Card
-                img="https://img.freepik.com/free-photo/creative-game-creator-works-with-graphics-new-level-design-while-sitting-desk-with-two-displays-developing-company-employee-working-computer-with-two-monitors-while-editing-environment_482257-44500.jpg
-                "
-                title={"Animation Equipment"}
-                description={"Rent the latest equipment to edit your content. Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum "}        moreBig={isNext}
-                price={399}
-                disccount={true}
-              />
-    )}
-            </SwiperSlide>
-            <SwiperSlide>
+        <div className="featured-services flex flex-wrap mt-5 gap-[-20px]">
+        
+        <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        breakpoints={{
+          '@0.00': {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          '@0.75': {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          '@1.00': {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          '@1.50': {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide className="z-auto flex">
               {({ isNext }) => (
                 <Card
                   img="https://crehana-blog.imgix.net/media/filer_public/78/d5/78d5f21a-c41b-4bac-9a03-7279a1120436/estudios-de-animacion.jpg"
@@ -55,7 +64,7 @@ function Home() {
       
     )}
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="z-auto flex">
               {({ isNext }) => (
       
               <Card
@@ -67,7 +76,7 @@ function Home() {
               />
     )}
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="z-auto flex">
               {({ isNext }) => (
       
               <Card
@@ -80,12 +89,13 @@ function Home() {
 
     )}
             </SwiperSlide>
-          </Swiper>
+      </Swiper>
+
         </div>
       </div>
 
-      <div className="flex flex-col justify-around gap-5 h-[130vh] bg-white">
-        <div className="flex flex-row justify-around">
+      <div className="flex flex-col justify-around gap-5 min-h-[130vh] bg-white md:max-lg:flex">
+        <div className="card-container flex justify-around gap-4 flex-col items-center overflow-auto">
         <Card
                 img="testPhoto.jpg"
                 title={"Animation Studio"}
@@ -115,7 +125,7 @@ function Home() {
               />
         </div>
       
-        <div className="flex flex-row justify-around">
+        <div className="flex md:flex-row justify-around gap-4 flex-col items-center pb-8 overflow-auto">
         <Card
                 img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg"
                 title={"Photo Studio"}
