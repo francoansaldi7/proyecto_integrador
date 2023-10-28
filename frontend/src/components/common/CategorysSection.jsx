@@ -15,7 +15,7 @@ const CategorysSection = () => {
   };
 
   return (
-    <div className="flex self-center rounded-xl bg-gray-200 p-[1px]">
+    <div className="flex sm:self-center rounded-xl bg-gray-200 p-[1px] flex-col sm:flex-row self-start w-full sm:w-[unset] mx-0">
       {categories.map((category) => (
         <div
           key={category.id}
