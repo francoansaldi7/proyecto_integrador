@@ -6,8 +6,8 @@ function Footer() {
   
   return (
     <>
-    <div className="bg-primary">
-      <p className="flex flex-row  justify-center bg-primary p-5">Thank's for visiting GloCast!</p>
+    <div className="bg-primary h-60">
+      <p className="flex flex-row justify-center bg-primary p-5">Thank's for visiting GloCast!</p>
 
       <div className="flex justify-center">
         <Link to="/"><img src="\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>
@@ -20,7 +20,7 @@ function Footer() {
       </div>
 
       <div>
-        <p className='flex gap-2 mt-5 justify-center bg-primary mt-14'>
+        <p className='flex gap-2 mt-5 justify-center bg-primary'>
           @{new Date().getFullYear()} Made with  <img src={heart} alt="love" className='h-5 w-5'/>  by Team 1. All rights reserved
         </p>
     </div>
