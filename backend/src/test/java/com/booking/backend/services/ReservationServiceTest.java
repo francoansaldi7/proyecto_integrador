@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.Reservation;
+import com.booking.backend.services.impl.ReservationService;
 
 @SpringBootTest
 public class ReservationServiceTest {

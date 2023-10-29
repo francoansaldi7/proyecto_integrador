@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.Reservation;
 import com.booking.backend.models.Review;
+import com.booking.backend.services.impl.ReviewService;
 
 @SpringBootTest
 public class ReviewServiceTest {
