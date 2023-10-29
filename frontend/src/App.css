@@ -6,9 +6,7 @@
   --swiper-theme-color: rgb(84 101 255) !important;
 }
 
-.swiper-wrapper{
-  justify-content: center;
-}
+
 
 #app {
   height: 100%;
@@ -27,29 +25,28 @@ body {
   margin: 0;
   padding: 0;
 }
-
+/* 
 .swiper {
   width: 100%;
   height: 100%;
-}
+} */
 
-.swiper-slide {
+/* .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
+} */
+/* 
 .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
+} */
 
   @media (min-width:768px) {
     .card-container {

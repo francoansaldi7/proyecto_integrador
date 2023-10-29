@@ -29,6 +29,7 @@ function Home() {
         pagination={{
           clickable: true,
         }}
+        loop={true}
         breakpoints={{
           '@0.00': {
             slidesPerView: 1,
@@ -39,16 +40,17 @@ function Home() {
             spaceBetween: 20,
           },
           '@1.00': {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 40,
           },
           '@1.50': {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 50,
           },
         }}
         modules={[Pagination]}
-        className="mySwiper"
+        className="mySwiper py-[90px] self-center"
+        
       >
         <SwiperSlide className="z-auto flex">
               {({ isNext }) => (
@@ -88,6 +90,18 @@ function Home() {
 
     )}
             </SwiperSlide>
+            <SwiperSlide className="z-auto flex">
+              {({ isNext }) => (
+      
+              <Card
+                img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg"
+                title={"Photo Studio"}
+                description={"Discover the perfect space to bring your creative vision to life at GloCast Photo Studio. Our state-of-the-art studios provide photographers, filmmakers, and artists with a versatile and well-equipped environment to capture stunning visuals. With top-notch lighting, props, and backdrops, GloCast is your go-to destination for professional photography and videography needs. Whether you're a seasoned pro or just starting out, our studios are designed to inspire and elevate your projects. Make your next shoot exceptional at GloCast Photo Studio Rentals."}      moreBig={isNext}
+                price={999}
+                disccount={true}
+              />
+    )}
+            </SwiperSlide>
       </Swiper>
 
         </div>
@@ -102,7 +116,7 @@ function Home() {
                 price={789}
               />
 
-      <Card
+      {/* <Card
                 img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg"
                 title={"Photo Studio"}
                 description={"Discover the perfect space to bring your creative vision to life at GloCast Photo Studio. Our state-of-the-art studios provide photographers, filmmakers, and artists with a versatile and well-equipped environment to capture stunning visuals. With top-notch lighting, props, and backdrops, GloCast is your go-to destination for professional photography and videography needs. Whether you're a seasoned pro or just starting out, our studios are designed to inspire and elevate your projects. Make your next shoot exceptional at GloCast Photo Studio Rentals."}
@@ -151,7 +165,7 @@ function Home() {
                   title={"Edit with pros"}
                   description={"Elevate your editing skills with GloCast's Editing Course. Whether you're a novice looking to dive into the world of post-production or a seasoned pro aiming to refine your craft, our comprehensive course has you covered. Explore the art of video and photo editing in a hands-on, interactive learning environment. Our expert instructors will guide you through the latest industry-standard software and techniques, empowering you to bring your creative vision to life. Join us at GloCast and unlock your potential in the world of editing, turning your projects into visual masterpieces."}
                   price={1990}
-                />
+                /> */}
         </div>
       
       </div>
