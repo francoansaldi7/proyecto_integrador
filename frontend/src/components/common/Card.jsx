@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Card({img, title, description, price, moreBig = false, disccount = false}) {
   return (
     
-<div className={`w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125 mx-10 translate-x-[-40px]' : ''} transition duration-500`}>
+<div className={`pb-6 w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'md:scale-100' : ''} transition duration-500`}>
   <div className="h-[200px] overflow-hidden">
     {disccount && (
       <div className="absolute top-0 right-[-10px] h-20 w-20 rotate-12">
@@ -35,9 +35,9 @@ function Card({img, title, description, price, moreBig = false, disccount = fals
           <Link to="/details" state={{img, title, description, price}}><p className=" text-primary pointer hover:underline hover:text-secondary mt-4">... more</p></Link>
         </div>
             
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-[4px]">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">${price}/<span className="text-gray-400 text-xs font-semibold">per hour</span></span>
-            <Link to="" className="text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
+            <Link to="" className="text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
         </div>
     </div>
 </div>
