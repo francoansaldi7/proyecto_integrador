@@ -2,61 +2,102 @@ package com.booking.backend.services.impl;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 
+import com.booking.backend.repository.IReservationRepository;
+import com.booking.backend.repository.IUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.booking.backend.models.Reservation;
 
 @Service
 public class ReservationService {
-  
+  @Autowired
+  IReservationRepository repository;
+  @Autowired
+  UserService userService;
+  @Autowired
+  ServiceService serviceService;
   public ReservationService() {
-    
+
   }
-  /**
- * Saves the reservation.
- */
+
 public Reservation saveReservation(Reservation reservation) {
-  // TODO: Implement saving logic here
-  return reservation;
-  //El siguiente código es solo de muestra 
-}
+      if (!isValidReservation(reservation)) {
+      return null;
+    }
+    return repository.save(reservation);
+  }
 
-/**
- * Deletes a reservation with the given ID.
- *
- * @param id The ID of the reservation to delete.
- */
+
 public void deleteReservation(UUID id) {
-  // TODO: Implementation code here
+  Optional<Reservation> existingReservation = repository.findById(id);
+
+  if (existingReservation.isPresent()) {
+    repository.deleteById(id);
+    }
 }
 
-/**
- * Updates a reservation with the specified ID.
- *
- * @param id The ID of the reservation to update.
- * @return The updated reservation.
- */
 public Reservation updateReservation(UUID id, Reservation reservation) {
-  // TODO: Implement reservation update logic here
-  return reservation;
-}
+  Optional<Reservation> existingReservation = repository.findById(id);
 
-/**
- * Retrieves a reservation by its ID.
- * 
- * @param id the ID of the reservation to retrieve
- * @return the reservation with the specified ID, or null if not found
- */
-public Reservation getReservation(UUID id) {
-  return new Reservation(id);
-}
+  if (existingReservation.isPresent()) {
+    Reservation reservationUp = existingReservation.get();
 
-/**
- * Retrieves all reservations from the database.
- */
-public List<Reservation> getAllReservations() {
-    // TODO: Implement method logic
+    reservationUp.setUser(reservation.getUser());
+    reservationUp.setTotalPrice(reservation.getTotalPrice());
+    reservationUp.setStartingDatetime(reservation.getStartingDatetime());
+    reservationUp.setEndingDatetime(reservation.getEndingDatetime());
+    return repository.save(reservationUp);
+  } else {
     return null;
+  }
 }
+
+
+public Reservation getReservation(UUID id) {
+  Optional<Reservation> optionalReservation = repository.findById(id);
+    if (optionalReservation.isPresent()) {
+          return optionalReservation.get();
+    } else {
+        return null;
+  }
+}
+
+
+public List<Reservation> getAllReservations() {
+return repository.findAll();
+}
+
+  private boolean isValidReservation(Reservation reservation) {
+    if (reservation.getService() == null || reservation.getUser() == null) {
+      return false;
+    }
+
+    if (reservation.getStartingDatetime() == null || reservation.getEndingDatetime() == null) {
+      return false;
+    }
+
+    if (reservation.getStartingDatetime().isAfter(reservation.getEndingDatetime())) {
+      return false;
+    }
+
+    if (reservation.getTotalPrice() <= 0) {
+      return false;
+    }
+
+    if (reservation.getStatus() == null) {
+      return false;
+    }
+    //Ver cuál de los status permitiría la reserva (no tengo claro eso)
+//    else {
+//      if (reservation.getStatus() != Status.PENDING && reservation.getStatus() != Status.CONFIRMED
+//              && reservation.getStatus() != Status.COMPLETED && reservation.getStatus() != Status.CANCELLED) {
+//        return false;
+//      }
+//    }
+    return true;
+  }
+
 }
