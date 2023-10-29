@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.booking.backend.models.Review;
-import com.booking.backend.services.ReviewService;
+import com.booking.backend.services.impl.ReviewService;
 
 @RestController
 @RequestMapping("/api/v1/reviews")
