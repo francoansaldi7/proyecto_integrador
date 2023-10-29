@@ -1,7 +1,7 @@
 package com.booking.backend.services;
 
 import com.booking.backend.models.User;
-import com.booking.backend.services.UserService;
+import com.booking.backend.services.impl.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

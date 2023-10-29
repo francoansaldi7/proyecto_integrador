@@ -8,7 +8,7 @@ public class ServiceRepositoryTest {
     // private ServiceRepository serviceRepository;
 
     // @Test
-    // void testSaveService() {
+    // void testsave() {
     //     // Test Case 1: Save a service successfully
     //     // Description: Verify that the save method saves a service successfully.
     //     // Preconditions: None
@@ -50,7 +50,7 @@ public class ServiceRepositoryTest {
     // }
 
     // @Test
-    // void testUpdateService() {
+    // void testupdate() {
     //     // Assume you have a valid service in the database with a known ID.
     //     Long validServiceId = 2L;
 
@@ -76,7 +76,7 @@ public class ServiceRepositoryTest {
     // }
 
     // @Test
-    // void testDeleteService() {
+    // void testdeleteById() {
     //     // Assume you have a valid service in the database with a known ID.
     //     Long validServiceId = 3L;
 

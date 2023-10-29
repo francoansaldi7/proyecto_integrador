@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.Services;
-import com.booking.backend.services.ServiceService;
+import com.booking.backend.services.impl.ServiceService;
 
 @SpringBootTest
 public class ServiceServiceTest {
@@ -24,14 +24,14 @@ public class ServiceServiceTest {
   }
 
    @Test
-    void testSaveService() {
+    void testsave() {
         // Test case 1: Saving a new service successfully
-        // Description: Verify that the saveService method successfully saves a new service
+        // Description: Verify that the save method successfully saves a new service
         // Preconditions: None
         // Expected outcome: Service is saved successfully
         // UUID validId = UUID.randomUUID();
         Services service = new Services(UUID.randomUUID(), "Service");
-        Services savedService = serviceService.saveService(service);
+        Services savedService = serviceService.save(service);
         // Add assertions to check if the savedService is saved correctly
         assertNotNull(savedService);
 
@@ -40,7 +40,7 @@ public class ServiceServiceTest {
         // Preconditions: None
         // Expected outcome: An exception is thrown
         // try {
-        //     serviceService.saveService(null);
+        //     serviceService.save(null);
         //     fail("Expected an exception to be thrown");
         // } catch (Exception e) {
         //     // Exception is expected
@@ -49,13 +49,13 @@ public class ServiceServiceTest {
     }
 
     @Test
-    void testDeleteService() {
+    void testdeleteById() {
         // Test case 1: Deleting a service with a valid ID
         // Description: Verify that the service is deleted successfully with a valid ID
         // Preconditions: None
         // Expected outcome: Service is deleted successfully
         UUID validId = UUID.randomUUID();
-        serviceService.deleteService(validId);
+        serviceService.deleteById(validId);
         // Add assertions to check if the service is deleted correctly
 
         // Test case 2: Deleting a service with a null ID
@@ -64,7 +64,7 @@ public class ServiceServiceTest {
         // Expected outcome: An exception is thrown
         UUID nullId = null;
         try {
-            serviceService.deleteService(nullId);
+            serviceService.deleteById(nullId);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected
@@ -73,14 +73,14 @@ public class ServiceServiceTest {
     }
 
     @Test
-    void testUpdateService() {
+    void testupdate() {
         // Test case 1: Updating a service with a valid ID
         // Description: Verify that the service is updated successfully with a valid ID
         // Preconditions: None
         // Expected outcome: Service is updated successfully
         Services service = new Services(UUID.randomUUID(), "Service");
         UUID validId = UUID.randomUUID();
-        Services updatedService = serviceService.updateService(validId, service);
+        Services updatedService = serviceService.update(validId, service);
         // Add assertions to check if the service is updated correctly
         assertNotNull(updatedService);
         assertEquals(service, updatedService);
@@ -91,7 +91,7 @@ public class ServiceServiceTest {
         UUID nullId = null;
         Services nullService = null;    
         try {
-            serviceService.updateService(nullId, nullService);
+            serviceService.update(nullId, nullService);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected
@@ -100,13 +100,13 @@ public class ServiceServiceTest {
     }
 
     @Test
-    void testGetService() {
+    void testfindById() {
         // Test case 1: Retrieving a service with a valid ID
         // Description: Verify that the service is retrieved successfully with a valid ID
         // Preconditions: Service with a valid ID exists
         // Expected outcome: Service is retrieved successfully
         UUID validId = UUID.randomUUID();
-        serviceService.getService(validId);
+        serviceService.findById(validId);
         // Add assertions to check if the service is retrieved correctly
 
         // Test case 2: Retrieving a service with a null ID
@@ -115,7 +115,7 @@ public class ServiceServiceTest {
         // Expected outcome: An exception is thrown
         UUID nullId = null;
         try {
-             serviceService.getService(nullId);
+             serviceService.findById(nullId);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             // Exception is expected
@@ -124,34 +124,34 @@ public class ServiceServiceTest {
     }
 
     @Test
-    void testGetAllServices() {
+    void testfindAll() {
         // Test case 1: Retrieving all services
-        // Description: Verify that the getAllServices method successfully retrieves all services
+        // Description: Verify that the findAll method successfully retrieves all services
         // Preconditions: Multiple services exist in the database
         // Expected outcome: The method should return a list of all services
-        serviceService.getAllServices();
+        serviceService.findAll();
         // Add assertions to check if the list of services is retrieved correctly
 
         // Test case 2: Retrieving all services when the database is empty
-        // Description: Verify that the getAllServices method handles an empty database correctly
+        // Description: Verify that the findAll method handles an empty database correctly
         // Preconditions: The database is empty
         // Expected outcome: The method should return an empty list
         // ...
 
         // Test case 3: Retrieving all services when the database contains a large number of services
-        // Description: Verify that the getAllServices method handles a large database correctly
+        // Description: Verify that the findAll method handles a large database correctly
         // Preconditions: The database contains a large number of services
         // Expected outcome: The method should return a list of all services
         // ...
 
         // Test case 4: Retrieving all services when the database contains duplicate services
-        // Description: Verify that the getAllServices method handles duplicate services correctly
+        // Description: Verify that the findAll method handles duplicate services correctly
         // Preconditions: The database contains duplicate services
         // Expected outcome: The method should return a list of all unique services
         // ...
 
         // Test case 5: Retrieving all services when the database contains invalid services
-        // Description: Verify that the getAllServices method handles invalid services correctly
+        // Description: Verify that the findAll method handles invalid services correctly
         // Preconditions: The database contains invalid services
         // Expected outcome: The method should return a list of all valid services
         // ...
