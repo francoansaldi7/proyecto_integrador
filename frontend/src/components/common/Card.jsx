@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Card({img, title, description, price, moreBig = false, disccount = false}) {
   return (
     
-<div className={`pb-6 w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'md:scale-100' : ''} transition duration-500`}>
+<div className={`w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125' : ''} transition duration-500`}>
   <div className="h-[200px] overflow-hidden">
     {disccount && (
       <div className="absolute top-0 right-[-10px] h-20 w-20 rotate-12">
