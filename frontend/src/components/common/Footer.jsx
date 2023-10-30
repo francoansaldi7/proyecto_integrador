@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import heart from '../../assets/heart.png';
 
 function Footer() {
@@ -14,9 +14,9 @@ function Footer() {
       </div>
 
       <div className="flex flex-row justify-center text-lg bg-primary mt-6 gap-7">
-          <Link to="/aboutUs"><p className="hover:text-violet-300">About Us</p></Link>
-          <Link to="/products&services"><p className="hover:text-violet-300">Products & Services</p></Link>
-          <Link to="/contact"><p className="hover:text-violet-300">Contact</p></Link>
+          <Link to="#section2"><p className="hover:text-violet-300">About Us</p></Link>
+          <Link to="#section1"><p className="hover:text-violet-300">Products & Services</p></Link>
+          <Link to="#section3"><p className="hover:text-violet-300">Contact</p></Link>
       </div>
 
     <div className="mt-4">
