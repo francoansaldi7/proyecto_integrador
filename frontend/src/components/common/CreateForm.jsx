@@ -1,71 +1,98 @@
-import { AiOutlineClose, AiOutlineCloudUpload } from "react-icons/ai";
-import { useState } from "react";
+import {
+  AiOutlineClose,
+  AiOutlineCloudUpload
+} from "react-icons/ai";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import Service from "../Service";
+import { GlobalContext } from "../../contexts/globalContext";
 
-const CreateForm = ({closeForm}) => {
+const CreateForm = ({ closeForm }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [pricePerHour, setPricePerHour] = useState("");
   const [serviceName, setServiceName] = useState("");
   const [rating, setRating] = useState(1);
-  const handleImageUpload = (event)=>{
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { saveService } = useContext(GlobalContext);
+  const handleImageUpload = (event) => {
     const files = event.target.files;
-    const images = [];
+    const images = [...selectedImages];
 
     for (const element of files) {
       const file = element;
-      if(file.type.startsWith('image/')){
+      if (file.type.startsWith("image/")) {
         const imageUrl = URL.createObjectURL(file);
         images.push({
           file,
-          imageUrl
+          imageUrl,
         });
       }
     }
     setSelectedImages(images);
-  }
+  };
 
-  const handleImageRemove = (index)=>{
+  const handleImageRemove = (index) => {
     const newImages = [...selectedImages];
     newImages.splice(index, 1);
     setSelectedImages(newImages);
-  }
+  };
 
-  const handleDescription = (event)=>{
+  const handleDescription = (event) => {
     const description = event.target.value;
     setDescription(description);
-  }
+  };
 
-  const handleSubmit = (event)=>{
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(selectedImages);
-    console.log(description);
-    console.log(category);
-    console.log(pricePerHour);
-    console.log(serviceName);
-    console.log(rating);
-  }
+    setErrors([]);
+    let service;
+    try {
+      service = new Service(
+        serviceName,
+        category,
+        pricePerHour,
+        rating,
+        description
+      );
+    } catch (error) {
+      setErrors((prev) => [...prev, error.message]);
+      return;
+    }
+    let savedService;
+    setIsLoading(true);
+    try {
+      savedService = await saveService(service, selectedImages);
+      setIsLoading(false);
+      closeForm();
+    } catch (error) {
+      setIsLoading(false);
+    }
+    console.log(savedService);
+  };
 
-  const handleCategoryChange = (event)=>{
+  const handleCategoryChange = (event) => {
     const category = event.target.value;
     setCategory(category);
-  }
+  };
 
-  const handlePricePerHour = (event)=>{
+  const handlePricePerHour = (event) => {
     const pricePerHour = event.target.value;
     setPricePerHour(pricePerHour);
-  }
+  };
 
-  const handleServiceName = (event)=>{
+  const handleServiceName = (event) => {
     const serviceName = event.target.value;
     setServiceName(serviceName);
-  }
+  };
 
-  const handleRating = (event)=>{
+  const handleRating = (event) => {
     const rating = event.target.value;
     setRating(rating);
-  }
+  };
   return (
     <div
       id="createProductModal"
@@ -73,6 +100,52 @@ const CreateForm = ({closeForm}) => {
       aria-modal="true"
       role="dialog"
     >
+      {isLoading && (
+        
+        <div className="fixed flex z-10 w-full h-full bg-[rgba(0,0,0,0.4)] justify-center items-center">
+          <svg
+          className="w-20 h-20"
+            version="1.1"
+            id="L6"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+          >
+            <rect
+              fill="none"
+              stroke="#fff"
+              x="25"
+              y="25"
+              width="50"
+              height="50"
+            >
+              <animateTransform
+                attributeName="transform"
+                dur="0.5s"
+                from="0 50 50"
+                to="180 50 50"
+                type="rotate"
+                id="strokeBox"
+                attributeType="XML"
+                begin="rectBox.end"
+              />
+            </rect>
+            <rect x="27" y="27" fill="#fff" width="46" height="50">
+              <animate
+                attributeName="height"
+                dur="1.3s"
+                attributeType="XML"
+                from="50"
+                to="0"
+                id="rectBox"
+                fill="freeze"
+                begin="0s;strokeBox.end"
+              />
+            </rect>
+          </svg>
+        </div>
+      )}
       <div className="relative p-4 w-full max-w-3xl h-full ">
         {/* <!-- Modal content --> */}
         <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -147,7 +220,6 @@ const CreateForm = ({closeForm}) => {
                   required=""
                   onChange={handleRating}
                   value={rating}
-
                 />
               </div>
               <div>
@@ -218,21 +290,33 @@ const CreateForm = ({closeForm}) => {
                 </label>
               </div>
               <div className="mt-4 grid grid-cols-4 gap-4">
-              {selectedImages.map((image, index) => (
-                <div key={index} className="col-span-1 relative">
-                  <img  src={image.imageUrl} className="cursor-pointer hover:shadow-md hover:shadow-slate-700"  />
-                  <AiOutlineClose onClick={() => handleImageRemove(index)} className="absolute top-2 right-2 cursor-pointer text-red-500 hover:text-red-700 " />
-                </div>
-                  ))}
-                </div>
-              
+                {selectedImages.map((image, index) => (
+                  <div key={index} className="col-span-1 relative">
+                    <img
+                      src={image.imageUrl}
+                      className="cursor-pointer hover:shadow-md hover:shadow-slate-700"
+                    />
+                    <AiOutlineClose
+                      onClick={() => handleImageRemove(index)}
+                      className="absolute top-2 right-2 cursor-pointer text-red-500 hover:text-red-700 "
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="errors flex col">
+                {errors.map((error, index) => (
+                  <div key={index} className="error text-red-700">
+                    {error}
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
               <button
                 type="submit"
-                className="w-full sm:w-auto justify-center text-white inline-flex bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-secondary-dark dark:focus:ring-primary-dark"
-                
+                className="w-full sm:w-auto justify-center text-white inline-flex bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-secondary-dark dark:focus:ring-primary-dark relative"
               >
+                
                 Add Service
               </button>
               {/* <button className="w-full sm:w-auto text-white justify-center inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

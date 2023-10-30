@@ -93,15 +93,22 @@ if (optionalTypeOfService.isPresent()) {
     return serviceRepository.save(service);
 }
 
-public Services uploadImage(UUID serviceId, MultipartFile imageFile) throws IOException, RuntimeException {
+public Services uploadImage(UUID serviceId, String imageFile, boolean isProfile, String fileName) throws IOException, RuntimeException {
     // Upload the image file to the S3 data source and get the URL
-    String url = s3DataSource.uploadFile(imageFile);
+    String url = s3DataSource.uploadBase64Image(imageFile, fileName);
     System.out.println("URL: " + url);
     Services service = this.findById(serviceId).orElse(null);
     if (service == null) {
         throw new RuntimeException("Service not found");
     }
-    service.getGallery().add(serviceImageService.save(new ServiceImage(url)));
+    
+     synchronized (service) {
+        if (isProfile) {
+            service.setImgProfileUrl(url);
+        } else {
+            service.getGallery().add(serviceImageService.save(new ServiceImage(url)));
+        }
+    }
     return serviceRepository.save(service);
 
 }
