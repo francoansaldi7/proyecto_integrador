@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Card from "../components/common/Card";
 import AboutUs from "../pages/AboutUs";
+import Contact from "../pages/Contact";
 import PrincipalBanner from "../components/common/PrincipalBanner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -13,6 +14,7 @@ import "swiper/css";
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CategorysSection from "../components/common/CategorysSection";
+import ProductsAndServices from "./ProductsAndServices";
 
 
 function Home() {
@@ -30,10 +32,10 @@ function Home() {
         <Swiper
         slidesPerView={1}
         spaceBetween={10}
+        loop={true}
         pagination={{
           clickable: true,
         }}
-        loop={true}
         breakpoints={{
           '@0.00': {
             slidesPerView: 1,
@@ -187,7 +189,22 @@ function Home() {
 
       
       </div>
+    
+    <section id="section1">
+    <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
+      <ProductsAndServices />
+    </section>
+    
+    <section id="section2">
+    <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
       <AboutUs />
+    </section>
+    
+    <section id="section3">
+    <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
+      <Contact />
+    </section>
+
       <Outlet />
     </>
   );
