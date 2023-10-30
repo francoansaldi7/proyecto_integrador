@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
+import SearchBar from "../SearchBar";
 
 function Header() {
 
@@ -26,6 +27,9 @@ function Header() {
           </Link>
           <h1 className="mt-0 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
+
+        <SearchBar />
+
         <div className="relative">
           { isShowing ? 
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>}
@@ -33,13 +37,13 @@ function Header() {
           <nav className="h-full">
             <ul className="flex gap-5 flex-row text-background md:text-primary mr-20 flex-col md:flex-row text-[22px] md:text-[18px] justify-between h-full font-medium">
               <li className="hover:text-violet-600">
-                <Link to="/aboutUs">About Us</Link>
+                <Link to="#section2">About Us</Link>
               </li>
               <li className="hover:text-violet-600">
-                <Link to="/contact">Contact</Link>
+                <Link to="#section3">Contact</Link>
               </li>
               <li className="mr-10 hover:text-violet-600">
-                <Link to="/products&services">Products & Services</Link>
+                <Link to="#section1">Products & Services</Link>
               </li>
               <li className="hover:text-violet-600">
                 <Link to="/register">Create Account</Link>
