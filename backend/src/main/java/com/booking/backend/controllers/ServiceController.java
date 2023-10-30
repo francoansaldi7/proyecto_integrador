@@ -1,5 +1,6 @@
 package com.booking.backend.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
 import com.booking.backend.services.impl.ServiceService;
@@ -59,6 +62,10 @@ public class ServiceController {
     return serviceService.save(service);
   }
 
+   @PostMapping("/{serviceId}/images")
+  public Services createServiceImages(@PathVariable UUID serviceId,@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    return serviceService.uploadImage(serviceId, imageFile);
+  }
   /**
    * Updates an existing service.
    *

@@ -1,11 +1,22 @@
-import CreateForm from "../components/common/CreateForm"
-
+import CreateForm from "../components/common/CreateForm";
+import { useState } from "react";
 const Dashboard = () => {
+  const [activeCreateForm, setActiveCreateForm] = useState(false);
+  const handleActiveCreateForm = () => {
+    setActiveCreateForm(!activeCreateForm);
+  };
   return (
-    <div className="dark min-h-screen bg-neutral-950 relative">
-      <CreateForm />
+    <div className="dark flex flex-col min-h-screen bg-gray-950 relative pt-24 items-center ">
+      <button
+        className="bg-primary text-white px-4 z-10 py-2 h-10 rounded-lg"
+        onClick={handleActiveCreateForm}
+        type="button"
+      >
+        Add Service
+      </button>
+      {activeCreateForm && <CreateForm closeForm={handleActiveCreateForm} />}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
