@@ -2,6 +2,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
+import SearchBar from "../SearchBar";
 
 function Header() {
 
@@ -26,6 +27,9 @@ function Header() {
           </Link>
           <h1 className="mt-0 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
+
+        <SearchBar />
+
         <div className="relative">
           { isShowing ? 
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>}
