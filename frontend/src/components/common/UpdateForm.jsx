@@ -6,11 +6,8 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Service from "../Service";
 import { GlobalContext } from "../../contexts/globalContext";
-import {  toast } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
-
-const CreateForm = ({ closeForm }) => {
+const UpdateForm = ({ closeForm }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -71,11 +68,8 @@ const CreateForm = ({ closeForm }) => {
       savedService = await saveService(service, selectedImages);
       setIsLoading(false);
       closeForm();
-      toast.success("Service created successfully!");
-      
     } catch (error) {
       setIsLoading(false);
-      toast.error("An error occurred while creating the service.");
     }
     console.log(savedService);
   };
@@ -300,7 +294,7 @@ const CreateForm = ({ closeForm }) => {
                   <div key={index} className="col-span-1 relative">
                     <img
                       src={image.imageUrl}
-                      className="cursor-pointer hover:shadow-md hover:shadow-slate-700 h-32 w-full object-cover rounded-md border-8 border-primary/30"
+                      className="cursor-pointer hover:shadow-md hover:shadow-slate-700"
                     />
                     <AiOutlineClose
                       onClick={() => handleImageRemove(index)}
@@ -351,8 +345,8 @@ const CreateForm = ({ closeForm }) => {
   );
 };
 
-CreateForm.propTypes = {
+UpdateForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
 };
 
-export default CreateForm;
+export default  UpdateForm;
