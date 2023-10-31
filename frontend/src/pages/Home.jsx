@@ -15,6 +15,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CategorysSection from "../components/common/CategorysSection";
 import ProductsAndServices from "./ProductsAndServices";
+import NavPagination from "../components/common/NavPagination";
 
 
 function Home() {
@@ -46,7 +47,7 @@ function Home() {
             spaceBetween: 20,
           },
           '@1.00': {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 40,
           },
           '@1.50': {
@@ -113,7 +114,7 @@ function Home() {
         </div>
       </div>
 
-      <div className={`grid grid-cols-${Math.ceil(services.length / 3)} grid-flow-row md:gr gap-5 justify-items-center  bg-white md:max-lg:fle`}>
+      <div className={`p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1  bg-white md:max-lg:fle`}>
         {services.length < 1 ? (
           <div>
             <h1>No services</h1>
@@ -131,6 +132,10 @@ function Home() {
           ))}
         
       
+      </div>
+      <div className="m-5 overflow-hidden">
+        <NavPagination />
+
       </div>
     
     <section id="section1">

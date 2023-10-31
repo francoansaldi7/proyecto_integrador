@@ -34,7 +34,7 @@ const GlobalContextProvider = ({ children }) => {
       serviceSaved = await response.json();
       if (response.ok) {
         let currentIndex = 0;
-
+        setServices((prevServices) => [...prevServices, serviceSaved]);
         const processNextImage = async () => {
 
           if (currentIndex < images.length) {
@@ -85,101 +85,6 @@ const GlobalContextProvider = ({ children }) => {
   [getAllServices]
 );
 
-  // const saveService = useCallback(
-  //   async (service, images = []) => {
-  //     let serviceSaved;
-  //     try {
-  //       const response = await fetch(`http://localhost:8080/api/v1/services`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(service),
-  //       });
-  //       serviceSaved = await response.json();
-  //       if (response.ok) {
-  //         await Promise.all(
-  //           images.map(async (image, index) => {
-  //             // Función para procesar una imagen
-  //             const processImage = async () => {
-  //               return new Promise( (resolve) => {
-  //                 const reader = new FileReader();
-
-  //                 reader.onload = async (e) => {
-  //                   const base64Image = e.target.result;
-
-  //                   // Envía la imagen en Base64 al servidor
-  //                   const response = await fetch(
-  //                     `http://localhost:8080/api/v1/services/${
-  //                       serviceSaved.id
-  //                     }/${index === 0 ? "image-profile" : "images"}`,
-  //                     {
-  //                       method: "POST",
-  //                       body: JSON.stringify({
-  //                         base64Image,
-  //                         fileName: image.file.name,
-  //                       }),
-  //                       headers: {
-  //                         "Content-Type": "application/json",
-  //                       },
-  //                     }
-  //                   );
-
-  //                   serviceSaved = await response.json();
-  //                   console.log(serviceSaved);
-
-  //                   // Espera medio segundo antes de continuar con el siguiente elemento
-  //                   setTimeout(() => {
-  //                     resolve();
-  //                   }, 500); // 500 milisegundos = 0.5 segundos
-  //                 };
-
-  //                 reader.readAsDataURL(image.file);
-  //               });
-  //             };
-
-  //             await processImage();
-  //           })
-  //         );
-
-  //         getAllServices();
-  //       }
-  //       return serviceSaved;
-  //     } catch (error) {
-  //       console.error("Error saving the service", error);
-  //     }
-  //     // await Promise.all(
-  //     //   images.map(async (image) => {
-  //     //     // Lee el archivo de la imagen en Base64
-  //     //     const reader = new FileReader();
-
-  //     //     reader.onload = async (e) => {
-  //     //       const base64Image = e.target.result;
-
-  //     //       // Envía la imagen en Base64 al servidor
-  //     //       const response = await fetch(
-  //     //         `http://localhost:8080/api/v1/services/b246f153-a083-47d2-9cf8-f4f9df6ac90a/image-profile`,
-  //     //         {
-  //     //           method: "POST",
-  //     //           body: JSON.stringify({ base64Image, fileName: image.file.name }), // Envia la imagen codificada en Base64
-  //     //           headers: {
-  //     //             "Content-Type": "application/json",
-  //     //           },
-  //     //         }
-  //     //       );
-
-  //     //       const serviceSaved = await response.json();
-  //     //       console.log(serviceSaved);
-  //     //     };
-
-  //     //     reader.readAsDataURL(image.file);
-  //     //   })
-  //     // );
-  //     return serviceSaved;
-  //   },
-  //   [getAllServices]
-  // );
-
   const updateService = useCallback(
     async (idService, service) => {
       try {
@@ -193,10 +98,14 @@ const GlobalContextProvider = ({ children }) => {
             body: JSON.stringify(service),
           }
         );
+        const serviceEdited = await response.json();
         if (response.ok) {
+          setServices((prevServices) => [
+            ...prevServices.filter((service) => service.id !== idService),
+            serviceEdited,
+          ]);
           getAllServices();
         }
-        const serviceEdited = await response.json();
         return serviceEdited;
       } catch (error) {
         console.error("Error editing the service", error);
@@ -207,6 +116,10 @@ const GlobalContextProvider = ({ children }) => {
 
   const deleteService = useCallback(
     async (idService) => {
+      //typeof UUID
+      if (typeof idService !== "string") {
+        throw new Error("idService must be a string");
+      }
       try {
         const response = await fetch(
           `http://localhost:8080/api/v1/services/${idService}`,
@@ -215,10 +128,14 @@ const GlobalContextProvider = ({ children }) => {
           }
         );
         if (response.ok) {
-          getAllServices();
+          setServices((prevServices) =>
+            prevServices.filter((service) => service.id !== idService)
+          );
+          return true;
         }
       } catch (error) {
         console.error("Error deleting the service", error);
+        return false;
       }
     },
     [getAllServices]

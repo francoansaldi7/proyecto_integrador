@@ -1,4 +1,5 @@
 class Service {
+  
   constructor(serviceName, category, pricePerHour, rating, description) {
     this.setServiceName(serviceName);
     this.setCategory(category);
@@ -6,6 +7,40 @@ class Service {
     this.setRating(rating);
     this.setDescription(description);
   }
+  /* {
+    {
+    "id": "00655947-2137-49eb-b7dc-9869ed6e96dd",
+    "name": null,
+    "title": "Service Title",
+    "description": "Service Description",
+    "rating": 5.0,
+    "pricePerHour": 1234.0,
+    "availability": null,
+    "imgProfileUrl": "https://example.com/profile.jpg",
+    "gallery": [
+      {
+        "id": 47,
+        "imageUrl": "https://example.com/image1.jpg"
+      },
+      {
+        "id": 48,
+        "imageUrl": "https://example.com/image2.jpg"
+      },
+      {
+        "id": 49,
+        "imageUrl": "https://example.com/image3.jpg"
+      }
+    ],
+    "works": [],
+    "typeOfService": {
+      "id": 1,
+      "name": "ANIMATION_STUDY"
+    },
+    "serviceProvider": null,
+    "reservations": []
+  }
+  }
+  */
 
   setServiceName(serviceName) {
     if (!serviceName || serviceName.length > 50) {
