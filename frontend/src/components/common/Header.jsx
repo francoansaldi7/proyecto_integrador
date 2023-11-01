@@ -28,23 +28,25 @@ function Header() {
           <h1 className="mt-0 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
 
-        <SearchBar />
-
         <div className="relative">
           { isShowing ? 
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>}
         { isShowing && <div className="bg-primary md:bg-transparent md:rounded-none md:p-0 md:w-[unset] md:h-[unset] absolute md:static rounded-[8px] p-4 right-[16px] w-[80vw] h-[42vh]">
           <nav className="h-full">
-            <ul className="flex gap-5 flex-row text-background md:text-primary mr-20 flex-col md:flex-row text-[22px] md:text-[18px] justify-between h-full font-medium">
+            <ul className="flex gap-10 flex-row text-background md:text-primary mr-20 md:flex-row text-[22px] md:text-[18px] justify-between h-full font-medium">
               <li className="hover:text-violet-600">
                 <Link to="#section2">About Us</Link>
               </li>
               <li className="hover:text-violet-600">
                 <Link to="#section3">Contact</Link>
               </li>
-              <li className="mr-10 hover:text-violet-600">
+              <li className="mr-48 hover:text-violet-600">
                 <Link to="#section1">Products & Services</Link>
               </li>
+              <li className="mr-60">
+                <SearchBar className="md:hidden sm:hidden"/>
+              </li>
+
               <li className="hover:text-violet-600">
                 <Link to="/register">Create Account</Link>
               </li>
