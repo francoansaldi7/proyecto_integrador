@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.booking.backend.models.Reservation;
-import com.booking.backend.services.ReservationService;
+import com.booking.backend.services.impl.ReservationService;
 
 @RestController
 @RequestMapping("/api/v1/reservations")

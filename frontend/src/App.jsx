@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CardDetails from './pages/CardDetails';
+import Dashboard from './pages/Dashboard';
 
 
 function App() {
@@ -22,10 +23,11 @@ function App() {
           <Route path="/details" element={<CardDetails />}/>
         </Route>
         <Route path="/contact" element={<Contact />}/>
-        <Route path="/aboutUs" element={<AboutUs />}/>
+        <Route path="/aboutUs/" element={<AboutUs />}/>
         <Route path="/products&services" element={<ProductsAndServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
+        <Route path="/dashboard" element={<Dashboard />}/>
       </Routes>
 
       <Footer />

@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.User;
-import com.booking.backend.services.UserService;
+import com.booking.backend.services.impl.UserService;
 
 @SpringBootTest
 class UserControllerTest {

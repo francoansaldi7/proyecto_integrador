@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.Review;
-import com.booking.backend.services.ReviewService;
+import com.booking.backend.services.impl.ReviewService;
 
 @SpringBootTest
 class ReviewControllerTest {

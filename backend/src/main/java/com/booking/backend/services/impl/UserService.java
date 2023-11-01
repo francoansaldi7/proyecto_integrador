@@ -1,4 +1,4 @@
-package com.booking.backend.services;
+package com.booking.backend.services.impl;
 
 import java.util.List;
 import java.util.UUID;
