@@ -1,10 +1,8 @@
-# Booking of graphic services
+# GloCast - Graphic Services Booking App
 
-This is the `dev` branch, here the new changes will be uploaded, and after the tests are done, a merge will be done to the `main` branch.
+## Project Description
 
-### Test Title
 
-## Rules to contribute to repository
 
 1. Clone the Repository: Before you start contributing, clone the repository to your local development environment: 
 
@@ -23,7 +21,7 @@ git checkout -b feature-name
 
 ```BASH
 git add .
-git commit -m "Change Description"
+git commit -m "feat: Change Description"
 ```
 4. Keep Your Branch Updated: Before finalizing your work, sync your branch with the `dev` branch to ensure it's up-to-date. This reduces the chance of conflicts:
 
@@ -52,3 +50,21 @@ git branch -d feature-name
 ```
 
 *Remember to follow these rules and best practices for effective contribution and to maintain an organized development flow in the repository.*
+
+## Acknowledgments
+
+TO DO - Give credit to anyone who contributed to your project or inspired you during its development.
+Mention any third-party libraries, tools, or resources you used.
+
+## Contact Information
+
+Students that contributed on this project: 
+
+* Carmen Zeballos - czeballosricci@gmail.com
+* Magdalena Calasso - calassom@gmail.com 
+* Franco Ansaldi - fansaldi7@gmail.com 
+* Deivid Gonzalez - deividgonzalezdev@gmail.com
+* Ana Ferreira - ana.ferreirabna@gmail.com
+* Enzo Clavijo - enzoclavijo07@gmail.com
+* Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com
+* Agustin Bruno - sav_agus@hotmail.com
