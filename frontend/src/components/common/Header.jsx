@@ -32,7 +32,7 @@ function Header() {
               className="h-[40px] w-[40px] mt-[-5px]"
             />
           </Link>
-          <h1 className="mt-0 ml-[7px] text-2xl text-primary">GloCast</h1>
+          <h1 className="mt-1 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
 
         <div className="relative">
@@ -50,15 +50,15 @@ function Header() {
               <li className="mr-20 mt-2 hover:text-violet-600">
                 <Link to="#section1">Products & Services</Link>
               </li>
-              <li className="mr-60 mt-1">
+              <li className="mr-56 mt-1">
                 <SearchBar className="md:hidden sm:hidden"/>
               </li>
 
               <li className="hover:text-violet-600">
-                <Link to="/register"><button className="w-[120px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
+                <Link to="/register"><button className="w-[150px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
               </li>
               <li className="hover:text-violet-600">
-                <Link to="/login"><button className="w-[120px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginicon.png" alt="login icon" className="bg-white" /><p className="mt-[-2px]">Login</p></button></Link>
+                <Link to="/login"><button className="w-[150px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p>Iniciar Sesion</p></button></Link>
               </li>
             </ul>
           </nav>
