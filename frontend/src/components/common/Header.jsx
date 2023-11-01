@@ -48,10 +48,10 @@ function Header() {
               </li>
 
               <li className="hover:text-violet-600">
-                <Link to="/register"><button className="w-[120px] h-[35px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
+                <Link to="/register"><button className="w-[120px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
               </li>
               <li className="hover:text-violet-600">
-                <Link to="/login"><button className="w-[120px]  text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginicon.png" alt="login icon" className="bg-white" /><p className="mt-[-2px]">Login</p></button></Link>
+                <Link to="/login"><button className="w-[120px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginicon.png" alt="login icon" className="bg-white" /><p className="mt-[-2px]">Login</p></button></Link>
               </li>
             </ul>
           </nav>
