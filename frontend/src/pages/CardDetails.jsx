@@ -37,7 +37,7 @@ function CardDetails() {
             <span className="text-gray-700 dark:text-gray-600 font-semibold mr-20">4.0</span>
         </div>
       </div>
-  {showCarousel ? <Carrousel img={state.img} /> : null}
+  {showCarousel ? <Carrousel img={state.img} className="rounded-md"/> : null}
     <div className="flex flex-row p-10">
     <div className="flex gap-3 h-[570px] mt-[10px]">
       <div className="" >
@@ -54,18 +54,18 @@ function CardDetails() {
     </div>
     </div>
     <div className="flex justify-end mr-14 mt-[-60px] text-[130%]">
-        <button  className="hover:text-violet-600" onClick={()=> handleCarrousel()}>view more...</button>
+        <button  className="hover:text-violet-400 text-white" onClick={()=> handleCarrousel()}>view more...</button>
     </div>
     <div className="p-5 ml-7 flex flex-col">
-      <h3 className="text-5xl font-bold">{state.title}</h3>
-      <h4 className="">${state.price}/per hour</h4>
+      <h3 className="text-5xl font-bold text-white">{state.title}</h3>
+      <h4 className="text-violet-300">${state.price}/per hour</h4>
     </div>
-    <div className="p-10 m-10 rounded-md bg-secondary shadow-md shadow-black/30">
-      <p className="description text-white">{state.description}</p>
+    <div className="p-10 ml-10 rounded-md w-[85vw] flex justify-center bg-secondary shadow-md shadow-black/30">
+      <p className="description text-white h-[20vh]">{state.description}</p>
     </div>
     
     <div className="flex justify-end mr-20 mb-10">
-    <Link to="" className="w-[120px] text-white bg-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
+    <Link to="" className="w-[120px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now !</Link>
     </div>
 
     </div>
