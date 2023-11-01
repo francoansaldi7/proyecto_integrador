@@ -1,29 +1,36 @@
 import { HashLink as Link } from "react-router-hash-link";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "../../contexts/globalContext";
 import { CgClose } from "react-icons/cg";
 import SearchBar from "../SearchBar";
 
 function Header() {
-
   const [isShowing, setIsShowing] = useState(false);
+  const {handleShuffle} = useContext(GlobalContext)
   useEffect(() => {
     const isMobile = document.documentElement.clientWidth >= 768;
-    console.log(document.documentElement.clientWidth, window.innerWidth, isMobile);
+    console.log(
+      document.documentElement.clientWidth,
+      window.innerWidth,
+      isMobile
+    );
     setIsShowing(isMobile);
-  }, [])
-  
+  }, []);
+
   const handlerHamburger = () => {
-
-    setIsShowing(!isShowing)
-
+    setIsShowing(!isShowing);
   };
   return (
     <>
       <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30  to-primary/30 p-5 backdrop-blur-lg fixed w-screen  shadow-secondary/50 shadow-md rounded-lg z-50 items-center">
-        <div className="ml-10 flex flex-row relative">
-          <Link to="/">
-            <img src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-3px]" />
+        <div className="ml-10 flex flex-row relative" >
+          <Link to="/" onClick={handleShuffle}>
+            <img
+              src="\logoTitle.png"
+              alt="Test Logo"
+              className="h-[40px] w-[40px] mt-[-5px]"
+            />
           </Link>
           <h1 className="mt-1 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
@@ -58,8 +65,6 @@ function Header() {
         </div>}
         </div>
       </div>
-
-
     </>
   );
 }
