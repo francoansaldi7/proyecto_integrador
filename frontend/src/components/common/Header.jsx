@@ -23,9 +23,9 @@ function Header() {
       <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30  to-primary/30 p-5 backdrop-blur-lg fixed w-screen  shadow-secondary/50 shadow-md rounded-lg z-50 items-center">
         <div className="ml-10 flex flex-row relative">
           <Link to="/">
-            <img src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-5px]" />
+            <img src="\logoTitle.png" alt="Test Logo" className="h-[40px] w-[40px] mt-[-3px]" />
           </Link>
-          <h1 className="mt-0 ml-[7px] text-2xl text-primary">GloCast</h1>
+          <h1 className="mt-1 ml-[7px] text-2xl text-primary">GloCast</h1>
         </div>
 
         <div className="relative">
