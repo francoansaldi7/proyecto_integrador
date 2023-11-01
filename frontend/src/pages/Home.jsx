@@ -19,8 +19,8 @@ import NavPagination from "../components/common/NavPagination";
 
 
 function Home() {
-  const {services} = useContext(GlobalContext);
-  console.log(services);
+  const {unorganizedServices} = useContext(GlobalContext);
+  console.log(unorganizedServices);
   return (
     <>
       <PrincipalBanner />
@@ -41,10 +41,6 @@ function Home() {
           '@0.00': {
             slidesPerView: 1,
             spaceBetween: 10,
-          },
-          '@0.75': {
-            slidesPerView: 2,
-            spaceBetween: 20,
           },
           '@1.00': {
             slidesPerView: 1,
@@ -88,7 +84,7 @@ function Home() {
               {({ isNext }) => (
       
               <Card
-                img="testPhoto.jpg"
+                img="/testPhoto.jpg"
                 title={"Animation Studio"}
                 description={"Step into the captivating world of animation with GloCast Animation Studio. Our studio is a hub for creativity, where artists and animators come together to craft imaginative, compelling, and visually stunning animated content. From 2D to 3D animation, we offer a cutting-edge, fully-equipped environment to bring your ideas to life. Whether you're a seasoned animator or just starting your journey, GloCast is the canvas for your dreams. Our team of experienced animators and state-of-the-art technology ensures that your projects soar to new heights. Join us at GloCast Animation Studio and embark on a mesmerizing animation adventure."}      moreBig={isNext}
                 price={789}
@@ -115,19 +111,25 @@ function Home() {
       </div>
 
       <div className={`p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1  bg-white md:max-lg:fle`}>
-        {services.length < 1 ? (
+       
+        {unorganizedServices.length < 1 ? (
           <div>
             <h1>No services</h1>
-            <p>Para traer las cards desde el backend, parate en el directorio raiz (proyecto-integrador) y ejecuta el comando `docker-compose up` Esto levantara el backend, y luego recarga las página</p>
+            <p>Para traer las cards desde el backend, parate en el directorio del backend backend/ y ejecuta: mvn clean install, y luego java -jar target/backend-0.0.1-SNAPSHOT.jar
+
+              NOTA: Asegurate de tener java 17 o superior
+            </p>
           </div>
         ) : ''}
-          {services.map((service) => (
+          {unorganizedServices.map((service) => (
             <Card
               key={service.id}
+              id={service.id}
               img={service.imgProfileUrl}
               title={service.title}
               description={service.description}
               price={service.pricePerHour}
+              rating={service.rating}
             />
           ))}
         
@@ -140,7 +142,9 @@ function Home() {
     
     <section id="section1">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
+
       <ProductsAndServices />
+
     </section>
     
     <section id="section2">

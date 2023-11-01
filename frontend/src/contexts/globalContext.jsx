@@ -10,6 +10,31 @@ const GlobalContext = createContext(null);
 
 const GlobalContextProvider = ({ children }) => {
   const [services, setServices] = useState([]);
+  const [unorganizedServices, setUnorganizedServices] = useState([]);
+  
+  useEffect(() => {
+    
+    const shuffledServices = shuffleArray([...services]);
+    setUnorganizedServices(shuffledServices);
+  
+  }, [services])
+
+  /**
+   * Shuffles the elements of the given array randomly.
+   *
+   * @param {Array} array - The array to be shuffled.
+   * @return {Array} - The shuffled array.
+   */
+  const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const handleShuffle = ()=> setUnorganizedServices(shuffleArray([...services]))
+
   const getAllServices = useCallback(async () => {
     try {
       const response = await fetch(`http://localhost:8080/api/v1/services`);
@@ -152,8 +177,10 @@ const GlobalContextProvider = ({ children }) => {
       saveService,
       updateService,
       deleteService,
+      unorganizedServices,
+      handleShuffle
     }),
-    [services, getAllServices, saveService, updateService, deleteService]
+    [services, getAllServices, saveService, updateService, deleteService, unorganizedServices, handleShuffle]
   );
 
   return (
