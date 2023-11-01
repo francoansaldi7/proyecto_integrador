@@ -11,6 +11,10 @@ import 'swiper/css/pagination';
 // eslint-disable-next-line react/prop-types
 const Carrousel = ({img, gallery}) => {
   return (
+    <>
+    <div className="bg-black/80 min-h-screen min-w-screen z-20 fixed top-0">
+
+    </div>
     <div className="fixed container bg-secondary z-10 p-4  rounded-lg w-[70vw] mx-[15vw] my-[10vh] top-0 left-0">
     <Swiper
             spaceBetween={10}
@@ -30,6 +34,8 @@ const Carrousel = ({img, gallery}) => {
           </Swiper>
           
   </div>
+      </>
+
   )
 }
 

@@ -62,7 +62,7 @@ function CardDetails() {
         </div>
         {showCarousel ? <Carrousel img={service?.imgProfileUrl} gallery={service?.gallery} /> : null}
         <div className="flex flex-row p-10">
-          <div className="grid lg:grid-cols-2 lg:grid-rows-1 md:grid-cols-1 md:grid-rows-2 gap-3 h-[570px] mt-[10px] sm:grid-cols-1">
+          <div className="grid h-[300px] lg:grid-cols-2 lg:grid-rows-1 md:grid-cols-1 md:grid-rows-2 gap-3 md:h-[570px] mt-[10px] sm:grid-cols-1">
             <div className="">
               <img
                 src={service?.imgProfileUrl}
@@ -73,7 +73,7 @@ function CardDetails() {
             </div>
 
             <div
-              className="lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:flex-wrap  justify-between gap-2 w-full lg:h-full  mt-[2px] rounded-md relative cursor-pointer md:h-52 md:grid md:grid-cols-4 sm:hidden "
+              className="lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:flex-wrap  justify-between gap-2 w-full lg:h-full  mt-[2px] rounded-md relative cursor-pointer md:h-52 md:grid md:grid-cols-4 sm:hidden hidden "
               onClick={() => handleCarrousel()}
             >
               {service?.gallery.map((image) => (

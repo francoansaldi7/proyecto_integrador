@@ -13,7 +13,7 @@ function Footer() {
         <Link to="/"><img src="\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>
       </div>
 
-      <div className="flex flex-row justify-center text-lg bg-primary mt-6 gap-7">
+      <div className="flex flex-row justify-center text-lg bg-primary mt-6 gap-10">
           <Link to="#section2"><p className="hover:text-violet-300">About Us</p></Link>
           <Link to="#section1"><p className="hover:text-violet-300">Products & Services</p></Link>
           <Link to="#section3"><p className="hover:text-violet-300">Contact</p></Link>
