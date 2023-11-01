@@ -51,7 +51,7 @@ function Header() {
                 <Link to="/register"><button className="w-[150px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
               </li>
               <li className="hover:text-violet-600">
-                <Link to="/login"><button className="w-[150px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p className="mt-[-2px]">Iniciar Sesion</p></button></Link>
+                <Link to="/login"><button className="w-[150px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p>Iniciar Sesion</p></button></Link>
               </li>
             </ul>
           </nav>
