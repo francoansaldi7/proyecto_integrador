@@ -109,8 +109,9 @@ Provide information on how to run tests.
 
 ## Deployment
 
-TO DO - Explain how to deploy your application to a production environment.
-Include any configuration settings or environment variables needed for deployment.
+To Do - Explain how to deploy your app to a production environment. 
+Include any configuration settings or environments variables needed for deployment.
+
 --- 
 ## Contributing
 
