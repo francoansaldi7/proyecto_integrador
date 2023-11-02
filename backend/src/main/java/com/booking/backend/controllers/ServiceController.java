@@ -72,7 +72,7 @@ public class ServiceController {
   }
 
 
-  @CrossOrigin(value = {"http://localhost:5173"})
+  //@CrossOrigin(value = {"http://localhost:5173"})
   @PostMapping("/{serviceId}/image-profile")
   public Services createServiceImageProfile(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
     String base64Image = imageData.get("base64Image");
