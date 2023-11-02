@@ -1,6 +1,8 @@
 package com.booking.backend.models;
 
-public enum Role {
+import java.io.Serializable;
+
+public enum Role implements Serializable {
 
     ADMIN,USER
 }

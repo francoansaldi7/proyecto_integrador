@@ -1,82 +1,86 @@
 package com.booking.backend.services.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import com.booking.backend.repository.IUserRepository;
+import com.booking.backend.services.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.booking.backend.models.User;
 
 @Service
-public class UserService {
-  //crea un UserService básico
+public class UserService implements IUserService {
+  @Autowired
+  private IUserRepository userRepository;
 
-  /**
-   * Saves the user.
-   *
-   * @param user The user to be saved.
-   * @return The saved user.
-   */
-  public User saveUser(User user) {
-    // TODO: Implement saving logic here
-    // Sample code:
-    // Database.save(user);
-    return user;
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
+  @Autowired
+  private UserDetailsService userDetailsService;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+
+  @Override
+  public User findByUsername(String username) throws UsernameNotFoundException {
+    User u = userRepository.findByUsername(username);
+    return u;
   }
 
-  /**
-   * Deletes a user with the given ID.
-   *
-   * @param id The ID of the user to delete.
-   */
-  public void deleteUser(UUID id) {
-    // TODO: Implement deletion logic here
-    // Sample code:
-    // Database.deleteUser(id);
+  public User findById(UUID)  {
+    User u = userRepository.findById(UUID).orElse(null);
+    return u;
   }
 
-  /**
-   * Updates a user with the specified ID.
-   *
-   * @param id The ID of the user to update.
-   * @param updatedUser The user object with updated information.
-   * @return The updated user.
-   */
-  public User updateUser(UUID id, User updatedUser) {
-    // TODO: Implement user update logic here
-    // Sample code:
-    // User existingUser = Database.getUser(id);
-    // if (existingUser != null) {
-    //     existingUser.update(updatedUser);
-    //     return existingUser;
-    // }
-    return updatedUser;
+  public List<User> findAll() {
+    return userRepository.findAll();
   }
 
-  /**
-   * Retrieves a user by their ID.
-   * 
-   * @param id The ID of the user to retrieve.
-   * @return The user with the specified ID, or null if not found.
-   */
-  public User getUser(UUID id) {
-    // TODO: Implement retrieval logic here
-    // Sample code:
-    // return Database.getUser(id);
-    return new User(id);
+  @Override
+  public void changePassword(String oldPassword, String newPassword) {
+
+    Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+    String username = currentUser.getName();
+
+    if (authenticationManager != null) {
+
+      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
+    } else {
+
+      return;
+    }
+
+
+    User user = (User) userDetailsService.loadUserByUsername(username);
+
+    user.setPassword(passwordEncoder.encode(newPassword));
+    userRepository.save(user);
+
+
   }
 
-  /**
-   * Retrieves all users from the database.
-   *
-   * @return List of all users.
-   */
-  public List<User> getAllUsers() {
-    // TODO: Implement method logic here
-    // Sample code:
-    // return Database.getAllUsers();
-    User user = new User(UUID.randomUUID());
-    User user2 = new User(UUID.randomUUID());
-    return List.of(user, user2);
+  @Override
+  public User save(User user) {
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    return userRepository.save(user);
+  }
+
+  private Set<SimpleGrantedAuthority> getAuthority(User user) {
+    Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+    authorities.add(new SimpleGrantedAuthority(user.getName()));
+    return authorities;
   }
 }
