@@ -82,6 +82,27 @@
 			<version>4.2.1</version>
 		</dependency>
 
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    <version>3.1.5</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-core</artifactId>
+    <version>6.1.5</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-jose</artifactId>
+    <version>6.1.5</version>
+</dependency>
+ <!-- Ajusta la versión según la que necesites -->
+
+
+
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>

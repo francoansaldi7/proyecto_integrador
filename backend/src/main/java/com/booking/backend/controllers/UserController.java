@@ -1,10 +1,18 @@
 package com.booking.backend.controllers;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +31,42 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
+
+  @Autowired
+  private JwtEncoder encoder;
+
+  @PostMapping("/login")
+  public String getAuthentication(@RequestBody LoginRequest loginRequest) {
+      Instant now = Instant.now();
+		long expiry = 36000L;
+    System.out.println("Login request: " + loginRequest.toString());
+    Authentication authenticationRequest =
+			UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.username(), loginRequest.password());
+
+		Authentication authentication =
+			this.authenticationManager.authenticate(authenticationRequest);
+    System.out.println("Authentication: " + authentication.getAuthorities().iterator().next());
+		String scope = authentication.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority)
+				.collect(Collectors.joining(" "));
+    
+		JwtClaimsSet claims = JwtClaimsSet.builder()
+				.issuer("self")
+				.issuedAt(now)
+				.expiresAt(now.plusSeconds(expiry))
+				.subject(authentication.getName())
+				.claim("role", scope)
+				.build();
+
+    System.out.println("Claims: " + claims.toString());
+		// @formatter:on
+		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+  }
+  public record LoginRequest(String username, String password) {
+	}
   /**
    * Retrieves all users.
    *
@@ -30,7 +74,7 @@ public class UserController {
    */
   @GetMapping
   public List<User> getAllUsers() {
-    return userService.getAllUsers();
+    return userService.findAll();
   }
 
   /**
@@ -41,7 +85,7 @@ public class UserController {
    */
   @GetMapping("/{userId}")
   public User getUserById(@PathVariable UUID userId) {
-    return userService.getUser(userId);
+    return userService.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
   }
 
   /**
@@ -52,7 +96,7 @@ public class UserController {
    */
   @PostMapping
   public User createUser(@RequestBody User user) {
-    return userService.saveUser(user);
+    return userService.save(user);
   }
 
   /**
@@ -64,7 +108,7 @@ public class UserController {
    */
   @PutMapping("/{userId}")
   public User updateUser(@PathVariable UUID userId, @RequestBody User updatedUser) {
-    return userService.updateUser(userId, updatedUser);
+    return userService.update(userId, updatedUser);
   }
 
   /**
@@ -74,6 +118,6 @@ public class UserController {
    */
   @DeleteMapping("/{userId}")
   public void deleteUser(@PathVariable UUID userId) {
-    userService.deleteUser(userId);
+    userService.deleteById(userId);
   }
 }
