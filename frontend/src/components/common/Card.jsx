@@ -2,20 +2,21 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prop-types */
-function Card({img, title, description, price, moreBig = false, disccount = false}) {
+function Card({id, img, title, description, price, moreBig = false, disccount = false, rating = 1}) {
   return (
     
 <div className={`w-full relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125' : ''} transition duration-500`}>
   <div className="h-[200px] overflow-hidden">
     {disccount && (
       <div className="absolute top-0 right-[-10px] h-20 w-20 rotate-12">
-      <img src="disscount.svg" alt="" />
+      <img src="/disscount.svg" alt="" />
     </div>
     )}
-    
-    <Link to="/details" state={{img, title, description, price}}>
-        <img className="rounded-t-lg" src={img} alt="product image" />
-    </Link>
+    {id ? (
+      <Link to={`/details/${id}`} state={{img, title, description, price, rating, id}}>
+          <img className="rounded-t-lg" src={img} alt="product image" />
+      </Link>
+    ) : <img className="rounded-t-lg" src={img} alt="product image" />}
   </div>
     <div className="px-5 py-5">
         <a href="#">
@@ -27,7 +28,7 @@ function Card({img, title, description, price, moreBig = false, disccount = fals
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiOutlineStar className="w-4 h-4 text-gray-200 dark:text-gray-600"></AiOutlineStar>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{rating}</span>
         </div>
 
         <div className="flex flex-row mb-2">

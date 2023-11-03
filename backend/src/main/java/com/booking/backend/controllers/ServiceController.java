@@ -1,10 +1,13 @@
 package com.booking.backend.controllers;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
 import com.booking.backend.services.impl.ServiceService;
@@ -59,6 +64,24 @@ public class ServiceController {
     return serviceService.save(service);
   }
 
+   @PostMapping("/{serviceId}/images")
+  public Services createServiceImages(@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws IOException {
+    String base64Image = imageData.get("base64Image");
+        String fileName = imageData.get("fileName");
+    return serviceService.uploadImage(serviceId, base64Image, false, fileName);
+  }
+
+
+  //@CrossOrigin(value = {"http://localhost:5173"})
+  @PostMapping("/{serviceId}/image-profile")
+  public Services createServiceImageProfile(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
+    String base64Image = imageData.get("base64Image");
+        String fileName = imageData.get("fileName");
+
+    System.out.println("IMAGE NAME: " + base64Image);
+    
+    return serviceService.uploadImage(serviceId, base64Image, true, fileName);
+  }
   /**
    * Updates an existing service.
    *

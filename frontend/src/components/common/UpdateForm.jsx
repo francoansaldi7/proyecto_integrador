@@ -1,13 +1,13 @@
-import { AiOutlineClose, AiOutlineCloudUpload } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineCloudUpload
+} from "react-icons/ai";
 import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Service from "../Service";
 import { GlobalContext } from "../../contexts/globalContext";
-import { toast } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
-
-const CreateForm = ({ closeForm }) => {
+const UpdateForm = ({ closeForm }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -68,10 +68,8 @@ const CreateForm = ({ closeForm }) => {
       savedService = await saveService(service, selectedImages);
       setIsLoading(false);
       closeForm();
-      toast.success("Service created successfully!");
     } catch (error) {
       setIsLoading(false);
-      toast.error("An error occurred while creating the service.");
     }
     console.log(savedService);
   };
@@ -103,9 +101,10 @@ const CreateForm = ({ closeForm }) => {
       role="dialog"
     >
       {isLoading && (
+        
         <div className="fixed flex z-10 w-full h-full bg-[rgba(0,0,0,0.4)] justify-center items-center">
           <svg
-            className="w-20 h-20"
+          className="w-20 h-20"
             version="1.1"
             id="L6"
             xmlns="http://www.w3.org/2000/svg"
@@ -202,17 +201,7 @@ const CreateForm = ({ closeForm }) => {
                   value={category}
                 >
                   <option selected="">Select category</option>
-                  <option value="1">ESTUDIO DE ANIMACIÓN</option>
-                  <option value="2">ESTUDIO DE FILMACIÓN</option>
-                  <option value="3">FOTÓGRAFO </option>
-                  <option value="4">VIDEÓGRAFO</option>
-
-                  <option value="5">EDITOR</option>
-
-                  <option value="6">MODELADO 3D</option>
-                  <option value="7">ANIMADOR</option>
-                  <option value="8">DISEÑADOR GRÁFICO</option>
-                  <option value="9">ESTUDIO DE FOTOGRAFÍA</option>
+                  <option value="1">ANIMATION STUDIO</option>
                 </select>
               </div>
               <div>
@@ -305,7 +294,7 @@ const CreateForm = ({ closeForm }) => {
                   <div key={index} className="col-span-1 relative">
                     <img
                       src={image.imageUrl}
-                      className="cursor-pointer hover:shadow-md hover:shadow-slate-700 h-32 w-full object-cover rounded-md border-8 border-primary/30"
+                      className="cursor-pointer hover:shadow-md hover:shadow-slate-700"
                     />
                     <AiOutlineClose
                       onClick={() => handleImageRemove(index)}
@@ -327,6 +316,7 @@ const CreateForm = ({ closeForm }) => {
                 type="submit"
                 className="w-full sm:w-auto justify-center text-white inline-flex bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-secondary-dark dark:focus:ring-primary-dark relative"
               >
+                
                 Add Service
               </button>
               {/* <button className="w-full sm:w-auto text-white justify-center inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -355,8 +345,8 @@ const CreateForm = ({ closeForm }) => {
   );
 };
 
-CreateForm.propTypes = {
+UpdateForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
 };
 
-export default CreateForm;
+export default  UpdateForm;
