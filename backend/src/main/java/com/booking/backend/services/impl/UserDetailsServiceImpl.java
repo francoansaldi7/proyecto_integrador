@@ -20,15 +20,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
  
     System.out.println("USER: ----------------------" + user);
     System.out.println("USERNAME: " + username);
-     User user1 = userRepository.findByUsername(username);
-     return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
+     UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
         .password(user.getPassword())
-        .authorities(user.getAuthorities())
+        .roles(user.getRoles())
         .accountExpired(false)
         .accountLocked(false)
         .credentialsExpired(false)
         .disabled(false)
         .build();
+    System.out.println("userDetails: " + userDetails);    
+    return userDetails;
   }
   
 }

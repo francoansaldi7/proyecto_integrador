@@ -88,13 +88,14 @@ public class UserService implements IUserService {
   @Override
   public User save(User user) {
    user.setPassword(passwordEncoder.encode(user.getPassword()));
-   if(user.getRole().getId() == 1) {
-   user.setRole(new Role(2, "ROLE_ADMIN"));
+   if(user.getRole().getId() == 2) {
+   user.setRole(new Role(2, "ADMIN"));
     
    } else {
-     user.setRole(new Role(1, "ROLE_USER"));
+     user.setRole(new Role(1, "USER"));
    }
-    return userRepository.save(user);
+    User userSaved = userRepository.save(user);
+    return userSaved;
   }
 
   private Set<SimpleGrantedAuthority> getAuthority(User user) {

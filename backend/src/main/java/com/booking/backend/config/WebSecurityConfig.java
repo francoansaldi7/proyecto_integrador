@@ -14,6 +14,8 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import software.amazon.awssdk.services.xray.model.Http;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -52,18 +54,11 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // @formatter:off
-        http
-                .authorizeHttpRequests((authorize) -> authorize
-                        
-                        .requestMatchers("/api/v1/services").permitAll()
-                        .requestMatchers("/api/v1/users/login").permitAll()
-                        .requestMatchers("/api/v1/users").permitAll()
-                        .anyRequest().permitAll()
-                )
-                .csrf((csrf) -> csrf.ignoringRequestMatchers("/api/v1/users")
-                        .ignoringRequestMatchers("/api/v1/users/login")
-                        .ignoringRequestMatchers("/api/v1/users/**")
-                        .ignoringRequestMatchers("/api/v1/services")
+        http.authorizeHttpRequests((requests) -> requests
+                .anyRequest().permitAll()
+        )
+
+                .csrf((csrf) -> csrf.ignoringRequestMatchers("api/v1/**")
                 )
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -114,26 +109,32 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            UserDetailsServiceImpl userDetailsService,
-            BCryptPasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
+@Bean
+public AuthenticationManager authenticationManager(
+        UserDetailsServiceImpl userDetailsService,
+        BCryptPasswordEncoder passwordEncoder) {
+    // Create a new instance of DaoAuthenticationProvider
+    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+    
+    // Set the userDetailsService for the authenticationProvider
+    authenticationProvider.setUserDetailsService(userDetailsService);
+    
+    // Set the passwordEncoder for the authenticationProvider
+    authenticationProvider.setPasswordEncoder(passwordEncoder);
+    
+    // Create a new instance of ProviderManager with the authenticationProvider
+    return new ProviderManager(authenticationProvider);
+}
 
-        return new ProviderManager(authenticationProvider);
-    }
+    // @Bean
+    // UserDetailsService users() {
 
-    @Bean
-    UserDetailsService users() {
-
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user")
-                        .password("{noop}password")
-                        .authorities("app")
-                        .build());
-    }
+    //     return new InMemoryUserDetailsManager(
+    //             User.withUsername("user")
+    //                     .password("{noop}password")
+    //                     .authorities("app")
+    //                     .build());
+    // }
 
     @Bean
     JwtDecoder jwtDecoder() {

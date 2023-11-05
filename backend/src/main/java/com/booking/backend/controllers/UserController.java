@@ -38,6 +38,10 @@ public class UserController {
   @Autowired
   private JwtEncoder encoder;
 
+  @GetMapping("/test")
+  public void test () {
+    
+  }
   @PostMapping("/login")
   public String getAuthentication(@RequestBody LoginRequest loginRequest) {
       Instant now = Instant.now();
@@ -48,20 +52,20 @@ public class UserController {
 
 		Authentication authentication =
 			this.authenticationManager.authenticate(authenticationRequest);
-    System.out.println("Authentication: " + authentication.getAuthorities().iterator().next());
+    System.out.println("Authentication: " + authentication.getAuthorities());
 		String scope = authentication.getAuthorities().stream()
 				.map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(" "));
-    
+    System.out.println("Scope: " + scope);
 		JwtClaimsSet claims = JwtClaimsSet.builder()
 				.issuer("self")
 				.issuedAt(now)
 				.expiresAt(now.plusSeconds(expiry))
 				.subject(authentication.getName())
-				.claim("role", scope)
+				.claim("rol", scope)
 				.build();
 
-    System.out.println("Claims: " + claims.toString());
+    System.out.println("Claims: " + claims);
 		// @formatter:on
 		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
   }
