@@ -7,11 +7,11 @@ const NavPagination = () => {
         aria-label="Table navigation"
       >
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-          Showing
+          Mostrando
           <span className="ml-1 mr-1 font-semibold text-white dark:text-white">
             1-10
           </span>
-          of
+          de
           <span className="ml-1 mr-1 font-semibold text-white dark:text-white">
             1000
           </span>
@@ -22,7 +22,7 @@ const NavPagination = () => {
               
               className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
-              <span className="sr-only">Previous</span>
+              <span className="sr-only">Anterior</span>
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -80,7 +80,7 @@ const NavPagination = () => {
               
               className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
-              <span className="sr-only">Next</span>
+              <span className="sr-only">Siguiente</span>
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"

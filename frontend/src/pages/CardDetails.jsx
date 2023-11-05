@@ -92,12 +92,12 @@ function CardDetails() {
             className="hover:text-violet-600"
             onClick={() => handleCarrousel()}
           >
-            view more...
+            ver mas...
           </button>
         </div>
         <div className="p-5 ml-7 flex flex-col">
           <h3 className="text-5xl font-bold">{service?.title}</h3>
-          <h4 className="">${service?.price}/per hour</h4>
+          <h4 className="">${service?.price}/por hora</h4>
         </div>
         <div className="p-10 m-10 rounded-md bg-secondary shadow-md shadow-black/30">
           <p className="description text-white">{service?.description}</p>
@@ -108,7 +108,7 @@ function CardDetails() {
             to=""
             className="w-[120px] text-white bg-secondary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800"
           >
-            Book Now!
+            Reservar ahora!
           </Link>
         </div>
       </div>

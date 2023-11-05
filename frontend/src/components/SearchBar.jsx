@@ -7,7 +7,7 @@ function SearchBar() {
         </div>
         
 
-        <input type="text" placeholder="How can we help you today?" className="p-2 w-[400px] h-[30px] rounded-lg focus:outline-none focus:ring focus:ring-primary align-center  placeholder:text-slate-400 placeholder:p-2" />
+        <input type="text" placeholder="¿Cómo podemos ayudarle hoy?" className="p-2 w-[400px] h-[30px] rounded-lg focus:outline-none focus:ring focus:ring-primary align-center  placeholder:text-slate-400 placeholder:p-2" />
       </div>
       </>
     )
