@@ -8,6 +8,8 @@ import PrincipalBanner from "../components/common/PrincipalBanner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { GlobalContext } from "../contexts/globalContext";
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 // Import Swiper styles
 import "swiper/css";
@@ -20,6 +22,9 @@ import NavPagination from "../components/common/NavPagination";
 
 function Home() {
   const {unorganizedServices} = useContext(GlobalContext);
+
+  // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
+
   console.log(unorganizedServices);
   return (
     <>
@@ -110,17 +115,25 @@ function Home() {
         </div>
       </div>
 
-      <div className={`p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1  bg-white md:max-lg:fle`}>
-       
+      <div id="section1" className={"p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1 bg-white md:max-lg:fle"}>
+
         {unorganizedServices.length < 1 ? (
-          <div>
-            <h1>No services</h1>
+          <div id="section1">
+            <LoadingOutlined
+              className="text-4xl text-primary ml-[73vw]"
+              spin
+            />
+
+             {/* <h1>No services</h1>
             <p>Para traer las cards desde el backend, parate en el directorio del backend backend/ y ejecuta: mvn clean install, y luego java -jar target/backend-0.0.1-SNAPSHOT.jar
 
               NOTA: Asegurate de tener java 17 o superior
-            </p>
+            </p> */}
+
           </div>
         ) : ''}
+
+        
           {unorganizedServices.map((service) => (
             <Card
               key={service.id}
@@ -133,19 +146,18 @@ function Home() {
             />
           ))}
         
-      
       </div>
-      <div className="m-5 overflow-hidden">
-        <NavPagination />
 
+      <div className="overflow-hidden bg-white">
+        <NavPagination />
       </div>
     
-    <section id="section1">
+    {/* <section id="section1">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
 
       <ProductsAndServices />
 
-    </section>
+    </section> */}
     
     <section id="section2">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>

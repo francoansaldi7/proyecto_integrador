@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.booking.backend.models.TypesOfServices;
 
 public interface ITypeOfServiceRepository extends JpaRepository<TypesOfServices, Long> {
-  
+
 }

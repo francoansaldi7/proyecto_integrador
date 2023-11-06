@@ -9,5 +9,5 @@ import com.booking.backend.models.Review;
 
 @Repository
 public interface IReviewRepository extends JpaRepository<Review, UUID> {
-  
+
 }

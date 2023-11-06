@@ -25,11 +25,11 @@ public class ServiceImage {
 
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
-    
+
     public ServiceImage(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    
+
     // @ManyToOne
     // @JoinColumn(name = "service_id", referencedColumnName = "id")
     // private Services service;
