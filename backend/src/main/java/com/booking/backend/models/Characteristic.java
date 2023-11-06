@@ -1,9 +1,7 @@
 package com.booking.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,13 +12,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypesOfServices {
+public class Characteristic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String iconName;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    @JsonBackReference
+    private Services service;
 
 }
-// TypesOfServices {
-// ANIMATION_STUDY, FILMING_STUDY, PHOTOGRAPHER, VIDEOGRAPHER, EDITOR, MODELED, ILLUSTRATOR, DESIGNER
-// }
+

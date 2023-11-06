@@ -10,5 +10,5 @@ import com.booking.backend.models.Services;
 
 @Repository
 public interface IServiceRepository extends JpaRepository<Services, UUID> {
-  
+
 }
