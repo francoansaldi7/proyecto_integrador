@@ -15,23 +15,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-  @Id
-  private UUID id;
-  private String name;
-  private String email;
-  private String password;
-  private String phoneNumber;
-  private String imgProfileUrl;
+    @Id
+    private UUID id;
+    private String name;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String imgProfileUrl;
 
-  @Enumerated(EnumType.STRING)
-  private Role role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-  @OneToMany(mappedBy = "user")
-  private List<Review> reviews;
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
 
-
-  public User(UUID id) {
-    this.id = id;
-  }
+    public User(UUID id) {
+        this.id = id;
+    }
 }

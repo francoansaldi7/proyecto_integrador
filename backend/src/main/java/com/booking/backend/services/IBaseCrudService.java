@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
 /**
  * Interfaz que define las operaciones básicas de un servicio CRUD genérico.
  *
- * @param <T>   El tipo de entidad para las operaciones de CRUD.
+ * @param <T>    El tipo de entidad para las operaciones de CRUD.
  * @param <TDto> El tipo de objeto DTO (Data Transfer Object) para las operaciones de CRUD.
  */
 public interface IBaseCrudService<T, TDto> {
@@ -51,10 +51,10 @@ public interface IBaseCrudService<T, TDto> {
      *
      * @param t La entidad a actualizar.
      * @return El DTO que representa la entidad actualizada.
-     * @throws NoEntityToUpdateException Si la entidad a actualizar no existe.
+     * @throws NoEntityToUpdateException                              Si la entidad a actualizar no existe.
      * @throws TheNecessaryEntitiesForTheOperationDoNotExistException Si no existen las entidades necesarias para la operación
      */
-    TDto update(UUID id ,@Valid T t) throws RuntimeException;
+    TDto update(UUID id, @Valid T t) throws RuntimeException;
 
     /**
      * Actualiza solo alguno de los parámetros de una entidad existente.
