@@ -12,23 +12,23 @@ import lombok.Getter;
 @Entity
 @Getter
 public class Review {
-  @Id
-  private UUID id;
-  private String comment;
-  private String description;
-  private float rating;
-  private LocalDate date;
+    @Id
+    private UUID id;
+    private String comment;
+    private String description;
+    private float rating;
+    private LocalDate date;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-  @ManyToOne
-  @JoinColumn(name = "service_id")
-  private Services service;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Services service;
 
-  public Review(UUID id) {
-    this.id = id;
-  }
+    public Review(UUID id) {
+        this.id = id;
+    }
 
 }

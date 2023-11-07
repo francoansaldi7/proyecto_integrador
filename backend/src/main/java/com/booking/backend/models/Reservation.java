@@ -15,21 +15,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Reservation {
-  @Id
-  private UUID id;
-  @ManyToOne
-  private Services service;
-  
-  @ManyToOne
-  private User user;
-  private LocalDate startingDatetime;
-  private LocalDate endingDatetime;
-  private float totalPrice;
+    @Id
+    private UUID id;
+    @ManyToOne
+    private Services service;
 
-  @Enumerated(EnumType.STRING)
-  private Status status;
-  
-  public Reservation(UUID id) {
-    this.id = id;
-  }
+    @ManyToOne
+    private User user;
+    private LocalDate startingDatetime;
+    private LocalDate endingDatetime;
+    private float totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public Reservation(UUID id) {
+        this.id = id;
+    }
 }

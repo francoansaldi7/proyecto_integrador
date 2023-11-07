@@ -2,17 +2,20 @@ import { Link } from "react-router-dom";
 
 const NavPagination = () => {
   return (
+
+    // Add functionality to nav page, change span 1000 for service.length
     <nav
         className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
         aria-label="Table navigation"
       >
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+
           Mostrando
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white">
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
             1-10
           </span>
           de
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white">
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
             1000
           </span>
         </span>
