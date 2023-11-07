@@ -32,7 +32,7 @@ function Header() {
               className="h-[40px] w-[40px] mt-[-5px]"
             />
           </Link>
-          <h1 className="mt-1 ml-[7px] text-2xl text-primary">GloCast</h1>
+          <h1 className="mt-1 ml-[7px] mr-[20px] text-2xl text-primary">GloCast</h1>
         </div>
 
         <div className="relative">
@@ -40,15 +40,19 @@ function Header() {
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>}
         { isShowing && <div className="bg-primary md:bg-transparent md:rounded-none md:p-0 md:w-[unset] md:h-[unset] absolute md:static rounded-[8px] p-4 right-[16px] w-[80vw] h-[42vh]">
           <nav className="h-full">
+
             <ul className="flex gap-10 flex-row text-background md:text-primary mr-20 md:flex-row text-[22px] md:text-[18px] h-full font-medium md:text-sm md:gap-4">
               <li className="mt-2 hover:text-violet-600 md:ml-5">
-                <Link to="#section2">About Us</Link>
+                <Link to="#section2">Sobre nosotros</Link>
+
               </li>
               <li className="mt-2 hover:text-violet-600">
-                <Link to="#section3">Contact</Link>
+                <Link to="#section3">Contacto</Link>
               </li>
+
               <li className="mr-20 mt-2 hover:text-violet-600 md:mr-5">
-                <Link to="#section1">Products & Services</Link>
+                <Link to="#section1">Productos y Servicios</Link>
+
               </li>
               <li className="mr-56 mt-1 md:mr-0">
                 <SearchBar className="md:hidden sm:hidden"/>
