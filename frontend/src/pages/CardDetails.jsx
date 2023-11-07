@@ -91,14 +91,15 @@ function CardDetails() {
         </div>
         <div className="flex justify-end mr-14 mt-[-60px] text-[130%]">
           <button
+
             className="hover:text-pink-200 text-slate-200 mt-6"
             onClick={() => handleCarrousel()}>
-            view more...
+            ver mas...
           </button>
         </div>
         <div className="p-5 ml-6 mt-[-5px] flex flex-col">
           <h3 className="text-5xl font-bold text-pink-200">{service?.title}</h3>
-          <h4 className="text-pink-200 mt-2">${service?.price}/per hour</h4>
+          <h4 className="text-pink-200 mt-2">${service?.price}/por hora</h4>
         </div>
 
         <div className="p-10 m-10 mt-[-10px] rounded-md bg-secondary shadow-md shadow-black/30">
@@ -122,8 +123,9 @@ function CardDetails() {
         <div className="flex justify-end mr-20 mb-10">
           <Link
             to=""
+
             className="w-[120px] text-white bg-secondary hover:bg-pink-200 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">
-            Book Now!
+            Reservar ahora!
           </Link>
         </div>
       </div>
