@@ -14,7 +14,7 @@ public class S3Client {
         return AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withRegion(Regions.US_WEST_2)
+                .withRegion(Regions.SA_EAST_1)
                 .build();
 
     }
