@@ -5,17 +5,16 @@ const NavPagination = () => {
 
     // Add functionality to nav page, change span 1000 for service.length
     <nav
-        className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+        className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 min-[375px]:m-8"
         aria-label="Table navigation"
       >
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-
-          Mostrando
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
+          Showing
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600 sm-text-slate-600 sm:text-black min-[375px]:text-black">
             1-10
           </span>
-          de
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
+          of
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600 sm-text-slate-600 sm:text-black min-[375px]:text-black">
             1000
           </span>
         </span>
