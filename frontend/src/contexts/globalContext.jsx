@@ -53,6 +53,7 @@ const GlobalContextProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
         },
         body: JSON.stringify(service),
       });
@@ -84,6 +85,7 @@ const GlobalContextProvider = ({ children }) => {
                   }),
                   headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
                   },
                 }
               );
@@ -104,7 +106,7 @@ const GlobalContextProvider = ({ children }) => {
       }
       return serviceSaved;
     } catch (error) {
-      console.error("Error saving the service", error);
+      throw new Error(error);
     }
   },
   [getAllServices]

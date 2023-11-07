@@ -5,12 +5,11 @@ import { Link, useLocation } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { AuthContex } from '../contexts/AuthContex';
-import Swal from "sweetalert2";
+import { useContext } from "react";
 
 function Login() {
   //Contexto Global de Auth
-  const { loginFunction, isLogged } = useContext(AuthContex);
-  const navigator = useNavigate();
+  const { authenticateUser } = useContext(AuthContex);
 
   //Desde el login
   const { state } = useLocation();
@@ -19,7 +18,7 @@ function Login() {
   console.log(prevPath);
 
   const validationSchema = Yup.object({
-    email: Yup.string()
+    username: Yup.string()
       .email("Formato del email inválido")
       .required("Requerido"),
     password: Yup.string()
@@ -28,28 +27,17 @@ function Login() {
   });
 
   const onSubmitLogin = (values) => {
-    loginFunction(values.email, values.password, isInBooking, prevPath);
+    authenticateUser(values.username, values.password);
   };
 
-  const MySwal = () => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Necesitas estar logueado",
-    });
-  };
-
-  useEffect(() => {
-    prevPath ? MySwal() : "";
-  }, []);
 
   return (
     
-    <main>
+    <main className="min-h-screen pt-[200px]">
         <div>hola</div>
       <Formik
         validationSchema={validationSchema}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ username: "", password: "" }}
         onSubmit={(values) => {
           onSubmitLogin(values);
         }}
@@ -66,23 +54,23 @@ function Login() {
           <div className="">
             <h2 className="">Iniciar sesión</h2>
             <form className="" noValidate onSubmit={handleSubmit}>
-              <label className="" htmlFor="email">
+              <label className="" htmlFor="username">
                 Correo electrónico
               </label>
 
               <input
                 className=""
-                type="email"
+                type="username"
                 placeholder="Ingrese su email"
-                id="email"
-                name="email"
+                id="username"
+                name="username"
                 required
                 onChange={handleChange}
-                onBlur={() => setFieldTouched("email")}
-                value={values.email}
+                onBlur={() => setFieldTouched("username")}
+                value={values.username}
               />
               <p className="">
-                {errors.email && touched.email && errors.email}
+                {errors.username && touched.username && errors.username}
               </p>
 
               <label className="" htmlFor="password">

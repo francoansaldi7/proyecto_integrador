@@ -1,5 +1,6 @@
 package com.booking.backend.services;
 
+import com.booking.backend.controllers.UserController.LoginRequest;
 import com.booking.backend.models.User;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface IUserService extends IBaseCrudService<User, User> {
 
     User save(User user);
 
-    String getToken(User user);
+    String getToken(String username, String password);
 }

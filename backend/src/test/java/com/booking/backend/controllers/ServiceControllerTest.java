@@ -124,7 +124,7 @@ void testupdate() {
 }
 
 @Test
-void testdeleteById() {
+void testdeleteById() throws Exception {
     // Test case 1: Deleting an existing service
     // Description: Verify that the deleteById method successfully deletes an existing service
     // Preconditions: An existing service with a valid ID

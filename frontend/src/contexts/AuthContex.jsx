@@ -1,59 +1,62 @@
-import { createContext, useState } from "react";
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { createContext} from "react";
+import PropTypes from "prop-types";
+import { User } from "../components/User";
 
-export const AuthContex = createContext()
-
-
+const AuthContex = createContext()
 
 const AuthContexProvider = ({children}) => {
-
-  const navigator = useNavigate();  
-    
-
-  const [userData, setUserData] = useState({name:"",lastName:"",email:""})
-  const [isLogged, setIsLogged] = useState(false)
-
-  const loginFunction = (email, password, isInBooking , prevPath ) =>{
-
-    axios.post('', {
-      username: email,
-      password: password
-    })
-    .then(function (response) {
-      if(response.status === 200){
-           setIsLogged(true)
-          localStorage.setItem("JWT", JSON.stringify(response.data.token));         
-          setUserData({name:response.data.user?.firstName, lastName:response.data.user?.lastName, email:response.data.user?.email }) 
-          
-          navigator(isInBooking ? prevPath : "/Home")
-                   
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
+/**
+ * Saves user data to a server using a POST request.
+ * 
+ * @param {string} name - The name of the user.
+ * @param {string} username - The username of the user.
+ * @param {string} email - The email of the user.
+ * @param {string} password - The password of the user.
+ * @param {number} [role=1] - The role of the user. Defaults to 1. 1 = USER, 2 = ADMIN
+ * @throws {Error} If an error occurs during the fetch request.
+ */
+const saveUser = (name, username, email, password, role = 1) => {
+  const user = new User(name, username, email, password, role);
+  try {
+    fetch('http://localhost:8080/api/v1/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
     });
-
-
+  } catch (error) {
+    throw new Error(error);
   }
-
-
-
-const data = {
-    userData,
-    setUserData,
-    isLogged,
-    setIsLogged,
-    loginFunction
 }
 
+const authenticateUser = (username, password) => {
+  try {
+    const token = fetch('http://localhost:8080/api/v1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: username, password: password})
+    });
+    return token;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
+const data = {
+  saveUser,
+  authenticateUser
+}
 
-  return (
-      <AuthContex.Provider value={data}>
+return (
+  <AuthContex.Provider value={data}>
         {children}
       </AuthContex.Provider>
   )
 }
-
-export default AuthContexProvider
+AuthContexProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+export  {AuthContexProvider, AuthContex}

@@ -32,7 +32,7 @@ public class User implements Serializable, UserDetails {
 
   private String username;
 
-  @Column(unique=true, length = 255)
+  @Column(length = 255)
   private String email;
 
   @Column(length=60)
@@ -45,7 +45,7 @@ public class User implements Serializable, UserDetails {
   @JoinColumn(name = "role_id", referencedColumnName = "id")
   private Role role;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
   private List<Review> reviews;
 
   @Column(name = "last_password_reset_date")

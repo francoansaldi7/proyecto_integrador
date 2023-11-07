@@ -10,7 +10,7 @@ import { AuthContex } from '../contexts/AuthContex';
 function Register() {
     
     //Contexto Global de Auth
-    const {setUserData, userData} =  useContext(AuthContex);
+    const {saveUser} =  useContext(AuthContex);
 
     const validationSchema = Yup.object().shape({
             name: Yup.string()
@@ -18,10 +18,10 @@ function Register() {
                 .matches(/^[a-zA-Z]+$/, 'Nombre inválido')
                 .max(30, 'Nombre demasiado largo')
                 .required('Este campo es Obligatorio'),
-            lastName: Yup.string()
-                .min(4, 'Apellido demasiado corto')
-                .matches(/^[a-zA-Z]+$/, 'Apellido inválido')
-                .max(30, 'Apellido demasiado largo')
+            username: Yup.string()
+                .min(4, 'Nombre de Usuario demasiado corto')
+                .matches(/^[a-zA-Z]+$/, 'Nombre de Usuario inválido')
+                .max(30, 'Nombre de Usuario demasiado largo')
                 .required('Este campo es Obligatorio'),
             email: Yup.string()
                 .email('Formato del email inválido')
@@ -37,20 +37,12 @@ function Register() {
     
         const onSubmitRegistre = (values) => {
 
-        setUserData(
-            {
-                ...userData,
-                name: values.name,
-                lastName : values.lastName,
-                email : values.email,
-                password : values.password
-            }
-        )
+            saveUser(values.name, values.username, values.email, values.password);
         
     }
 
     return (
-        <main className="flex flex-col bg-primary" >
+        <main className="pt-[200px] flex flex-col min-h-screen bg-primary" >
             <Formik 
             validationSchema={validationSchema}
             initialValues={{name: "", lastName: "", email: "", password: "", confirmPassword: ""}}

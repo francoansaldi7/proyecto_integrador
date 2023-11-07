@@ -2,14 +2,19 @@ package com.booking.backend.controllers;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
@@ -23,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.booking.backend.models.User;
+import com.booking.backend.repository.IUserRepository;
 import com.booking.backend.services.impl.UserService;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -34,43 +41,22 @@ public class UserController {
   @Autowired
   private AuthenticationManager authenticationManager;
 
+  @Autowired
+  private IUserRepository userRepository;
 
   @Autowired
   private JwtEncoder encoder;
 
-  @GetMapping("/test")
-  public void test () {
-    
-  }
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
+
+
+  public record LoginRequest(String username, String password) {}
   @PostMapping("/login")
   public String getAuthentication(@RequestBody LoginRequest loginRequest) {
-      Instant now = Instant.now();
-		long expiry = 36000L;
-    System.out.println("Login request: " + loginRequest.toString());
-    Authentication authenticationRequest =
-			UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.username(), loginRequest.password());
-
-		Authentication authentication =
-			this.authenticationManager.authenticate(authenticationRequest);
-    System.out.println("Authentication: " + authentication.getAuthorities());
-		String scope = authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority)
-				.collect(Collectors.joining(" "));
-    System.out.println("Scope: " + scope);
-		JwtClaimsSet claims = JwtClaimsSet.builder()
-				.issuer("self")
-				.issuedAt(now)
-				.expiresAt(now.plusSeconds(expiry))
-				.subject(authentication.getName())
-				.claim("rol", scope)
-				.build();
-
-    System.out.println("Claims: " + claims);
-		// @formatter:on
-		return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
-  }
-  public record LoginRequest(String username, String password) {
-	}
+     return userService.getToken(loginRequest.username, loginRequest.password);
+    }
+  
   /**
    * Retrieves all users.
    *

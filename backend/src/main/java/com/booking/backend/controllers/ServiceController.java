@@ -78,24 +78,24 @@ public class ServiceController {
 
 
   @PostMapping
-  public ResponseEntity<?> createService(
-   @RequestHeader(value = "AuthorizationToken") String token ,@RequestBody Services service) throws Exception {
-    try {
-      verifyRoleService.verifyUser(token, "ROLE_ADMIN");
+  @PreAuthorize("hasAuthority('USER')")
+  public ResponseEntity<?> createService(@RequestBody Services service) throws Exception {
+    // try {
+    //   // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
       
-    } catch (JwtException e) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    }
+    // } catch (JwtException e) {
+    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+    // }
     return ResponseEntity.ok().body(serviceService.save(service));
   }
 
    @PostMapping("/{serviceId}/images")
-  public ResponseEntity<?> createServiceImages(@RequestHeader(value = "AuthorizationToken") String token,@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws Exception {
-    try {
-      verifyRoleService.verifyUser(token, "ROLE_ADMIN");
-    } catch (JwtException e) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    }
+  public ResponseEntity<?> createServiceImages(@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws Exception {
+    // try {
+    //    // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
+    // } catch (JwtException e) {
+    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+    // }
     String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
     return ResponseEntity.ok().body(serviceService.uploadImage(serviceId, base64Image, false, fileName));
@@ -131,12 +131,12 @@ public class ServiceController {
    * @throws Exception
    */
   @DeleteMapping("/{serviceId}")
-  public ResponseEntity<?> deleteById(@RequestHeader(value = "AuthorizationToken") String token,@PathVariable UUID serviceId) throws Exception {
-    try {
-      verifyRoleService.verifyUser(token, "ROLE_ADMIN");
-    } catch (JwtException e) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    }
+  public ResponseEntity<?> deleteById(@PathVariable UUID serviceId) throws Exception {
+    // try {
+    //    // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
+    // } catch (JwtException e) {
+    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+    // }
     return ResponseEntity.ok().body(serviceService.deleteById(serviceId));
   }
 }
