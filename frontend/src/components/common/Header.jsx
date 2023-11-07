@@ -32,7 +32,7 @@ function Header() {
               className="h-[40px] w-[40px] mt-[-5px]"
             />
           </Link>
-          <h1 className="mt-1 ml-[7px] text-2xl text-primary">GloCast</h1>
+          <h1 className="mt-1 ml-[7px] mr-[20px] text-2xl text-primary">GloCast</h1>
         </div>
 
         <div className="relative">
@@ -40,25 +40,29 @@ function Header() {
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>}
         { isShowing && <div className="bg-primary md:bg-transparent md:rounded-none md:p-0 md:w-[unset] md:h-[unset] absolute md:static rounded-[8px] p-4 right-[16px] w-[80vw] h-[42vh]">
           <nav className="h-full">
-            <ul className="flex gap-10 flex-row text-background md:text-primary mr-20 md:flex-row text-[22px] md:text-[18px] justify-around h-full font-medium">
-              <li className="mt-2 hover:text-violet-600">
-                <Link to="#section2">About Us</Link>
+
+            <ul className="flex gap-10 flex-row text-background md:text-primary mr-20 md:flex-row text-[22px] md:text-[18px] h-full font-medium md:text-sm md:gap-4">
+              <li className="mt-2 hover:text-violet-600 md:ml-5">
+                <Link to="#section2">Sobre nosotros</Link>
+
               </li>
               <li className="mt-2 hover:text-violet-600">
-                <Link to="#section3">Contact</Link>
+                <Link to="#section3">Contacto</Link>
               </li>
-              <li className="mr-20 mt-2 hover:text-violet-600">
-                <Link to="#section1">Products & Services</Link>
+
+              <li className="mr-20 mt-2 hover:text-violet-600 md:mr-5">
+                <Link to="#section1">Productos y Servicios</Link>
+
               </li>
-              <li className="mr-56 mt-1">
+              <li className="mr-56 mt-1 md:mr-0">
                 <SearchBar className="md:hidden sm:hidden"/>
               </li>
 
-              <li className="hover:text-violet-600">
+              <li className="hover:text-violet-600 md:mr-[-10px]">
                 <Link to="/register"><button className="w-[150px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
               </li>
               <li className="hover:text-violet-600">
-                <Link to="/login"><button className="w-[150px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p>Iniciar Sesion</p></button></Link>
+                <Link to="/login"><button className="w-[150px] h-[35px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle md:mr-[-25px]"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p>Iniciar Sesion</p></button></Link>
               </li>
             </ul>
           </nav>

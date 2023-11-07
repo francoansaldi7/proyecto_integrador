@@ -25,51 +25,51 @@ import com.booking.backend.services.impl.ServiceService;
 @RestController
 @RequestMapping("/api/v1/services")
 public class ServiceController {
-  @Autowired
-  private ServiceService serviceService;
+    @Autowired
+    private ServiceService serviceService;
 
-  public List<Services> getSomeServices(int quantity) {
-    return serviceService.getSomeServices(quantity);
-  }
-  
-  /**
-   * Retrieves all services.
-   *
-   * @return List of services.
-   */
-  @GetMapping
-  public List<Services> findAll() {
-    return serviceService.findAll();
-  }
+    public List<Services> getSomeServices(int quantity) {
+        return serviceService.getSomeServices(quantity);
+    }
 
-  /**
-   * Retrieves a service by its ID.
-   *
-   * @param serviceId The ID of the service to retrieve.
-   * @return The service with the specified ID.
-   */
-  @GetMapping("/{serviceId}")
-  public Optional<Services> findByIdById(@PathVariable UUID serviceId) {
-    return serviceService.findById(serviceId);
-  }
+    /**
+     * Retrieves all services.
+     *
+     * @return List of services.
+     */
+    @GetMapping
+    public List<Services> findAll() {
+        return serviceService.findAll();
+    }
 
-  /**
-   * Creates a new service.
-   *
-   * @param service The service to be created.
-   * @return The created service.
-   */
-  @PostMapping
-  public Services createService(@RequestBody Services service) {
-    return serviceService.save(service);
-  }
+    /**
+     * Retrieves a service by its ID.
+     *
+     * @param serviceId The ID of the service to retrieve.
+     * @return The service with the specified ID.
+     */
+    @GetMapping("/{serviceId}")
+    public Optional<Services> findByIdById(@PathVariable UUID serviceId) {
+        return serviceService.findById(serviceId);
+    }
 
-   @PostMapping("/{serviceId}/images")
-  public Services createServiceImages(@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws IOException {
-    String base64Image = imageData.get("base64Image");
+    /**
+     * Creates a new service.
+     *
+     * @param service The service to be created.
+     * @return The created service.
+     */
+    @PostMapping
+    public Services createService(@RequestBody Services service) {
+        return serviceService.save(service);
+    }
+
+    @PostMapping("/{serviceId}/images")
+    public Services createServiceImages(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
+        String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
-    return serviceService.uploadImage(serviceId, base64Image, false, fileName);
-  }
+        return serviceService.uploadImage(serviceId, base64Image, false, fileName);
+    }
 
 
   //@CrossOrigin(value = {"http://localhost:5173"})
@@ -78,29 +78,30 @@ public class ServiceController {
     String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
 
-    System.out.println("IMAGE NAME: " + base64Image);
-    
-    return serviceService.uploadImage(serviceId, base64Image, true, fileName);
-  }
-  /**
-   * Updates an existing service.
-   *
-   * @param serviceId      The ID of the service to update.
-   * @param updatedService The service object with the updated information.
-   * @return The updated service.
-   */
-  @PutMapping("/{serviceId}")
-  public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
-    return serviceService.update(serviceId, updatedService);
-  }
+        System.out.println("IMAGE NAME: " + base64Image);
 
-  /**
-   * Deletes a service by its ID.
-   *
-   * @param serviceId The ID of the service to delete.
-   */
-  @DeleteMapping("/{serviceId}")
-  public Boolean deleteById(@PathVariable UUID serviceId) {
-    return serviceService.deleteById(serviceId);
-  }
+        return serviceService.uploadImage(serviceId, base64Image, true, fileName);
+    }
+
+    /**
+     * Updates an existing service.
+     *
+     * @param serviceId      The ID of the service to update.
+     * @param updatedService The service object with the updated information.
+     * @return The updated service.
+     */
+    @PutMapping("/{serviceId}")
+    public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
+        return serviceService.update(serviceId, updatedService);
+    }
+
+    /**
+     * Deletes a service by its ID.
+     *
+     * @param serviceId The ID of the service to delete.
+     */
+    @DeleteMapping("/{serviceId}")
+    public Boolean deleteById(@PathVariable UUID serviceId) {
+        return serviceService.deleteById(serviceId);
+    }
 }

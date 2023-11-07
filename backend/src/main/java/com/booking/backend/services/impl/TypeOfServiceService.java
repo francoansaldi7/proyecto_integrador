@@ -15,39 +15,39 @@ import jakarta.validation.Valid;
 
 @Service
 public class TypeOfServiceService implements ITypeOfServiceService {
-  @Autowired
-  private ITypeOfServiceRepository typeOfServiceRepository;
+    @Autowired
+    private ITypeOfServiceRepository typeOfServiceRepository;
 
-  @Override
-  public TypesOfServices save(@Valid TypesOfServices typesOfService) {
-    return typeOfServiceRepository.save(typesOfService);
-  }
+    @Override
+    public TypesOfServices save(@Valid TypesOfServices typesOfService) {
+        return typeOfServiceRepository.save(typesOfService);
+    }
 
-  @Override
-  public List<TypesOfServices> findAll() {
-    return typeOfServiceRepository.findAll();
-  }
+    @Override
+    public List<TypesOfServices> findAll() {
+        return typeOfServiceRepository.findAll();
+    }
 
-  
-  public Optional<TypesOfServices> findById(Long id) {
-    return typeOfServiceRepository.findById(id);
-  }
 
-  @Override
-  public Boolean deleteById(UUID id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-  }
+    public Optional<TypesOfServices> findById(Long id) {
+        return typeOfServiceRepository.findById(id);
+    }
 
-  @Override
-  public TypesOfServices update(UUID id, @Valid TypesOfServices t) throws RuntimeException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
-  }
+    @Override
+    public Boolean deleteById(UUID id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    }
 
-  @Override
-  public Optional<TypesOfServices> findById(UUID id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'findById'");
-  }
+    @Override
+    public TypesOfServices update(UUID id, @Valid TypesOfServices t) throws RuntimeException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public Optional<TypesOfServices> findById(UUID id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
 }

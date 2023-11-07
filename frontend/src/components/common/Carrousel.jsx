@@ -13,7 +13,7 @@ const Carrousel = ({img, gallery}) => {
   return (
     <>
     <div className="bg-black/80 min-h-screen min-w-screen z-20 fixed top-0">
-
+  
     </div>
     <div className="fixed container bg-secondary z-10 p-4  rounded-lg w-[70vw] mx-[15vw] my-[10vh] top-0 left-0">
     <Swiper
@@ -24,11 +24,10 @@ const Carrousel = ({img, gallery}) => {
             loop={true}
             pagination={{ clickable: true }}
             modules={[Navigation, Pagination]}
-            
           >
-            <SwiperSlide><img src={img} alt="test image" className=" w-full h-[70vh] object-cover" /></SwiperSlide>
+            <SwiperSlide><img src={img} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /></SwiperSlide>
             {gallery.map((img, index) => (
-              <SwiperSlide key={index}><img src={img.imageUrl} alt="test image" className=" w-full h-[70vh] object-cover" /></SwiperSlide>
+              <SwiperSlide key={index}><img src={img.imageUrl} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /></SwiperSlide>
             ))}
             
           </Swiper>
