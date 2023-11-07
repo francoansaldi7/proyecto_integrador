@@ -124,7 +124,7 @@ function Home() {
               spin
             />
 
-             {/* <h1>No services</h1>
+            {/* <h1>No services</h1>
             <p>Para traer las cards desde el backend, parate en el directorio del backend backend/ y ejecuta: mvn clean install, y luego java -jar target/backend-0.0.1-SNAPSHOT.jar
 
               NOTA: Asegurate de tener java 17 o superior
