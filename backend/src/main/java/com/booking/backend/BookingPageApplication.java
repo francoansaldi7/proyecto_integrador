@@ -15,28 +15,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class BookingPageApplication implements CommandLineRunner {
+public class BookingPageApplication {
 
-     private static final Logger logger = LoggerFactory.getLogger(BookingPageApplication.class);
-
-    private final Environment env;
-
-    public BookingPageApplication(Environment env) {
-        this.env = env;
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-
-        logger.info("{}", env.getProperty("JAVA_HOME"));
-        logger.info("{}", env.getProperty("test.vault.dev"));
-    }
-    
-	public static void main(String[] args) {
-
+    public static void main(String[] args) {
         SpringApplication.run(BookingPageApplication.class, args);
-	}
-   @Bean
+    }
+
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Value("${cors.allowedOrigins}")

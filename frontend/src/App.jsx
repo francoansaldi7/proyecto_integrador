@@ -11,6 +11,12 @@ import Register from "./pages/Register";
 import CardDetails from './pages/CardDetails';
 import Dashboard from './pages/Dashboard';
 import ConfirmRegistration from './pages/ConfirmRegistration';
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+library.add(fab, fas, far)
 
 
 function App() {

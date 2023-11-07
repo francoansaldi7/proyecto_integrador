@@ -7,16 +7,16 @@ function Footer() {
   return (
     <>
     <div className="bg-primary text-white h-60">
-      <p className="flex flex-row justify-center text-xl bg-primary p-5">Thank's for visiting GloCast!</p>
+      <p className="flex flex-row justify-center text-xl bg-primary p-5">¡Gracias por visitar GloCast!</p>
 
       <div className="flex justify-center">
         <Link to="/"><img src="\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>
       </div>
 
       <div className="flex flex-row justify-center text-lg bg-primary mt-6 gap-10">
-          <Link to="#section2"><p className="hover:text-violet-300">About Us</p></Link>
-          <Link to="#section1"><p className="hover:text-violet-300">Products & Services</p></Link>
-          <Link to="#section3"><p className="hover:text-violet-300">Contact</p></Link>
+          <Link to="#section2"><p className="hover:text-violet-300">Sobre nosotros</p></Link>
+          <Link to="#section1"><p className="hover:text-violet-300">Productos y Servicios</p></Link>
+          <Link to="#section3"><p className="hover:text-violet-300">Contacto</p></Link>
       </div>
 
     <div className="mt-4">

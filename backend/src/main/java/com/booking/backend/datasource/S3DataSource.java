@@ -71,7 +71,7 @@ public class S3DataSource {
             tagSet.add(new Tag("public", "true"));
             // Upload the image to Amazon S3
             s3Client.getClientAWS(accessKeyId, accessSecKey).putObject(bucketName, fileName, inputStream, metadata);
-            
+
             s3Client.getClientAWS(accessKeyId, accessSecKey).setObjectTagging(new SetObjectTaggingRequest(bucketName, fileName, new ObjectTagging(tagSet)));
             // Generar una URL prefirmada para acceder a la imagen
             // GeneratePresignedUrlRequest generatePresignedUrlRequest = new

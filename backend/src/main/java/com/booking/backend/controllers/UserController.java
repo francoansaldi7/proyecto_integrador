@@ -35,8 +35,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
   @Autowired
   private AuthenticationManager authenticationManager;

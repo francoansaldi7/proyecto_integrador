@@ -8,6 +8,8 @@ import PrincipalBanner from "../components/common/PrincipalBanner";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { GlobalContext } from "../contexts/globalContext";
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 // Import Swiper styles
 import "swiper/css";
@@ -20,6 +22,9 @@ import NavPagination from "../components/common/NavPagination";
 
 function Home() {
   const {unorganizedServices} = useContext(GlobalContext);
+
+  // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
+
   console.log(unorganizedServices);
   return (
     <>
@@ -59,8 +64,8 @@ function Home() {
               {({ isNext }) => (
                 <Card
                   img="https://crehana-blog.imgix.net/media/filer_public/78/d5/78d5f21a-c41b-4bac-9a03-7279a1120436/estudios-de-animacion.jpg"
-                  title={"Edit with pros"}
-                  description={"Elevate your editing skills with GloCast's Editing Course. Whether you're a novice looking to dive into the world of post-production or a seasoned pro aiming to refine your craft, our comprehensive course has you covered. Explore the art of video and photo editing in a hands-on, interactive learning environment. Our expert instructors will guide you through the latest industry-standard software and techniques, empowering you to bring your creative vision to life. Join us at GloCast and unlock your potential in the world of editing, turning your projects into visual masterpieces."}
+                  title={"Editar con profesionales"}
+                  description={"Mejore sus habilidades de edición con el curso de edición de GloCast. Ya sea que sea un novato que busca sumergirse en el mundo de la posproducción o un profesional experimentado que desea perfeccionar su oficio, nuestro curso integral lo tiene cubierto. Explore el arte de la edición de videos y fotografías en un entorno de aprendizaje interactivo y práctico. Nuestros instructores expertos lo guiarán a través de las últimas técnicas y software estándar de la industria, permitiéndole hacer realidad su visión creativa. Únase a nosotros en GloCast y libere su potencial en el mundo de la edición, convirtiendo sus proyectos en obras maestras visuales."}
                   moreBig={isNext}
                   price={1990}
                   disccount={true}
@@ -73,8 +78,8 @@ function Home() {
       
               <Card
                 img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg"
-                title={"Photo Studio"}
-                description={"Discover the perfect space to bring your creative vision to life at GloCast Photo Studio. Our state-of-the-art studios provide photographers, filmmakers, and artists with a versatile and well-equipped environment to capture stunning visuals. With top-notch lighting, props, and backdrops, GloCast is your go-to destination for professional photography and videography needs. Whether you're a seasoned pro or just starting out, our studios are designed to inspire and elevate your projects. Make your next shoot exceptional at GloCast Photo Studio Rentals."}      moreBig={isNext}
+                title={"Estudio fotográfico"}
+                description={"Descubra el espacio perfecto para dar vida a su visión creativa en GloCast Photo Studio. Nuestros estudios de última generación brindan a fotógrafos, cineastas y artistas un entorno versátil y bien equipado para capturar imágenes impresionantes. Con iluminación, accesorios y fondos de primer nivel, GloCast es su destino ideal para las necesidades de fotografía y videografía profesional. Ya sea que sea un profesional experimentado o esté comenzando, nuestros estudios están diseñados para inspirar y mejorar sus proyectos. Haga que su próxima sesión sea excepcional en GloCast Photo Studio Rentals."}      moreBig={isNext}
                 price={999}
                 disccount={true}
               />
@@ -85,8 +90,8 @@ function Home() {
       
               <Card
                 img="/testPhoto.jpg"
-                title={"Animation Studio"}
-                description={"Step into the captivating world of animation with GloCast Animation Studio. Our studio is a hub for creativity, where artists and animators come together to craft imaginative, compelling, and visually stunning animated content. From 2D to 3D animation, we offer a cutting-edge, fully-equipped environment to bring your ideas to life. Whether you're a seasoned animator or just starting your journey, GloCast is the canvas for your dreams. Our team of experienced animators and state-of-the-art technology ensures that your projects soar to new heights. Join us at GloCast Animation Studio and embark on a mesmerizing animation adventure."}      moreBig={isNext}
+                title={"Estudio de animación"}
+                description={"Adéntrate en el cautivador mundo de la animación con GloCast Animation Studio. Nuestro estudio es un centro para la creatividad, donde artistas y animadores se reúnen para crear contenido animado imaginativo, atractivo y visualmente impresionante. Desde animación 2D hasta animación 3D, ofrecemos un entorno de vanguardia y totalmente equipado para hacer realidad sus ideas. Si eres un animador experimentado o recién estás comenzando tu viaje, GloCast es el lienzo para tus sueños. Nuestro equipo de animadores experimentados y tecnología de última generación garantiza que sus proyectos alcancen nuevas alturas. Únase a nosotros en GloCast Animation Studio y embárquese en una fascinante aventura de animación."}      moreBig={isNext}
                 price={789}
                 disccount={true}
               />
@@ -98,8 +103,8 @@ function Home() {
       
               <Card
                 img="https://p0.pxfuel.com/preview/776/92/48/video-production-shoot-record.jpg"
-                title={"Photo Studio"}
-                description={"Discover the perfect space to bring your creative vision to life at GloCast Photo Studio. Our state-of-the-art studios provide photographers, filmmakers, and artists with a versatile and well-equipped environment to capture stunning visuals. With top-notch lighting, props, and backdrops, GloCast is your go-to destination for professional photography and videography needs. Whether you're a seasoned pro or just starting out, our studios are designed to inspire and elevate your projects. Make your next shoot exceptional at GloCast Photo Studio Rentals."}      moreBig={isNext}
+                title={"Estudio fotográfico"}
+                description={"Descubra el espacio perfecto para dar vida a su visión creativa en GloCast Photo Studio. Nuestros estudios de última generación brindan a fotógrafos, cineastas y artistas un entorno versátil y bien equipado para capturar imágenes impresionantes. Con iluminación, accesorios y fondos de primer nivel, GloCast es su destino ideal para las necesidades de fotografía y videografía profesional. Ya sea que sea un profesional experimentado o esté comenzando, nuestros estudios están diseñados para inspirar y mejorar sus proyectos. Haga que su próxima sesión sea excepcional en GloCast Photo Studio Rentals."}      moreBig={isNext}
                 price={999}
                 disccount={true}
               />
@@ -110,17 +115,25 @@ function Home() {
         </div>
       </div>
 
-      <div className={`p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1  bg-white md:max-lg:fle`}>
-       
+      <div id="section1" className={"p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1 bg-white md:max-lg:fle"}>
+
         {unorganizedServices.length < 1 ? (
-          <div>
-            <h1>No services</h1>
+          <div id="section1">
+            <LoadingOutlined
+              className="text-4xl text-primary ml-[73vw]"
+              spin
+            />
+
+             {/* <h1>No services</h1>
             <p>Para traer las cards desde el backend, parate en el directorio del backend backend/ y ejecuta: mvn clean install, y luego java -jar target/backend-0.0.1-SNAPSHOT.jar
 
               NOTA: Asegurate de tener java 17 o superior
-            </p>
+            </p> */}
+
           </div>
         ) : ''}
+
+        
           {unorganizedServices.map((service) => (
             <Card
               key={service.id}
@@ -133,19 +146,18 @@ function Home() {
             />
           ))}
         
-      
       </div>
-      <div className="m-5 overflow-hidden">
-        <NavPagination />
 
+      <div className="overflow-hidden bg-white">
+        <NavPagination />
       </div>
     
-    <section id="section1">
+    {/* <section id="section1">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
 
       <ProductsAndServices />
 
-    </section>
+    </section> */}
     
     <section id="section2">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>

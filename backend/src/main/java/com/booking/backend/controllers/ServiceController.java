@@ -34,8 +34,8 @@ import com.booking.backend.services.impl.VerifyRoleService;
 @RestController
 @RequestMapping("/api/v1/services")
 public class ServiceController {
-  @Autowired
-  private ServiceService serviceService;
+    @Autowired
+    private ServiceService serviceService;
 
   @Autowired
   private UserDetailsServiceImpl userDetailsService; 
@@ -47,26 +47,17 @@ public class ServiceController {
     return serviceService.getSomeServices(quantity);
   }
   
-  /**
-   * Retrieves all services.
-   *
-   * @return List of services.
-   */
-  @GetMapping
-  public List<Services> findAll() {
-    return serviceService.findAll();
-  }
 
-  /**
-   * Retrieves a service by its ID.
-   *
-   * @param serviceId The ID of the service to retrieve.
-   * @return The service with the specified ID.
-   */
-  @GetMapping("/{serviceId}")
-  public Optional<Services> findByIdById(@PathVariable UUID serviceId) {
-    return serviceService.findById(serviceId);
-  }
+
+    /**
+     * Retrieves all services.
+     *
+     * @return List of services.
+     */
+    @GetMapping
+    public List<Services> findAll() {
+        return serviceService.findAll();
+    }
 
   /**
    * Creates a new service.
@@ -108,35 +99,30 @@ public class ServiceController {
     String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
 
-    System.out.println("IMAGE NAME: " + base64Image);
-    
-    return serviceService.uploadImage(serviceId, base64Image, true, fileName);
-  }
-  /**
-   * Updates an existing service.
-   *
-   * @param serviceId      The ID of the service to update.
-   * @param updatedService The service object with the updated information.
-   * @return The updated service.
-   */
-  @PutMapping("/{serviceId}")
-  public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
-    return serviceService.update(serviceId, updatedService);
-  }
+        System.out.println("IMAGE NAME: " + base64Image);
 
-  /**
-   * Deletes a service by its ID.
-   *
-   * @param serviceId The ID of the service to delete.
-   * @throws Exception
-   */
-  @DeleteMapping("/{serviceId}")
-  public ResponseEntity<?> deleteById(@PathVariable UUID serviceId) throws Exception {
-    // try {
-    //    // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
-    // } catch (JwtException e) {
-    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    // }
-    return ResponseEntity.ok().body(serviceService.deleteById(serviceId));
-  }
+        return serviceService.uploadImage(serviceId, base64Image, true, fileName);
+    }
+
+    /**
+     * Updates an existing service.
+     *
+     * @param serviceId      The ID of the service to update.
+     * @param updatedService The service object with the updated information.
+     * @return The updated service.
+     */
+    @PutMapping("/{serviceId}")
+    public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
+        return serviceService.update(serviceId, updatedService);
+    }
+
+    /**
+     * Deletes a service by its ID.
+     *
+     * @param serviceId The ID of the service to delete.
+     */
+    @DeleteMapping("/{serviceId}")
+    public Boolean deleteById(@PathVariable UUID serviceId) {
+        return serviceService.deleteById(serviceId);
+    }
 }

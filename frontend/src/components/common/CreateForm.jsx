@@ -68,10 +68,10 @@ const CreateForm = ({ closeForm }) => {
       savedService = await saveService(service, selectedImages);
       setIsLoading(false);
       closeForm();
-      toast.success("Service created successfully!");
+      toast.success("¡Servicio creado exitosamente!");
     } catch (error) {
       setIsLoading(false);
-      toast.error("An error occurred while creating the service.");
+      toast.error("Se produjo un error al crear el servicio.");
     }
     console.log(savedService);
   };
@@ -163,7 +163,7 @@ const CreateForm = ({ closeForm }) => {
             >
               <AiOutlineClose />
 
-              <span className="sr-only">Close modal</span>
+              <span className="sr-only">Cerrar Modal</span>
             </button>
           </div>
           {/* <!-- Modal body --> */}
@@ -174,14 +174,14 @@ const CreateForm = ({ closeForm }) => {
                   htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Service Name
+                  Nombre del Servicio
                 </label>
                 <input
                   type="text"
                   name="name"
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Type service name"
+                  placeholder="Escriba el nombre del servicio"
                   required=""
                   onChange={handleServiceName}
                   value={serviceName}
@@ -192,7 +192,7 @@ const CreateForm = ({ closeForm }) => {
                   htmlFor="category"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Category
+                  Categoria
                 </label>
                 <select
                   id="category"
@@ -220,14 +220,14 @@ const CreateForm = ({ closeForm }) => {
                   htmlFor="rating"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Rating
+                  Calificacion
                 </label>
                 <input
                   type="number"
                   name="rating"
                   id="rating"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary-500"
-                  placeholder="Service Rating"
+                  placeholder="Calificación del servicio"
                   required=""
                   onChange={handleRating}
                   value={rating}
@@ -238,7 +238,7 @@ const CreateForm = ({ closeForm }) => {
                   htmlFor="price"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Price Per Hour
+                  Precio Por Hora
                 </label>
                 <input
                   type="number"
@@ -257,7 +257,7 @@ const CreateForm = ({ closeForm }) => {
                   htmlFor="description"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Description
+                  Descripcion
                 </label>
                 <textarea
                   id="description"
@@ -273,7 +273,7 @@ const CreateForm = ({ closeForm }) => {
 
             <div className="mb-4">
               <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Product Images
+              Imágenes del producto
               </span>
               <div className="flex justify-center items-center w-full">
                 <label
@@ -283,8 +283,8 @@ const CreateForm = ({ closeForm }) => {
                   <div className="flex flex-col justify-center items-center pt-5 pb-6">
                     <AiOutlineCloudUpload className="w-10 h-10 mb-3 text-gray-400" />
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span>
-                      or drag and drop
+                      <span className="font-semibold">Haga clic para cargar</span>
+                      o arrastrar y soltar
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       SVG, PNG, JPG or GIF (MAX. 800x400px)
@@ -327,7 +327,7 @@ const CreateForm = ({ closeForm }) => {
                 type="submit"
                 className="w-full sm:w-auto justify-center text-white inline-flex bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-secondary-dark dark:focus:ring-primary-dark relative"
               >
-                Add Service
+                Agregar servicio
               </button>
               {/* <button className="w-full sm:w-auto text-white justify-center inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 <svg
@@ -345,7 +345,7 @@ const CreateForm = ({ closeForm }) => {
                 className="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               >
                 <AiOutlineClose className="mr-1 -ml-1 w-5 h-5" />
-                Discard
+                Desechar
               </button>
             </div>
           </form>
