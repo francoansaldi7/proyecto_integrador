@@ -20,60 +20,60 @@ import com.booking.backend.services.impl.ReviewService;
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
-   @Autowired
-  private ReviewService reviewService;
+    @Autowired
+    private ReviewService reviewService;
 
-  /**
-   * Retrieves all reviews.
-   *
-   * @return List of reviews.
-   */
-  @GetMapping
-  public List<Review> getAllReviews() {
-    return reviewService.getAllReviews();
-  }
+    /**
+     * Retrieves all reviews.
+     *
+     * @return List of reviews.
+     */
+    @GetMapping
+    public List<Review> getAllReviews() {
+        return reviewService.getAllReviews();
+    }
 
-  /**
-   * Retrieves a review by its ID.
-   *
-   * @param reviewId The ID of the review to retrieve.
-   * @return The review with the specified ID.
-   */
-  @GetMapping("/{reviewId}")
-  public Review getReviewById(@PathVariable UUID reviewId) {
-    return reviewService.getReview(reviewId);
-  }
+    /**
+     * Retrieves a review by its ID.
+     *
+     * @param reviewId The ID of the review to retrieve.
+     * @return The review with the specified ID.
+     */
+    @GetMapping("/{reviewId}")
+    public Review getReviewById(@PathVariable UUID reviewId) {
+        return reviewService.getReview(reviewId);
+    }
 
-  /**
-   * Creates a new review.
-   *
-   * @param review The review to be created.
-   * @return The created review.
-   */
-  @PostMapping
-  public Review createReview(@RequestBody Review review) {
-    return reviewService.saveReview(review);
-  }
+    /**
+     * Creates a new review.
+     *
+     * @param review The review to be created.
+     * @return The created review.
+     */
+    @PostMapping
+    public Review createReview(@RequestBody Review review) {
+        return reviewService.saveReview(review);
+    }
 
-  /**
-   * Updates an existing review.
-   *
-   * @param reviewId      The ID of the review to update.
-   * @param updatedReview The review object with the updated information.
-   * @return The updated review.
-   */
-  @PutMapping("/{reviewId}")
-  public Review updateReview(@PathVariable UUID reviewId, @RequestBody Review updatedReview) {
-    return reviewService.updateReview(reviewId, updatedReview);
-  }
+    /**
+     * Updates an existing review.
+     *
+     * @param reviewId      The ID of the review to update.
+     * @param updatedReview The review object with the updated information.
+     * @return The updated review.
+     */
+    @PutMapping("/{reviewId}")
+    public Review updateReview(@PathVariable UUID reviewId, @RequestBody Review updatedReview) {
+        return reviewService.updateReview(reviewId, updatedReview);
+    }
 
-  /**
-   * Deletes a review by its ID.
-   *
-   * @param reviewId The ID of the review to delete.
-   */
-  @DeleteMapping("/{reviewId}")
-  public void deleteReview(@PathVariable UUID reviewId) {
-    reviewService.deleteReview(reviewId);
-  }
+    /**
+     * Deletes a review by its ID.
+     *
+     * @param reviewId The ID of the review to delete.
+     */
+    @DeleteMapping("/{reviewId}")
+    public void deleteReview(@PathVariable UUID reviewId) {
+        reviewService.deleteReview(reviewId);
+    }
 }

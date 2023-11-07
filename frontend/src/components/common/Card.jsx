@@ -33,12 +33,13 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
 
         <div className="flex flex-row mb-2">
           <p className="relative text-gray-500 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">{description}</p>
-          <Link to={`/details/${id}`} state={{img, title, description, price}}><p className="mt-5 text-primary pointer hover:underline hover:text-secondary mt-4">... more</p></Link>
+
+          <Link to={`/details/${id}`} state={{img, title, description, price}}><p className="mt-5 text-primary pointer hover:underline hover:text-secondary mt-4">... mas</p></Link>
         </div>
             
         <div className="flex items-center justify-between gap-[4px]">
-            <span className="text-2xl font-bold text-gray-900 dark:text-white">${price}/<span className="text-gray-400 text-xs font-semibold">per hour</span></span>
-            <Link to="" className="h-[40px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Book Now!</Link>
+            <span className="text-2xl font-bold text-gray-900 dark:text-white">${price}/<span className="text-gray-400 text-xs font-semibold">por hora</span></span>
+            <Link to="" className="h-[40px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Reservar ahora!</Link>
         </div>
     </div>
 </div>

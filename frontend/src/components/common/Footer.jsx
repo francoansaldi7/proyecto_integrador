@@ -7,7 +7,7 @@ function Footer() {
   return (
     <>
     <div className="bg-primary text-white h-60">
-      <p className="flex flex-row justify-center text-xl bg-primary p-5">Thank's for visiting GloCast!</p>
+      <p className="flex flex-row justify-center text-xl bg-primary p-5">¡Gracias por visitar GloCast!</p>
 
       <div className="flex justify-center">
         <Link to="/"><img src="\logoTitle.png" alt="Test Logo" className="bg-primary h-14 w-14" /></Link>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -17,11 +18,11 @@ function CardDetails() {
 
   useEffect(() => {
     console.log(services);
-    let serviceFinded = services.find((service) => service.id === id);
-    console.log(serviceFinded);
-    if (serviceFinded) {
-      console.log("serviceFinded: " + serviceFinded);
-      setService(serviceFinded);
+    let serviceFound = services.find((service) => service.id === id);
+    console.log(serviceFound);
+    if (serviceFound) {
+      console.log("serviceFound: " + serviceFound);
+      setService(serviceFound);
     } else {
       console.log("service not found");
       return navigate("/");
@@ -83,14 +84,14 @@ function CardDetails() {
           <button
             className="hover:text-pink-200 text-slate-200 mt-6 md:mt-0 lg:mt-5"
             onClick={() => handleCarrousel()}>
-            view more...
+            ver mas...
           </button>
         </div>
 
         
         <div className="p-5 ml-6 mt-[-5px] flex flex-col">
           <h3 className="text-5xl font-bold text-pink-200">{service?.title}</h3>
-          <h4 className="text-pink-200 mt-2">${service?.price}/per hour</h4>
+          <h4 className="text-pink-200 mt-2">${service?.price}/por hora</h4>
         </div>
 
         <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
@@ -107,12 +108,27 @@ function CardDetails() {
         <div className="p-10 m-10 mt-[-10px] rounded-md bg-secondary shadow-md shadow-black/30">
           <p className="description text-white text-lg">{service?.description}</p>
         </div>
+        <div className="p-10 m-10 rounded-md bg-secondary shadow-md shadow-black/30">
+          <h1 className="font-bold text-white text-2xl pb-2">Caracteristicas</h1>
+          <hr className="pb-4"></hr>
+          <div className="grid gap-4 grid-cols-3">
+          
+          {service?.characteristics.map((characteristic) => 
+            <div className="flex justify-start space-x-2 hover:space-x-8" key={characteristic.id}>
+              <FontAwesomeIcon icon={characteristic.iconName} />
+              <p className="description text-white flex-col">{characteristic.name}</p>
+            </div>
+          )}
+
+          </div>
+        </div>
 
         <div className="flex justify-end mr-20 mb-10">
           <Link
             to=""
+
             className="w-[120px] text-white bg-secondary hover:bg-pink-200 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">
-            Book Now!
+            Reservar ahora!
           </Link>
         </div>
       </div>

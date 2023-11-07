@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 import java.util.UUID;
+
 @Entity
 @Getter
 public class Work {
@@ -14,7 +15,7 @@ public class Work {
     @Id
     private UUID id;
     private String title;
-    private String Description;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "service_id")
