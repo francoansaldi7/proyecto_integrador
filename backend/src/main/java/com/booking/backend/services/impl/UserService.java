@@ -114,9 +114,19 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public User update(UUID id, @Valid User t) throws RuntimeException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  public User update(UUID id, User user) throws RuntimeException {
+    User userToUpdate = userRepository.findById(id).orElse(null);
+        if (userToUpdate != null) {
+          if (user.getRole().getId() == 2) {
+      userToUpdate.setRole(new Role(2, "ADMIN"));
+
+    } else {
+      userToUpdate.setRole(new Role(1, "USER"));
+    }
+            User updatedUser = userRepository.save(userToUpdate);
+            return updatedUser;
+        }
+        throw new RuntimeException("User not found");
   }
 
   @Override
