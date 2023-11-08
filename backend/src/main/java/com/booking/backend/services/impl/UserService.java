@@ -97,7 +97,7 @@ public class UserService implements IUserService {
     User userSaved = userRepository.save(user);
     System.out.println("USER: " + user.getUsername() + " " + user.getPassword());
     String token= getToken(user.getUsername(), oldPassword);
-    Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token="+token);
+    Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token="+token, user.getUsername());
     return userSaved;
   }
 
@@ -143,6 +143,7 @@ public class UserService implements IUserService {
             .expiresAt(now.plusSeconds(expiry))
             .subject(usernameSaved)
             .claim("rol", scope)
+            .claim("name", userDetails.get().getName())
             .build();
 
         String token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

@@ -35,7 +35,7 @@ function App() {
         <Route path="/products&services" element={<ProductsAndServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
-        <Route  element={<ProtectedRoute redirectPage='/login' />}>
+        <Route  element={<ProtectedRoute redirectPage='/login' authority='ADMIN' />}>
           <Route path="/dashboard" element={<Dashboard />}/>
         </Route>
         <Route path='/confirm' element={<ConfirmRegistration />} /> 

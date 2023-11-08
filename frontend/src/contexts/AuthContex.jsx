@@ -1,6 +1,7 @@
 import { createContext} from "react";
 import PropTypes from "prop-types";
 import { User } from "../components/User";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContex = createContext()
 
@@ -25,31 +26,70 @@ const saveUser = async (name, username, email, password, role = 1) => {
       },
       body: JSON.stringify(user)
     });
-
+    if(!userSaved.ok) throw new Error(userSaved.statusText);
+    localStorage.setItem('userName', user.name);
     return userSaved.json();
   } catch (error) {
     throw new Error(error);
   }
 }
 
-const authenticateUser = (username, password) => {
+const authenticateUser = async (username, password) => {
   try {
-    const token = fetch('http://localhost:8080/api/v1/login', {
+    const token = await fetch('http://localhost:8080/api/v1/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({username: username, password: password})
     });
-    return token;
+    if(!token.ok) throw new Error("No se pudo iniciar sesión");
+ 
+    return token.text();
   } catch (error) {
     throw new Error(error);
   }
 }
 
+const isLoggedIn = () => {
+  try {
+    const data = jwtDecode(localStorage.getItem('registrationToken'));
+    
+    if(data.rol === 'ADMIN'){
+      return {
+        isLoggedIn: true,
+        isUser: false,
+        isAdmin: true,
+        name: data.name
+      }
+    } else if(data.rol === 'USER'){
+      return {
+        isLoggedIn: true,
+        isUser: true,
+        isAdmin: false,
+        name: data.name
+      }
+    }
+    return {
+      isLoggedIn: false,
+      isUser: false,
+      isAdmin: false,
+      name: ''
+    };
+  } catch (error) {
+    return {
+      isLoggedIn: false,
+      isUser: false,
+      isAdmin: false,
+      name: ''
+    };
+  }
+}
+
 const data = {
   saveUser,
-  authenticateUser
+  authenticateUser,
+  isLoggedIn
 }
 
 return (

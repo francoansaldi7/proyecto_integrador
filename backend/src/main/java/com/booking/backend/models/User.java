@@ -30,6 +30,7 @@ public class User implements Serializable, UserDetails {
   private UUID id = UUID.randomUUID();
   private String name;
 
+  @Column(unique = true)
   private String username;
 
   @Column(length = 255)

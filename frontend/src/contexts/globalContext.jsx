@@ -40,7 +40,7 @@ const GlobalContextProvider = ({ children }) => {
   isAdmin = url.includes("/dashboard");
     isAdmin ? (headers = {
       "Content-Type": "application/json",
-      "Authorization": `${sessionStorage.getItem('registrationToken')}`
+      "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
     }) : (headers = {
       "Content-Type": "application/json"
     })
@@ -77,7 +77,7 @@ const GlobalContextProvider = ({ children }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
+            "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
           },
           body: JSON.stringify(service),
         }).then(res => {
@@ -117,7 +117,7 @@ const GlobalContextProvider = ({ children }) => {
                   }),
                   headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
+                    "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
                   },
                 }
               );
