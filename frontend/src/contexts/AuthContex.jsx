@@ -15,16 +15,18 @@ const AuthContexProvider = ({children}) => {
  * @param {number} [role=1] - The role of the user. Defaults to 1. 1 = USER, 2 = ADMIN
  * @throws {Error} If an error occurs during the fetch request.
  */
-const saveUser = (name, username, email, password, role = 1) => {
+const saveUser = async (name, username, email, password, role = 1) => {
   const user = new User(name, username, email, password, role);
   try {
-    fetch('http://localhost:8080/api/v1/users', {
+    const userSaved = await fetch('http://localhost:8080/api/v1/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(user)
     });
+
+    return userSaved.json();
   } catch (error) {
     throw new Error(error);
   }

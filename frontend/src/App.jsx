@@ -16,6 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
+import ProtectedRoute from './components/utils/ProtectedRoute';
 library.add(fab, fas, far)
 
 
@@ -34,8 +35,10 @@ function App() {
         <Route path="/products&services" element={<ProductsAndServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
-        <Route path="/dashboard" element={<Dashboard />}/>
-        <Route path='/confirm' element={<ConfirmRegistration />} />   
+        <Route  element={<ProtectedRoute redirectPage='/login' />}>
+          <Route path="/dashboard" element={<Dashboard />}/>
+        </Route>
+        <Route path='/confirm' element={<ConfirmRegistration />} /> 
       </Routes>
 
       <Footer />

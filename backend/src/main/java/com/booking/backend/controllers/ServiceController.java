@@ -59,6 +59,18 @@ public class ServiceController {
         return serviceService.findAll();
     }
 
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin(value = {"${cors.allowedOrigins}"})
+    public List<Services> findAllAdmin() {
+        return serviceService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Services> findById(@PathVariable UUID id) {
+        return serviceService.findById(id);
+    }
+
   /**
    * Creates a new service.
    *

@@ -45,7 +45,7 @@ function Register() {
         <main className="pt-[200px] flex flex-col min-h-screen bg-primary" >
             <Formik 
             validationSchema={validationSchema}
-            initialValues={{name: "", lastName: "", email: "", password: "", confirmPassword: ""}}
+            initialValues={{name: "", username: "", email: "", password: "", confirmPassword: ""}}
             onSubmit={(values, {resetForm}               
             ) => {
                 onSubmitRegistre(values);
@@ -77,17 +77,17 @@ function Register() {
                 
                 <p className="">{errors.name && touched.name && errors.name}</p>
 
-                <label className="" htmlFor="lastName">Apellido</label>
+                <label className="" htmlFor="username">Username</label>
                 
-                <input className="" type="text"  id="lastName" placeholder="Ingrese su apellido" 
-                name="lastName"
+                <input className="" type="text"  id="username" placeholder="Ingrese su Nombre de usuario" 
+                name="username"
                 required
-                onChange={handleChange('lastName')}
-                onBlur={() => setFieldTouched('lastName')}
-                value={values.lastName}
+                onChange={handleChange('username')}
+                onBlur={() => setFieldTouched('username')}
+                value={values.username}
                 />
 
-                <p className="">{errors.lastName && touched.lastName && errors.lastName}</p>
+                <p className="">{errors.username && touched.username && errors.username}</p>
                 
                 <label className="" htmlFor="email">Correo electrónico</label>
                 
@@ -122,7 +122,7 @@ function Register() {
 
                 <p className="">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
 
-                <button onSubmit={onSubmitRegistre} className="" type="submit" disabled={!isValid}>Registrarse</button>
+                <button onSubmit={()=>onSubmitRegistre()} className="bg-white p-5 rounded-md" type="submit" disabled={!isValid}>Registrarse</button>
             </form>
             <p className="">¿Ya tienes una cuenta? <Link to="/Login">Iniciar sesión</Link></p>
             </div> 
