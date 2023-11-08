@@ -34,7 +34,6 @@ function Login() {
   return (
     
     <main className="min-h-screen pt-[200px]">
-        <div>hola</div>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ username: "", password: "" }}
@@ -51,15 +50,15 @@ function Login() {
           handleSubmit,
           isValid,
         }) => (
-          <div className="">
-            <h2 className="">Iniciar sesión</h2>
-            <form className="" noValidate onSubmit={handleSubmit}>
-              <label className="" htmlFor="username">
+          <div className="xl:gap-2 xl:w-[400px] xl:ml-[40vw] rounded-md p-2 bg-secondary">
+            <h2 className="text-white mt-2 ml-[6.5vw] mb-5 text-2xl">Iniciar sesión</h2>
+            <form className="flex flex-col justify-center gap-1 text-primary" noValidate onSubmit={handleSubmit}>
+              <label className="text-white" htmlFor="username">
                 Correo electrónico
               </label>
 
               <input
-                className=""
+                className="rounded-md placeholder:text-slate-400 placeholder:p-2 placeholder:ml-2"
                 type="username"
                 placeholder="Ingrese su email"
                 id="username"
@@ -73,11 +72,11 @@ function Login() {
                 {errors.username && touched.username && errors.username}
               </p>
 
-              <label className="" htmlFor="password">
+              <label className="text-white" htmlFor="password">
                 Contraseña
               </label>
               <input
-                className=""
+                className="rounded-md placeholder:text-slate-400 placeholder:p-2 placeholder:ml-2"
                 type="password"
                 placeholder="********"
                 id="password"
@@ -94,13 +93,13 @@ function Login() {
               <button
                 onSubmit={onSubmitLogin}
                 type="submit"
-                className=""
+                className="mt-3 text-white underline"
                 disabled={!isValid}
               >
                 Ingresar
               </button>
             </form>
-            <p className="">
+            <p className="mt-3 ml-20 text-white underline">
               ¿Aún no tienes cuenta?<Link to="/Register"> Registrate</Link>
             </p>
           </div>

@@ -1,11 +1,8 @@
 import {useContext} from 'react'
 import { Link } from 'react-router-dom';
-import { Formik } from 'formik'
-import * as Yup from 'yup'
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { AuthContex } from '../contexts/AuthContex';
-
-
-
 
 function Register() {
     
@@ -61,13 +58,14 @@ function Register() {
                 isValid,                 
                 
             }) => (
-            <div>
-            <h2 className="">Crear cuenta</h2>
-            <form className="" noValidate onSubmit={handleSubmit}>
+            
+            <div className='xl:gap-2 xl:w-[400px] xl:ml-[40vw] rounded-md p-2 bg-secondary'>
+            <h2 className="text-white mt-2 ml-[6.5vw] mb-5 text-2xl">Crear cuenta</h2>
+            <form className="flex flex-col justify-center gap-1 text-primary" noValidate onSubmit={handleSubmit}>
                 
-                <label className="" htmlFor="name">Nombre</label>
+                <label className="text-white" htmlFor="name">Nombre</label>
                 
-                <input className="" type="text"  id="name" placeholder="Ingrese su nombre"
+                <input className="rounded-md placeholder:text-slate-400 placeholder:p-2" type="text"  id="name" placeholder="Ingrese su nombre"
                 name="name"
                 required
                 onChange={handleChange('name')}
@@ -77,9 +75,9 @@ function Register() {
                 
                 <p className="">{errors.name && touched.name && errors.name}</p>
 
-                <label className="" htmlFor="lastName">Apellido</label>
+                <label className="text-white" htmlFor="lastName">Apellido</label>
                 
-                <input className="" type="text"  id="lastName" placeholder="Ingrese su apellido" 
+                <input className="rounded-md placeholder:text-slate-400 placeholder:p-2" type="text"  id="lastName" placeholder="Ingrese su apellido" 
                 name="lastName"
                 required
                 onChange={handleChange('lastName')}
@@ -89,9 +87,9 @@ function Register() {
 
                 <p className="">{errors.lastName && touched.lastName && errors.lastName}</p>
                 
-                <label className="" htmlFor="email">Correo electrónico</label>
+                <label className="text-white" htmlFor="email">Correo electrónico</label>
                 
-                <input className="" type="email" placeholder="Ingrese su correo electrónico" id="email" 
+                <input className="rounded-md placeholder:text-slate-400 placeholder:p-2" type="email" placeholder="Ingrese su correo electrónico" id="email" 
                 name="email" 
                 required
                 onChange={handleChange('email')}
@@ -101,9 +99,9 @@ function Register() {
 
                 <p className="">{errors.email && touched.email && errors.email}</p>
 
-                <label className="" htmlFor="password">Contraseña</label>
+                <label className="text-white" htmlFor="password">Contraseña</label>
                 
-                <input className="" type="password" placeholder="Ingrese su contraseña" id="password" 
+                <input className="rounded-md placeholder:text-slate-400 placeholder:p-2" type="password" placeholder="Ingrese su contraseña" id="password" 
                 name="password" 
                 required
                 onChange={handleChange('password')}
@@ -113,8 +111,8 @@ function Register() {
 
                 <p className="">{errors.password && touched.password && errors.password}</p>
 
-                <label className="" htmlFor="confirmPassword">Confirmar Contraseña</label>
-                <input className="" type="password" placeholder="Repita su contraseña" id="confirmPassword" name="confirmPassword" required
+                <label className="text-white" htmlFor="confirmPassword">Confirmar Contraseña</label>
+                <input className="rounded-md placeholder:text-slate-400 placeholder:p-2 placeholder:ml-2" type="password" placeholder="Repita su contraseña" id="confirmPassword" name="confirmPassword" required
                 onChange={handleChange('confirmPassword')}
                 onBlur={() => setFieldTouched('confirmPassword')}
                 value={values.confirmPassword}
@@ -122,13 +120,15 @@ function Register() {
 
                 <p className="">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
 
-                <button onSubmit={onSubmitRegistre} className="" type="submit" disabled={!isValid}>Registrarse</button>
+                <button onSubmit={onSubmitRegistre} className="mt-3 text-white underline" type="submit" disabled={!isValid}>Registrarse</button>
             </form>
-            <p className="">¿Ya tienes una cuenta? <Link to="/Login">Iniciar sesión</Link></p>
+            <p className="mt-3 ml-16 text-white">¿Ya tienes una cuenta? <Link to="/Login" className='underline'>Iniciar sesión</Link></p>
             </div> 
             )}
             </Formik>
             <br /><br />
+
+            <hr className='mt-[300px]'/>
         </main>
     )
 }
