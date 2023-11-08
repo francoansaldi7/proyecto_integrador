@@ -1,14 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState , useCallback, useEffect} from 'react';
 import { ToastContainer, toast } from "react-toastify";
 
 const ListOfUsers = () => {
-    const [users, setUsers] = useState([
-        { id: 1, name: 'Lucas Rivero', email: 'lucasr@mail.com', role: 'user', phoneNumber:'31243231324' },
-        { id: 2, name: 'Juan Polero', email: 'juanp@mail.com', role: 'admin', phoneNumber:'31543451324' },
-        { id: 3, name: 'Lorena Rivas', email: 'lorenar@mail.com', role: 'user', phoneNumber:'234243231324' },
-        { id: 4, name: 'Mauro Valerio', email: 'maurov@mail.com', role: 'user', phoneNumber:'23454543231324' },
-        { id: 5, name: 'Fausto Castro', email: 'faustoc@mail.com', role: 'user', phoneNumber:'54645343231324' },
-      ]);
+      const [users, setUsers] = useState();
+      const [loading, setLoading] = useState(true);
+
+      const getAllUsers = useCallback(async () => {
+        try {
+          const response = await fetch(`http://localhost:8080/api/v1/users`);
+          const data = await response.json();
+          setUsers(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error obtaining users", error);
+        }
+      }, []);
+
+      useEffect(() => {
+        try{
+          getAllUsers()
+        }catch(error){
+          console.log(error);
+        }
+      }, [users])
     
       // Función para cambiar el rol de un usuario
       const handleRoleChange = (userId, newRole) => {
@@ -250,6 +264,7 @@ const ListOfUsers = () => {
               </th>
             </tr>
           </thead>
+          {loading ? <tbody><tr><td>Cargando...</td></tr></tbody>: 
           <tbody>
             {users.map((user, index) => (
               <tr
@@ -358,8 +373,9 @@ const ListOfUsers = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+            ))} 
           </tbody>
+          }
         </table>
       </div>
       <nav
