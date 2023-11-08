@@ -40,7 +40,7 @@ public class ServiceController {
      *
      * @return List of services.
      */
-    @GetMapping()
+    @GetMapping
     public Page<Services> findAll(@RequestParam(defaultValue = "1", required = false) int page,
                                   @RequestParam(defaultValue = "1", required = false) int size) {
         Pageable pageRequest  = PageRequest.of(page, size);

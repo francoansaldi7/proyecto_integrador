@@ -17,6 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.booking.backend.models.Services;
 import com.booking.backend.services.impl.ServiceService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @SpringBootTest
 class ServiceControllerTest {
@@ -37,13 +41,14 @@ void testfindAll() {
     // Description: Verify that the findAll method returns a list of services
     // Preconditions: Services exist in the database
     // Expected outcome: A list of services is returned
-    List<Services> services = Arrays.asList(new Services(UUID.randomUUID(), "Service 1"), new Services(UUID.randomUUID(), "Service 2"));
-    when(serviceService.findAll()).thenReturn(services);
+    Page<Services> services = new PageImpl<>(Arrays.asList(new Services(UUID.randomUUID(), "Service 1"), new Services(UUID.randomUUID(), "Service 2")),
+            PageRequest.of(1, 2), 0);
+    when(serviceService.findAll(PageRequest.of(1, 2))).thenReturn(services);
 
-    List<Services> retrievedServices = serviceController.findAll();
+    Page<Services> retrievedServices = serviceController.findAll(1, 2);
 
     assertNotNull(retrievedServices);
-    assertEquals(services.size(), retrievedServices.size());
+    assertEquals(services.getTotalElements(), retrievedServices.getTotalElements());
     // Add more assertions to compare the actual and expected lists of services
 
     // Test case 2: Obtaining all services when there are no services
