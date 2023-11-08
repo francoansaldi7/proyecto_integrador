@@ -18,13 +18,12 @@ const NavPagination = () => {
         aria-label="Table navigation"
       >
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-
           Mostrando
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600 sm-text-slate-600 sm:text-black min-[375px]:text-black">
             1-10
           </span>
           de
-          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600">
+          <span className="ml-1 mr-1 font-semibold text-white dark:text-white md:text-slate-600 sm-text-slate-600 sm:text-black min-[375px]:text-black">
             1000
           </span>
         </span>
