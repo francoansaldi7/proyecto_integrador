@@ -10,6 +10,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CardDetails from './pages/CardDetails';
 import Dashboard from './pages/Dashboard';
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+library.add(fab, fas, far)
 
 
 function App() {
@@ -20,7 +26,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="/details" element={<CardDetails />}/>
+          <Route path="/details/*" element={<CardDetails />}/>
         </Route>
         <Route path="/contact" element={<Contact />}/>
         <Route path="/aboutUs/" element={<AboutUs />}/>

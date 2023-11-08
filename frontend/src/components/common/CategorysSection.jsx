@@ -1,11 +1,11 @@
 import { useState } from "react";
 const CategorysSection = () => {
  const categories = [
-    { id: 1, name: 'Featured' },
-    { id: 2, name: 'Animation Studio' },
-    { id: 3, name: 'Filming Studio' },
-    { id: 4, name: 'Photography' },
-    { id: 5, name: 'Videography' },
+    { id: 1, name: 'Destacado' },
+    { id: 2, name: 'Estudio de Animacion' },
+    { id: 3, name: 'Estudio de Filmacion' },
+    { id: 4, name: 'Fotografia' },
+    { id: 5, name: 'Videografia' },
   ];
 
   const [activeCategory, setActiveCategory] = useState(1);

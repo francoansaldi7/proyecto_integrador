@@ -8,5 +8,5 @@ import com.booking.backend.repository.ITypeOfServiceRepository;
 
 public interface ITypeOfServiceService extends IBaseCrudService<TypesOfServices, TypesOfServices> {
 
-  
+
 }

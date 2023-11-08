@@ -8,17 +8,58 @@ import {
 import PropTypes from "prop-types";
 const GlobalContext = createContext(null);
 
+
+
 const GlobalContextProvider = ({ children }) => {
+  const SERVICE_PAGE_SIZE = 8;
+
   const [services, setServices] = useState([]);
-  const getAllServices = useCallback(async () => {
+  const [unorganizedServices, setUnorganizedServices] = useState([]);
+  const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
+  const [loadingServices, setLoadingServices] = useState(true);
+  
+  useEffect(() => {
+    
+    const shuffledServices = shuffleArray([...services]);
+    setUnorganizedServices(shuffledServices);
+  
+  }, [services])
+
+  /**
+   * Shuffles the elements of the given array randomly.
+   *
+   * @param {Array} array - The array to be shuffled.
+   * @return {Array} - The shuffled array.
+   */
+  const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const handleShuffle = ()=> setUnorganizedServices(shuffleArray([...services]))
+  
+  const getAllServices = useCallback(async (pageNumber=0) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/services`);
+      setLoadingServices(true);
+      const response = await fetch(`http://localhost:8080/api/v1/services?size=${SERVICE_PAGE_SIZE}&page=${pageNumber}`);
       const data = await response.json();
-      setServices(data);
+      setLoadingServices(false);
+      setSevicesTotalPages(data.totalPages);
+      setServices(data.content);
     } catch (error) {
       console.error("Error obtaining services", error);
     }
   }, []);
+
+  const changeServicesPage = useCallback(
+    async (pageNumber)=> {
+      getAllServices(pageNumber); 
+    },[getAllServices] 
+  );
+
 
   const saveService = useCallback(
   async (service, images = []) => {
@@ -152,8 +193,13 @@ const GlobalContextProvider = ({ children }) => {
       saveService,
       updateService,
       deleteService,
+      unorganizedServices,
+      handleShuffle,
+      changeServicesPage,
+      sevicesTotalPages,
+      loadingServices
     }),
-    [services, getAllServices, saveService, updateService, deleteService]
+    [services, getAllServices, saveService, updateService, deleteService, unorganizedServices, handleShuffle, changeServicesPage, sevicesTotalPages,loadingServices]
   );
 
   return (

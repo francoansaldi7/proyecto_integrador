@@ -9,5 +9,5 @@ import com.booking.backend.models.ServiceImage;
 
 @Repository
 public interface IServiceImageRepository extends JpaRepository<ServiceImage, UUID> {
-  
+
 }

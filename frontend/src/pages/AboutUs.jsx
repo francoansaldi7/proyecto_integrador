@@ -12,12 +12,12 @@ function AboutUs() {
         </div>    
 
         <div className="mr-auto place-self-center lg:col-span-7">
-            <h1 className="text-primary max-w-2xl mb-4 mt-16 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Our Story</h1>
-            <p className="max-w-2xl mb-6 mt-10 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Welcome to GloCast, your one-stop destination to unlock your content creation potential. We exist to make your visual dreams come true, whether you're looking for professional photographers, studio rentals, or top-notch photography equipment.
-            At GloCast, we believe in the power of visual storytelling. We are a passionate team of photographers and videographers dedicated to capturing moments, emotions, and memories in their most authentic and beautiful form. Our mission is to turn your special occasions into unforgettable stories that will be cherished for generations.
-            We invite you to join us on a visual journey through life's most beautiful moments. We are committed to turning your cherished memories into works of art that will be treasured for a lifetime. Let us capture the magic; your story deserves nothing less.</p>
+            <h1 className="text-primary max-w-2xl mb-4 mt-16 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Nuestra historia</h1>
+            <p className="max-w-2xl mb-6 mt-10 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Bienvenido a GloCast, su único destino para desbloquear su potencial de creación de contenido. Existimos para hacer realidad sus sueños visuales, ya sea que esté buscando fotógrafos profesionales, alquiler de estudios o equipos fotográficos de primer nivel.
+             En GloCast creemos en el poder de la narración visual. Somos un equipo apasionado de fotógrafos y camarógrafos dedicados a capturar momentos, emociones y recuerdos en su forma más auténtica y hermosa. Nuestra misión es convertir sus ocasiones especiales en historias inolvidables que serán atesoradas por generaciones.
+             Te invitamos a unirte a nosotros en un viaje visual a través de los momentos más bellos de la vida. Estamos comprometidos a convertir sus preciados recuerdos en obras de arte que serán atesoradas toda la vida. Capturemos la magia; Tu historia no merece menos.</p>
 
-            <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"><Link to="#section3"><button className="hover:text-primary underline">Contact</button></Link> us today to discuss how we can be a part of your next event or project.</p>
+            <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"><Link to="#section3"><button className="hover:text-primary underline">Contacto</button></Link> Contáctenos hoy para discutir cómo podemos ser parte de su próximo evento o proyecto.</p>
 
         </div>            
     </div>

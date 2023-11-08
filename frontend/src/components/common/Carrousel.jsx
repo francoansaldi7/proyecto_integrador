@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useNavigate } from 'react-router-dom';
 
 // Import Swiper styles
 import "swiper/css";
@@ -8,9 +10,17 @@ import 'swiper/css/pagination';
 
 
 // eslint-disable-next-line react/prop-types
-const Carrousel = ({img}) => {
+const Carrousel = ({img, gallery}) => {
+
+  const navigate = useNavigate();
+
   return (
+    <>
+    <div className="bg-black/80 min-h-screen min-w-screen z-20 fixed top-0">
+  
+    </div>
     <div className="fixed container bg-secondary z-10 p-4  rounded-lg w-[70vw] mx-[15vw] my-[10vh] top-0 left-0">
+          
     <Swiper
             spaceBetween={10}
             slidesPerView={1}
@@ -19,20 +29,22 @@ const Carrousel = ({img}) => {
             loop={true}
             pagination={{ clickable: true }}
             modules={[Navigation, Pagination]}
-            
           >
-            <SwiperSlide><img src={img} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /></SwiperSlide>
-            <SwiperSlide><img src="https://img.freepik.com/free-photo/female-editor-using-stylus-graphic-tablet-retouch-photo-creating-professional-photography-content-production-freelancer-editing-picture-with-creative-retouching-software-close-up_482257-48037.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698019200&semt=ais" alt="test image" className="rounded-md w-full h-[70vh] object-cover" />
-            </SwiperSlide>
-            <SwiperSlide><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGhvdG9ncmFwaHl8ZW58MHx8MHx8fDA%3D" alt="test image" className="rounded-md w-full h-[70vh] object-cover" />
-            </SwiperSlide>
-            <SwiperSlide><img src="https://www.iim.fr/ecole-web/wp-content/uploads/2018/10/illu-studio-.jpg" alt="test image" className="rounded-md w-full h-[70vh] object-cover" />
-            </SwiperSlide>
-            <SwiperSlide><img src="https://music.utexas.edu/sites/bsom/files/styles/utexas_image_style_2000w/public/2022-11/EMSFacilities005.jpg?itok=hYmAjl6q" alt="test image" className="rounded-md w-full h-[70vh] object-cover" />
-            </SwiperSlide>
-          </Swiper>
+            <SwiperSlide><img src={img} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /><button onClick={()=>navigate(-1)} className="absolute right-[10px] top-[-5px]">
+            <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
+          </button></SwiperSlide>
+            {gallery.map((img, index) => (
+              <SwiperSlide key={index}><img src={img.imageUrl} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /><button onClick={()=>navigate(-1)} className="absolute right-[10px] top-[-5px]">
+              <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
+            </button></SwiperSlide>
+            ))}
+            
+            
+    </Swiper>
           
   </div>
+      </>
+
   )
 }
 

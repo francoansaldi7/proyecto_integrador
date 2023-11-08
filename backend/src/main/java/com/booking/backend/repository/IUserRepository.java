@@ -9,5 +9,5 @@ import com.booking.backend.models.User;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, UUID> {
-  
+
 }
