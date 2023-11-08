@@ -40,7 +40,7 @@ function CardDetails() {
     <>
       <div className="fixed bg-black opacity-25 h-screen w-screen right-0 top-0 z-10"></div>
 
-      <div className="fixed top-0 bg-secondary bg-gradient-to-b from-secondary to-primary w-[97vw] h-[85vh] flex justify-between flex-col rounded-lg gap-10 z-50 ml-[1vw] mt-[9vh] overflow-y-auto min-[375px]:w-[366px] min-[414px]:w-[405px] min-[414px]:ml-1 min-[390px]:ml-3 min-[393px]:ml-[13px] min-[412px]:ml-5 md:w-[750px] md:ml-2 min-[820px]:w-[800px] min-[912px]:w-[890px] min-[540px]:w-[530px] lg:w-[1010px] xl:w-[1260px]">
+      <div className="xl:ml-2 fixed top-0 bg-secondary bg-gradient-to-b from-secondary to-primary w-[97vw] h-[85vh] flex justify-between flex-col rounded-lg gap-10 z-50 ml-[1vw] mt-[9vh] overflow-y-auto min-[375px]:w-[366px] min-[414px]:w-[405px] min-[414px]:ml-1 min-[390px]:ml-3 min-[393px]:ml-[13px] min-[412px]:ml-5 md:w-[750px] md:ml-2 min-[820px]:w-[800px] min-[912px]:w-[890px] min-[540px]:w-[530px] lg:w-[1010px] xl:w-[1260px] 2xl:ml-[300px]">
         <div className="w-full bg-white flex justify-between rounded-mg md:w-[100%] min-[375px]:justify-center md:justify-start">
           <div className="flex items-center">
             <h1 className="text-3xl text-primary font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
@@ -91,7 +91,7 @@ function CardDetails() {
         
         <div className="p-5 ml-6 mt-[-5px] flex flex-col">
           <h3 className="text-5xl font-bold text-pink-200">{service?.title}</h3>
-          <h4 className="text-pink-200 mt-2">${service?.price}/por hora</h4>
+          <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
 
         <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">

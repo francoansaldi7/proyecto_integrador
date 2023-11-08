@@ -34,7 +34,9 @@ const Carrousel = ({img, gallery}) => {
             <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
           </button></SwiperSlide>
             {gallery.map((img, index) => (
-              <SwiperSlide key={index}><img src={img.imageUrl} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /></SwiperSlide>
+              <SwiperSlide key={index}><img src={img.imageUrl} alt="test image" className="rounded-md w-full h-[70vh] object-cover" /><button onClick={()=>navigate(-1)} className="absolute right-[10px] top-[-5px]">
+              <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
+            </button></SwiperSlide>
             ))}
             
             
