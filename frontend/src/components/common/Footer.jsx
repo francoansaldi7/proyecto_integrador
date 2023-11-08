@@ -14,9 +14,9 @@ function Footer() {
       </div>
 
       <div className="flex flex-row justify-center text-lg bg-primary mt-6 gap-10 min-[375px]:gap-4">
-          <Link to="#section2"><p className="hover:text-violet-300">About Us</p></Link>
-          <Link to="#section1"><p className="hover:text-violet-300">Products & Services</p></Link>
-          <Link to="#section3"><p className="hover:text-violet-300">Contact</p></Link>
+          <Link to="#section2"><p className="hover:text-violet-300">Nosotros</p></Link>
+          <Link to="#section1"><p className="hover:text-violet-300">Productos & Servicios</p></Link>
+          <Link to="#section3"><p className="hover:text-violet-300">Contacto</p></Link>
       </div>
 
     <div className="mt-4">
@@ -25,7 +25,7 @@ function Footer() {
 
       <div>
         <p className='flex gap-2 mt-5 justify-center bg-primary'>
-          @{new Date().getFullYear()} Made with  <img src={heart} alt="love" className='h-5 w-5'/>  by Team 1. All rights reserved
+          @{new Date().getFullYear()} Hecho con <img src={heart} alt="love" className='h-5 w-5'/>  por el Equipo 1. Todos los derechos reservados
         </p>
     </div>
   </div>
