@@ -97,7 +97,7 @@ public class UserService implements IUserService {
     User userSaved = userRepository.save(user);
     System.out.println("USER: " + user.getUsername() + " " + user.getPassword());
     String token= getToken(user.getUsername(), oldPassword);
-    Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token="+token);
+    Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token="+token, user.getUsername());
     return userSaved;
   }
 
@@ -114,9 +114,19 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public User update(UUID id, @Valid User t) throws RuntimeException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  public User update(UUID id, User user) throws RuntimeException {
+    User userToUpdate = userRepository.findById(id).orElse(null);
+        if (userToUpdate != null) {
+          if (user.getRole().getId() == 2) {
+      userToUpdate.setRole(new Role(2, "ADMIN"));
+
+    } else {
+      userToUpdate.setRole(new Role(1, "USER"));
+    }
+            User updatedUser = userRepository.save(userToUpdate);
+            return updatedUser;
+        }
+        throw new RuntimeException("User not found");
   }
 
   @Override
@@ -143,6 +153,7 @@ public class UserService implements IUserService {
             .expiresAt(now.plusSeconds(expiry))
             .subject(usernameSaved)
             .claim("rol", scope)
+            .claim("name", userDetails.get().getName())
             .build();
 
         String token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

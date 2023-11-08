@@ -6,6 +6,9 @@ import java.security.KeyStore;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
+import com.booking.backend.security.BearerTokenAccessDeniedHandlerImpl;
+import com.booking.backend.security.BearerTokenAuthenticationEntryPointImpl;
+import com.booking.backend.security.FilterJwtExceptions;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
 import com.nimbusds.jose.jwk.JWK;
@@ -66,6 +69,7 @@ public class WebSecurityConfig {
         http
         .authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers(HttpMethod.POST, "/api/v1/services").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/services/admin").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
                 )
         .csrf((csrf) -> csrf.ignoringRequestMatchers("api/v1/**")
@@ -73,7 +77,10 @@ public class WebSecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling((ex) -> ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPointImpl())
+                .accessDeniedHandler(new BearerTokenAccessDeniedHandlerImpl()))
                 .authenticationProvider(authenticationProvider())
+                .addFilterBefore(verifyRoleService , BearerTokenAuthenticationFilter.class)
                 .addFilterAfter(verifyRoleService, BearerTokenAuthenticationFilter.class);
 
         // @formatter:on

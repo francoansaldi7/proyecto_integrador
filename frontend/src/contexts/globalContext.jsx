@@ -11,7 +11,6 @@ const GlobalContext = createContext(null);
 const GlobalContextProvider = ({ children }) => {
   const [services, setServices] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
-  
   useEffect(() => {
     
     const shuffledServices = shuffleArray([...services]);
@@ -35,28 +34,61 @@ const GlobalContextProvider = ({ children }) => {
 
   const handleShuffle = ()=> setUnorganizedServices(shuffleArray([...services]))
 
-  const getAllServices = useCallback(async () => {
+  const getAllServices = useCallback(async (isAdmin = false) => {
+    let headers;
+      const url = window.location.href;
+  isAdmin = url.includes("/dashboard");
+    isAdmin ? (headers = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
+    }) : (headers = {
+      "Content-Type": "application/json"
+    })
+    console.log(headers);
+    let response;
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/services`);
-      const data = await response.json();
-      setServices(data);
+      response = await fetch(`http://localhost:8080/api/v1/services${isAdmin ? "/admin" : ""}`, {
+        method: "GET",
+        headers: headers,
+      });
+      
     } catch (error) {
-      console.error("Error obtaining services", error);
+      throw new Error(error);
+      
     }
+      if (!response.ok) {
+        console.log(response);
+        if(response.status === 401 || response.status === 403){
+          window.location.href = "/login";
+        }
+        throw new Error("Error obtaining services");
+      }
+      const data = await response.json();
+      return data;
+    
   }, []);
 
   const saveService = useCallback(
   async (service, images = []) => {
     let serviceSaved;
+    let response;
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/services`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
-        },
-        body: JSON.stringify(service),
-      });
+        fetch(`http://localhost:8080/api/v1/services`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
+          },
+          body: JSON.stringify(service),
+        }).then(res => {
+          response = res;
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+          throw new Error(error);
+        });
+    
       serviceSaved = await response.json();
       if (response.ok) {
         let currentIndex = 0;
@@ -85,7 +117,7 @@ const GlobalContextProvider = ({ children }) => {
                   }),
                   headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${sessionStorage.getItem('registrationToken')}`
+                    "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
                   },
                 }
               );
@@ -97,7 +129,10 @@ const GlobalContextProvider = ({ children }) => {
             };
 
             reader.readAsDataURL(image.file);
-          } else {
+          } else if(response.status === 401 || response.status === 403){
+            return window.location.href = '/login'
+          } else{
+
             getAllServices(); // Llamada después de procesar todas las imágenes
           }
         };
@@ -106,6 +141,7 @@ const GlobalContextProvider = ({ children }) => {
       }
       return serviceSaved;
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   },
@@ -169,12 +205,13 @@ const GlobalContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    getAllServices();
+    //getAllServices();
   }, []);
 
   const globalValue = useMemo(
     () => ({
       services,
+      setServices,
       getAllServices,
       saveService,
       updateService,

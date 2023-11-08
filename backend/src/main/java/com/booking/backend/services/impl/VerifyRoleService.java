@@ -6,17 +6,24 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.booking.backend.models.User;
 import com.booking.backend.repository.IUserRepository;
+import com.booking.backend.security.BearerTokenAuthenticationEntryPointImpl;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,6 +50,10 @@ public class VerifyRoleService extends OncePerRequestFilter {
   @Autowired
   private IUserRepository userRepository;
   
+  	private AuthenticationEntryPoint authenticationEntryPoint = new BearerTokenAuthenticationEntryPointImpl();
+
+	private AuthenticationFailureHandler authenticationFailureHandler = new AuthenticationEntryPointFailureHandler(
+			(request, response, exception) -> this.authenticationEntryPoint.commence(request, response, exception));
   /**
    * Verifies if a user has a specific role based on a JWT token.
    * 
@@ -67,7 +78,7 @@ public class VerifyRoleService extends OncePerRequestFilter {
    * @return The decoded JWT token.
    * @throws JwtException If the token is invalid.
    */
-  public Jwt decodeToken(String authorizationHeader) throws JwtException {
+  public Jwt decodeToken(String authorizationHeader) throws JwtException, Exception {
     String jwtToken = authorizationHeader.substring("Bearer ".length()).trim();
     
     return jwtDecoder.decode(jwtToken);
@@ -115,18 +126,36 @@ public class VerifyRoleService extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
-
+        
     if(request.getHeader("Authorization") == null) {
       filterChain.doFilter(request, response);
       return;
     }
-    Optional<User> user = userRepository.findByUsername(this.getUsername(this.decodeToken(request.getHeader("Authorization"))));
+    String alreadyFilteredAttributeName = getAlreadyFilteredAttributeName();
+    Optional<User> user = null;
+    try {
+      Jwt token = this.decodeToken(request.getHeader("Authorization"));
+       user = userRepository.findByUsername(this.getUsername(token));
+    } catch (JwtException e) {
+      OAuth2AuthenticationException e1 = new OAuth2AuthenticationException(new OAuth2Error("401", e.getMessage(), ""));
+      this.authenticationEntryPoint.commence(request, response, e1 );
+      return;
+    } catch (Exception e) {
+      OAuth2AuthenticationException e1 = new OAuth2AuthenticationException(new OAuth2Error("401", e.getMessage(), ""));
+      this.authenticationEntryPoint.commence(request, response, e1 );
+      return;
+    }
     System.out.println(user);
+    if(user.isEmpty()) {
+      filterChain.doFilter(request, response);
+      return;
+    }
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
         user.get().getUsername(), null, user.get().getAuthorities()
     );
     SecurityContextHolder.getContext().setAuthentication(authentication);
     System.out.println(authentication.getAuthorities());
+    request.removeAttribute(alreadyFilteredAttributeName);
     filterChain.doFilter(request, response);
   }
 }

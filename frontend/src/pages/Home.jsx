@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Card from "../components/common/Card";
 import AboutUs from "../pages/AboutUs";
@@ -21,10 +21,19 @@ import NavPagination from "../components/common/NavPagination";
 
 
 function Home() {
-  const {unorganizedServices} = useContext(GlobalContext);
+  const {unorganizedServices, getAllServices ,setServices} = useContext(GlobalContext);
 
   // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if(unorganizedServices.length < 1){
+        const data = await getAllServices();
+        setServices(data);
+      }   
+    }
+    fetchData()
+  }, [])
   console.log(unorganizedServices);
   return (
     <>

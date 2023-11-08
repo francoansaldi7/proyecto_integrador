@@ -53,8 +53,8 @@ public class EmailService {
    * @param url The URL to be included in the message.
    * @return The confirmation account message with the URL.
    */
-  public String confirmationAccountMessage(String url) {
-    return "<div style='text-align: center; border-radius: 15px; padding: 20px;font-family: sans-serif; background: rgb(80,74,241); background: linear-gradient(0deg, rgba(80,74,241,1) 0%, rgba(31,0,106,1) 100%);'> <h1 style='color: white'>Welcome to Booking.com</h1><p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>Thank you for signing up. Please confirm your email by clicking on the following link:</p> <button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: #fff; color: #222; font-weight: bold; cursor:pointer' ><a style='text-decoration: none; color: #222' href='" + url + "' >Confirm email</a></button></div>";
+  public String confirmationAccountMessage(String url, String username, String email) {
+    return "<div style='text-align: center; border-radius: 15px; padding: 20px;font-family: sans-serif; background: rgb(80,74,241); background: linear-gradient(0deg, rgba(80,74,241,1) 0%, rgba(31,0,106,1) 100%);'> <h1 style='color: white'>Bienvenido A GloCast.com</h1><h2 style='color: white'>Nombre de usuario: " + username + "</h2><h2 style='color: white'>Email: " + email + "</h2><p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>Gracias por registrarte. Si los datos anteriores son correctos, por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente boton:</p> <button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: #fff; color: #222; font-weight: bold; cursor:pointer' ><a style='text-decoration: none; color: #222' href='" + url + "' >Confirm email</a></button></div>";
   }
 
 
@@ -65,7 +65,7 @@ public class EmailService {
    * @param url The URL to be included in the email.
    * @return True if the email was sent successfully, false otherwise.
    */
-  public Boolean sendConfirmationEmail(String to, String url) {
-    return sendEmail(to, "Confirm your email", this.confirmationAccountMessage(url));
+  public Boolean sendConfirmationEmail(String to, String url, String username) {
+    return sendEmail(to, "Confirm your email", this.confirmationAccountMessage(url, username, to));
   }
 }

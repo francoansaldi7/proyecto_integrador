@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const ConfirmRegistration = () => {
+  const [token, setToken] = useState(null);
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("token");
     if (token) {
       // Guarda el token en la sesión del navegador
-      sessionStorage.setItem('registrationToken', token);
+      localStorage.setItem('registrationToken', token);
+      setToken(token);
     }
   }, []);
 
-  const token = sessionStorage.getItem('registrationToken');
   return (
     <div className="min-h-screen bg-purple-200 flex justify-center items-center">
       {token ? (

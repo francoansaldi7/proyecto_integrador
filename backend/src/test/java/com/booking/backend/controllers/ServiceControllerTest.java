@@ -63,7 +63,7 @@ void testfindByIdById() {
     Services service = new Services(serviceId, "Service");
     when(serviceService.findById(serviceId)).thenReturn(Optional.of(service));
 
-    Optional<Services> retrievedService = serviceController.findByIdById(serviceId);
+    Optional<Services> retrievedService = serviceController.findById(serviceId);
 
     assertNotNull(retrievedService);
     if (retrievedService.isPresent()) {
