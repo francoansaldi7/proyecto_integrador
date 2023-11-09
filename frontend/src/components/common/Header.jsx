@@ -43,12 +43,11 @@ function Header() {
         <div className="ml-10 flex flex-row relative items-center" >
           <Link to="/" onClick={handleShuffle}>
             <img
-              src="/logoTitle.png"
+              src="/logoNoBG.png"
               alt="Test Logo"
-              className="w-[40px]"
+              className="w-[200px]"
             />
           </Link>
-          <h1 className="mt-1 ml-[7px] mr-[20px] text-2xl text-primary">GloCast</h1>
         </div>
 
         <div className="relative">

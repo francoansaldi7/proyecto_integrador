@@ -73,21 +73,21 @@ const GlobalContextProvider = ({ children }) => {
     let serviceSaved;
     let response;
     try {
-        fetch(`http://localhost:8080/api/v1/services`, {
+      try {
+        response = await fetch(`http://localhost:8080/api/v1/services`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
           },
           body: JSON.stringify(service),
-        }).then(res => {
-          response = res;
-          console.log(res);
         })
-        .catch(error => {
-          console.log(error);
-          throw new Error(error);
-        });
+        
+      } catch (error) {
+        console.error(error);
+        throw new Error(error);
+      }
+        
     
       serviceSaved = await response.json();
       if (response.ok) {
