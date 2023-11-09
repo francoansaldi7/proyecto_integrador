@@ -21,7 +21,7 @@ import NavPagination from "../components/common/NavPagination";
 
 
 function Home() {
-  const {unorganizedServices, getAllServices ,setServices} = useContext(GlobalContext);
+  const {unorganizedServices, getAllServices ,setServices, loadingServices} = useContext(GlobalContext);
 
   // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
 
@@ -29,7 +29,7 @@ function Home() {
     const fetchData = async () => {
       if(unorganizedServices.length < 1){
         const data = await getAllServices();
-        setServices(data);
+        setServices(data.content);
       }   
     }
     fetchData()
@@ -95,7 +95,7 @@ function Home() {
 
       <div id="section1" className={"p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1 bg-white md:max-lg:fle"}>
 
-        {unorganizedServices.length < 1 ? (
+        {loadingServices? (
           <div id="section1">
             <LoadingOutlined
               className="text-4xl text-primary ml-[73vw]"
@@ -109,9 +109,7 @@ function Home() {
             </p> */}
 
           </div>
-        ) : ''}
-        
-          {unorganizedServices.map((service) => (
+        ) : unorganizedServices.map((service) => (
             <Card
               key={service.id}
               id={service.id}

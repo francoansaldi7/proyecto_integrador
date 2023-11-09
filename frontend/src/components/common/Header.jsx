@@ -38,9 +38,9 @@ function Header() {
   }
   
   return (
-    
-      <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30  to-primary/30 p-5 backdrop-blur-lg fixed w-screen  shadow-secondary/50 shadow-md rounded-lg z-50 items-center">
-        <div className="ml-10 flex flex-row relative items-center" >
+
+      <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30 to-primary/30 p-5 backdrop-blur-lg fixed w-screen shadow-secondary/50 shadow-md rounded-lg z-50 items-center">
+        <div className="ml-10 flex flex-row relative xl:justify-between" >
           <Link to="/" onClick={handleShuffle}>
             <img
               src="/logoNoBG.png"
@@ -53,24 +53,22 @@ function Header() {
         <div className="relative">
           { isShowing ? 
           <CgClose className="text-[28px] text-primary md:hidden" onClick={handlerHamburger}/>:<GiHamburgerMenu className="text-[28px] text-primary hidden md:block" onClick={handlerHamburger}/>}
-        { isShowing && <div className="bg-primary md:bg-transparent md:rounded-nonemd:p-0 md:w-[unset] md:h-[unset] absolute md:static rounded-[8px] p-4 right-[16px] w-[80vw] h-[42vh]">
+        { isShowing && <div className="bg-primary md:bg-transparent md:rounded-nonemd:p-0  absolute md:static rounded-[8px] p-4  ">
           <nav className="h-full">
 
-            <ul className="flex  flex-row  flex justify-between  text-background md:text-primary md:flex-row text-[22px] md:text-[18px] h-full font-medium md:text-sm md:gap-4">
-              <li className="mt-2 hover:text-violet-600 md:ml-5">
+            <ul className="flex-row  flex justify-between  text-background md:text-primary md:flex-row text-[22px] md:text-[18px] h-full font-medium md:text-sm md:gap-8 items-center">
+              <li className=" hover:text-violet-600">
                 <Link to="#section2">Sobre nosotros</Link>
 
               </li>
-              <li className="mt-2 hover:text-violet-600">
+              <li className=" hover:text-violet-600 ">
                 <Link to="#section3">Contacto</Link>
               </li>
-
-              <li className="mr-20 mt-2 hover:text-violet-600 md:mr-5">
-                <Link to="#section1">Productos y Servicios</Link>
-
+              <li className=" hover:text-violet-600 ">
+                <Link to="#section1">Productos & Servicios</Link>
               </li>
-              <li className="mr-56 mt-1 md:mr-0">
-                <SearchBar className="md:hidden sm:hidden"/>
+              <li className="">
+                <SearchBar />
               </li>
             {user.isLoggedIn ? 
             <div className="cursor-pointer flex flex-row gap-3 justify-center items-center">
@@ -96,8 +94,8 @@ function Header() {
               <li className="hover:text-violet-600 md:mr-[-10px]">
                 <Link to="/register"><button className="w-[150px] h-[35px] bg-secondary text-white hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Crear Cuenta</button></Link>
               </li>
-              <li className="hover:text-violet-600">
-                <Link to="/login"><button className="w-[150px] h-[35px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle md:mr-[-25px]"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px]" /><p>Iniciar Sesion</p></button></Link>
+              <li className="hover:text-violet-600 hidden xl:flex lg:flex md:flex md:mr-5 md:mt-4 lg:mt-2">
+                <Link to="/login"><button className="w-[150px] h-[35px] text-white bg-secondary hover:bg-violet-300 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 flex flex-row gap-3 justify-start align-middle md:mr-[-2px] min-[820px]:w-[120px] min-[820px]:mt-3 min-[912px]:mt-[-4px] lg:w-[110px] xl:mr-20"><img src="/loginAvatar.svg" alt="login icon" className="h-[20px] w-[20px] min-[820px]:hidden" /><p>Iniciar Sesion</p></button></Link>
               </li>
             </>
             }
@@ -106,7 +104,6 @@ function Header() {
         </div>}
         </div>
       </div>
-
   );
 }
 
