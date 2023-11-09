@@ -7,6 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +41,10 @@ public class ServiceController {
      * @return List of services.
      */
     @GetMapping
-    public List<Services> findAll() {
-        return serviceService.findAll();
+    public Page<Services> findAll(@RequestParam(defaultValue = "1", required = false) int page,
+                                  @RequestParam(defaultValue = "1", required = false) int size) {
+        Pageable pageRequest  = PageRequest.of(page, size);
+        return serviceService.findAll(pageRequest);
     }
 
     /**

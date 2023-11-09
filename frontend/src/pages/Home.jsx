@@ -21,7 +21,7 @@ import NavPagination from "../components/common/NavPagination";
 
 
 function Home() {
-  const {unorganizedServices} = useContext(GlobalContext);
+  const {unorganizedServices, loadingServices} = useContext(GlobalContext);
 
   // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
 
@@ -117,24 +117,21 @@ function Home() {
 
       <div id="section1" className={"p-5 grid xl:grid-cols-4 grid-flow-row md:grid-cols-3 gap-5 justify-items-center sm:grid-cols-1 bg-white md:max-lg:fle"}>
 
-        {unorganizedServices.length < 1 ? (
+        {loadingServices? (
           <div id="section1">
             <LoadingOutlined
               className="text-4xl text-primary ml-[73vw]"
               spin
             />
 
-             {/* <h1>No services</h1>
+            {/* <h1>No services</h1>
             <p>Para traer las cards desde el backend, parate en el directorio del backend backend/ y ejecuta: mvn clean install, y luego java -jar target/backend-0.0.1-SNAPSHOT.jar
 
               NOTA: Asegurate de tener java 17 o superior
             </p> */}
 
           </div>
-        ) : ''}
-
-        
-          {unorganizedServices.map((service) => (
+        ) : unorganizedServices.map((service) => (
             <Card
               key={service.id}
               id={service.id}
