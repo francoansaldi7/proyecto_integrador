@@ -40,7 +40,7 @@ const Dashboard = () => {
       try {
       const data = await getAllServices();
        setIsLoading(false);
-       setServices(data);
+       setServices(data.content);
         
       } catch (error) {
         // Get the previous page of the browser history and redirect it

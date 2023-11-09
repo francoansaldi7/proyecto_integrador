@@ -8,11 +8,18 @@ import {
 import PropTypes from "prop-types";
 const GlobalContext = createContext(null);
 
+
+
 const GlobalContextProvider = ({ children }) => {
+  const SERVICE_PAGE_SIZE = 8;
+
   const [services, setServices] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
+  const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
+  const [loadingServices, setLoadingServices] = useState(true);
+  
   useEffect(() => {
-    
+    //let servicesIterable = services.content ? services.content : [];
     const shuffledServices = shuffleArray([...services]);
     setUnorganizedServices(shuffledServices);
   
@@ -32,9 +39,13 @@ const GlobalContextProvider = ({ children }) => {
     return array;
   }
 
-  const handleShuffle = ()=> setUnorganizedServices(shuffleArray([...services]))
+  const handleShuffle = ()=> {
+    //let servicesIterable = services.content ? services.content : [];
+    setUnorganizedServices(shuffleArray([...services]))
+  }
 
-  const getAllServices = useCallback(async (isAdmin = false) => {
+  const getAllServices = useCallback(async (pageNumber=0, isAdmin = false) => {
+    setLoadingServices(true);
     let headers;
       const url = window.location.href;
   isAdmin = url.includes("/dashboard");
@@ -47,7 +58,7 @@ const GlobalContextProvider = ({ children }) => {
     console.log(headers);
     let response;
     try {
-      response = await fetch(`http://localhost:8080/api/v1/services${isAdmin ? "/admin" : ""}`, {
+      response = await fetch(`http://localhost:8080/api/v1/services${isAdmin ? "/admin" : ""}?size=${SERVICE_PAGE_SIZE}&page=${pageNumber}`, {
         method: "GET",
         headers: headers,
       });
@@ -64,9 +75,19 @@ const GlobalContextProvider = ({ children }) => {
         throw new Error("Error obtaining services");
       }
       const data = await response.json();
+      setLoadingServices(false);
+      setSevicesTotalPages(data.totalPages);
       return data;
     
   }, []);
+
+  const changeServicesPage = useCallback(
+    async (pageNumber)=> {
+      console.log(pageNumber);
+      getAllServices(pageNumber); 
+    },[getAllServices] 
+  );
+
 
   const saveService = useCallback(
   async (service, images = []) => {
@@ -217,9 +238,13 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       unorganizedServices,
-      handleShuffle
+      setUnorganizedServices,
+      handleShuffle,
+      changeServicesPage,
+      sevicesTotalPages,
+      loadingServices
     }),
-    [services, getAllServices, saveService, updateService, deleteService, unorganizedServices, handleShuffle]
+    [services, getAllServices, saveService, updateService, deleteService, unorganizedServices, handleShuffle, changeServicesPage, sevicesTotalPages,loadingServices]
   );
 
   return (

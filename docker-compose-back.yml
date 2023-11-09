@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: glo-cast-booking-webapp:latest
+    container_name: glo-cast-booking-webapp-container
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - mi-red
+    volumes:
+      - ./backend/backend-0.0.1-SNAPSHOT.jar:/app.jar
+
+networks:
+  mi-red:

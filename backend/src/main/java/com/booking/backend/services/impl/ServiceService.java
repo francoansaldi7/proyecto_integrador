@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -166,7 +168,7 @@ public class ServiceService implements IServiceService {
      */
     public List<Services> findAll() {
 
-        return serviceRepository.findAll();
+        throw new UnsupportedOperationException("Deprecado. Usar version con parametro pageable");
     }
 
     public List<Services> getSomeServices(int quantity) {
@@ -174,4 +176,8 @@ public class ServiceService implements IServiceService {
     }
 
 
+    @Override
+    public Page<Services> findAll(Pageable pageable) {
+        return serviceRepository.findAll(pageable);
+    }
 }
