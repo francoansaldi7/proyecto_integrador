@@ -7,6 +7,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
 import com.booking.backend.services.impl.ServiceService;
+import com.booking.backend.services.impl.UserDetailsServiceImpl;
+import com.booking.backend.services.impl.VerifyRoleService;
 
 @RestController
 @RequestMapping("/api/v1/services")
@@ -31,9 +40,17 @@ public class ServiceController {
     @Autowired
     private ServiceService serviceService;
 
-    public List<Services> getSomeServices(int quantity) {
-        return serviceService.getSomeServices(quantity);
-    }
+  @Autowired
+  private UserDetailsServiceImpl userDetailsService; 
+
+  @Autowired
+  private VerifyRoleService verifyRoleService;
+  
+  public List<Services> getSomeServices(int quantity) {
+    return serviceService.getSomeServices(quantity);
+  }
+  
+
 
     /**
      * Retrieves all services.
@@ -47,40 +64,58 @@ public class ServiceController {
         return serviceService.findAll(pageRequest);
     }
 
-    /**
-     * Retrieves a service by its ID.
-     *
-     * @param serviceId The ID of the service to retrieve.
-     * @return The service with the specified ID.
-     */
-    @GetMapping("/{serviceId}")
-    public Optional<Services> findByIdById(@PathVariable UUID serviceId) {
-        return serviceService.findById(serviceId);
+    @GetMapping("/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @CrossOrigin(value = {"${cors.allowedOrigins}"})
+    public Page<Services> findAllAdmin(@RequestParam(defaultValue = "1", required = false) int page,
+                                  @RequestParam(defaultValue = "1", required = false) int size) {
+                                    Pageable pageRequest  = PageRequest.of(page, size);
+        return serviceService.findAll(pageRequest);
     }
 
-    /**
-     * Creates a new service.
-     *
-     * @param service The service to be created.
-     * @return The created service.
-     */
-    @PostMapping
-    public Services createService(@RequestBody Services service) {
-        return serviceService.save(service);
+    @GetMapping("/{id}")
+    public Optional<Services> findById(@PathVariable UUID id) {
+        return serviceService.findById(id);
     }
 
-    @PostMapping("/{serviceId}/images")
-    public Services createServiceImages(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
-        String base64Image = imageData.get("base64Image");
+  /**
+   * Creates a new service.
+   *
+   * @param service The service to be created.
+   * @return The created service.
+   * @throws Exception
+   */
+
+
+  @PostMapping
+  @PreAuthorize("hasAuthority('USER')")
+  public ResponseEntity<?> createService(@RequestBody Services service) throws Exception {
+    // try {
+    //   // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
+      
+    // } catch (JwtException e) {
+    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+    // }
+    return ResponseEntity.ok().body(serviceService.save(service));
+  }
+
+   @PostMapping("/{serviceId}/images")
+  public ResponseEntity<?> createServiceImages(@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws Exception {
+    // try {
+    //    // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
+    // } catch (JwtException e) {
+    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
+    // }
+    String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
-        return serviceService.uploadImage(serviceId, base64Image, false, fileName);
-    }
+    return ResponseEntity.ok().body(serviceService.uploadImage(serviceId, base64Image, false, fileName));
+  }
 
 
-    @CrossOrigin(value = {"http://localhost:5173"})
-    @PostMapping("/{serviceId}/image-profile")
-    public Services createServiceImageProfile(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
-        String base64Image = imageData.get("base64Image");
+  //@CrossOrigin(value = {"http://localhost:5173"})
+  @PostMapping("/{serviceId}/image-profile")
+  public Services createServiceImageProfile(@PathVariable UUID serviceId, @RequestBody Map<String, String> imageData) throws IOException {
+    String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
 
         System.out.println("IMAGE NAME: " + base64Image);

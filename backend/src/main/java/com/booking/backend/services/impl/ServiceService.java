@@ -128,6 +128,7 @@ public class ServiceService implements IServiceService {
         if (serviceToDelete == null) {
             return false;
         }
+        System.out.println("Service to delete: " + serviceToDelete);
         serviceRepository.deleteById(id);
         return true;
     }

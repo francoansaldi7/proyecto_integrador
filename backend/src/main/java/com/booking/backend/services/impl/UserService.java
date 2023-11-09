@@ -1,82 +1,170 @@
 package com.booking.backend.services.impl;
 
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.booking.backend.controllers.UserController.LoginRequest;
+import com.booking.backend.models.Role;
 import com.booking.backend.models.User;
+import com.booking.backend.repository.IRoleRepository;
+import com.booking.backend.repository.IUserRepository;
+import com.booking.backend.services.IUserService;
+
+import jakarta.validation.Valid;
 
 @Service
-public class UserService {
-    //crea un UserService básico
+public class UserService implements IUserService {
+  @Autowired
+  private IUserRepository userRepository;
 
-    /**
-     * Saves the user.
-     *
-     * @param user The user to be saved.
-     * @return The saved user.
-     */
-    public User saveUser(User user) {
-        // TODO: Implement saving logic here
-        // Sample code:
-        // Database.save(user);
-        return user;
-    }
+  @Autowired
+  private EmailService emailService;
 
-    /**
-     * Deletes a user with the given ID.
-     *
-     * @param id The ID of the user to delete.
-     */
-    public void deleteUser(UUID id) {
-        // TODO: Implement deletion logic here
-        // Sample code:
-        // Database.deleteUser(id);
-    }
+  @Autowired
+  private IRoleRepository roleRepository;
 
-    /**
-     * Updates a user with the specified ID.
-     *
-     * @param id          The ID of the user to update.
-     * @param updatedUser The user object with updated information.
-     * @return The updated user.
-     */
-    public User updateUser(UUID id, User updatedUser) {
-        // TODO: Implement user update logic here
-        // Sample code:
-        // User existingUser = Database.getUser(id);
-        // if (existingUser != null) {
-        //     existingUser.update(updatedUser);
-        //     return existingUser;
-        // }
-        return updatedUser;
-    }
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
 
-    /**
-     * Retrieves a user by their ID.
-     *
-     * @param id The ID of the user to retrieve.
-     * @return The user with the specified ID, or null if not found.
-     */
-    public User getUser(UUID id) {
-        // TODO: Implement retrieval logic here
-        // Sample code:
-        // return Database.getUser(id);
-        return new User(id);
-    }
+  @Autowired
+  private JwtEncoder encoder;
 
-    /**
-     * Retrieves all users from the database.
-     *
-     * @return List of all users.
-     */
-    public List<User> getAllUsers() {
-        // TODO: Implement method logic here
-        // Sample code:
-        // return Database.getAllUsers();
-        User user = new User(UUID.randomUUID());
-        User user2 = new User(UUID.randomUUID());
-        return List.of(user, user2);
+  @Override
+  public User findByUsername(String username) throws UsernameNotFoundException {
+    System.out.println("USERNAME: " + username);
+    Optional<User> user = userRepository.findByUsername(username);
+    System.out.println(user);
+    return user.get();
+  }
+
+  public Optional<User> findById(UUID id) {
+    Optional<User> u = userRepository.findById(id);
+    return u;
+  }
+
+  public List<User> findAll() {
+    return userRepository.findAll();
+  }
+
+  // @Override
+  // public void changePassword(String oldPassword, String newPassword) {
+
+  // Authentication currentUser =
+  // SecurityContextHolder.getContext().getAuthentication();
+  // String username = currentUser.getName();
+
+  // if (authenticationManager != null) {
+
+  // authenticationManager.authenticate(new
+  // UsernamePasswordAuthenticationToken(username, oldPassword));
+  // } else {
+
+  // return;
+  // }
+
+  // User user = (User) userDetailsService.loadUserByUsername(username);
+
+  // user.setPassword(passwordEncoder.encode(newPassword));
+  // userRepository.save(user);
+
+  // }
+
+  @Override
+  public User save(User user) {
+    String oldPassword = user.getPassword();
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    if (user.getRole().getId() == 2) {
+      user.setRole(new Role(2, "ADMIN"));
+
+    } else {
+      user.setRole(new Role(1, "USER"));
     }
+    User userSaved = userRepository.save(user);
+    System.out.println("USER: " + user.getUsername() + " " + user.getPassword());
+    String token= getToken(user.getUsername(), oldPassword);
+    Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token="+token, user.getUsername());
+    return userSaved;
+  }
+
+  private Set<SimpleGrantedAuthority> getAuthority(User user) {
+    Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+    authorities.add(new SimpleGrantedAuthority(user.getName()));
+    return authorities;
+  }
+
+  @Override
+  public Boolean deleteById(UUID id) {
+    userRepository.deleteById(id);
+    return true;
+  }
+
+  @Override
+  public User update(UUID id, User user) throws RuntimeException {
+    User userToUpdate = userRepository.findById(id).orElse(null);
+        if (userToUpdate != null) {
+          if (user.getRole().getId() == 2) {
+      userToUpdate.setRole(new Role(2, "ADMIN"));
+
+    } else {
+      userToUpdate.setRole(new Role(1, "USER"));
+    }
+            User updatedUser = userRepository.save(userToUpdate);
+            return updatedUser;
+        }
+        throw new RuntimeException("User not found");
+  }
+
+  @Override
+  public String getToken(String username, String password) {
+    Instant now = Instant.now();
+    long expiry = 36000L;
+
+    try {
+      Optional<User> userDetails = userRepository.findByUsername(username);
+      System.out.println(userDetails.get().getPassword());
+      System.out.println(password);
+      System.out.println(passwordEncoder.matches(password, userDetails.get().getPassword()));
+      if (userDetails.isPresent() != false
+          && passwordEncoder.matches(password, userDetails.get().getPassword())) {
+        // El usuario se ha autenticado correctamente
+        String usernameSaved = userDetails.get().getUsername();
+        String scope = userDetails.get().getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.joining(" "));
+
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+            .issuer("self")
+            .issuedAt(now)
+            .expiresAt(now.plusSeconds(expiry))
+            .subject(usernameSaved)
+            .claim("rol", scope)
+            .claim("name", userDetails.get().getName())
+            .build();
+
+        String token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+        return token;
+      } else {
+        // El usuario no se autenticó correctamente
+        return "Usuario o contraseña incorrectos";
+      }
+    } catch (UsernameNotFoundException e) {
+      return "Usuario no encontrado";
+    }
+  }
 }

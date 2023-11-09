@@ -68,7 +68,7 @@ void testfindByIdById() {
     Services service = new Services(serviceId, "Service");
     when(serviceService.findById(serviceId)).thenReturn(Optional.of(service));
 
-    Optional<Services> retrievedService = serviceController.findByIdById(serviceId);
+    Optional<Services> retrievedService = serviceController.findById(serviceId);
 
     assertNotNull(retrievedService);
     if (retrievedService.isPresent()) {
@@ -129,7 +129,7 @@ void testupdate() {
 }
 
 @Test
-void testdeleteById() {
+void testdeleteById() throws Exception {
     // Test case 1: Deleting an existing service
     // Description: Verify that the deleteById method successfully deletes an existing service
     // Preconditions: An existing service with a valid ID

@@ -90,7 +90,7 @@ public class S3DataSource {
     }
 
     public String getObjectUrl(String fileName) {
-        return "https://" + bucketName + ".s3.us-west-2.amazonaws.com/" + fileName;
+        return "https://" + bucketName + ".s3.sa-east-1.amazonaws.com/" + fileName;
 
     }
 

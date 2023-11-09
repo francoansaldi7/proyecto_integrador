@@ -19,7 +19,7 @@ const GlobalContextProvider = ({ children }) => {
   const [loadingServices, setLoadingServices] = useState(true);
   
   useEffect(() => {
-    
+    //let servicesIterable = services.content ? services.content : [];
     const shuffledServices = shuffleArray([...services]);
     setUnorganizedServices(shuffledServices);
   
@@ -39,23 +39,51 @@ const GlobalContextProvider = ({ children }) => {
     return array;
   }
 
-  const handleShuffle = ()=> setUnorganizedServices(shuffleArray([...services]))
-  
-  const getAllServices = useCallback(async (pageNumber=0) => {
+  const handleShuffle = ()=> {
+    //let servicesIterable = services.content ? services.content : [];
+    setUnorganizedServices(shuffleArray([...services]))
+  }
+
+  const getAllServices = useCallback(async (pageNumber=0, isAdmin = false) => {
+    setLoadingServices(true);
+    let headers;
+      const url = window.location.href;
+  isAdmin = url.includes("/dashboard");
+    isAdmin ? (headers = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
+    }) : (headers = {
+      "Content-Type": "application/json"
+    })
+    console.log(headers);
+    let response;
     try {
-      setLoadingServices(true);
-      const response = await fetch(`http://localhost:8080/api/v1/services?size=${SERVICE_PAGE_SIZE}&page=${pageNumber}`);
+      response = await fetch(`http://localhost:8080/api/v1/services${isAdmin ? "/admin" : ""}?size=${SERVICE_PAGE_SIZE}&page=${pageNumber}`, {
+        method: "GET",
+        headers: headers,
+      });
+      
+    } catch (error) {
+      throw new Error(error);
+      
+    }
+      if (!response.ok) {
+        console.log(response);
+        if(response.status === 401 || response.status === 403){
+          window.location.href = "/login";
+        }
+        throw new Error("Error obtaining services");
+      }
       const data = await response.json();
       setLoadingServices(false);
       setSevicesTotalPages(data.totalPages);
-      setServices(data.content);
-    } catch (error) {
-      console.error("Error obtaining services", error);
-    }
+      return data;
+    
   }, []);
 
   const changeServicesPage = useCallback(
     async (pageNumber)=> {
+      console.log(pageNumber);
       getAllServices(pageNumber); 
     },[getAllServices] 
   );
@@ -64,14 +92,24 @@ const GlobalContextProvider = ({ children }) => {
   const saveService = useCallback(
   async (service, images = []) => {
     let serviceSaved;
+    let response;
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/services`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(service),
-      });
+      try {
+        response = await fetch(`http://localhost:8080/api/v1/services`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
+          },
+          body: JSON.stringify(service),
+        })
+        
+      } catch (error) {
+        console.error(error);
+        throw new Error(error);
+      }
+        
+    
       serviceSaved = await response.json();
       if (response.ok) {
         let currentIndex = 0;
@@ -100,6 +138,7 @@ const GlobalContextProvider = ({ children }) => {
                   }),
                   headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('registrationToken')}`
                   },
                 }
               );
@@ -111,7 +150,10 @@ const GlobalContextProvider = ({ children }) => {
             };
 
             reader.readAsDataURL(image.file);
-          } else {
+          } else if(response.status === 401 || response.status === 403){
+            return window.location.href = '/login'
+          } else{
+
             getAllServices(); // Llamada después de procesar todas las imágenes
           }
         };
@@ -120,7 +162,8 @@ const GlobalContextProvider = ({ children }) => {
       }
       return serviceSaved;
     } catch (error) {
-      console.error("Error saving the service", error);
+      console.log(error);
+      throw new Error(error);
     }
   },
   [getAllServices]
@@ -183,17 +226,19 @@ const GlobalContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    getAllServices();
+    //getAllServices();
   }, []);
 
   const globalValue = useMemo(
     () => ({
       services,
+      setServices,
       getAllServices,
       saveService,
       updateService,
       deleteService,
       unorganizedServices,
+      setUnorganizedServices,
       handleShuffle,
       changeServicesPage,
       sevicesTotalPages,
