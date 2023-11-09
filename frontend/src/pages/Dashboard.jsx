@@ -79,6 +79,12 @@ const Dashboard = () => {
             >
               Usuarios
             </button>
+            <button
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${!showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => setShowUsers(false)}
+            >
+              Categorias
+            </button>
             {showUsers ? <ListOfUsers /> : <ListOfServices activeCreateForm={handleActiveCreateForm} />}
             {activeCreateForm && <CreateForm closeForm={handleActiveCreateForm} />}
           </div>
