@@ -18,12 +18,20 @@ import 'swiper/css/pagination';
 import CategorysSection from "../components/common/CategorysSection";
 import ProductsAndServices from "./ProductsAndServices";
 import NavPagination from "../components/common/NavPagination";
-
+import { useState } from "react";
 
 function Home() {
   const {unorganizedServices, getAllServices ,setServices, loadingServices} = useContext(GlobalContext);
-
+  const [thereAreFewCards, setThereAreFewCards] = useState(true);
   // Map service to bring 4 or 5 random cards to slider + remove harcoded cards
+
+  useEffect(() => {
+    if (unorganizedServices.length < 3) {
+      setThereAreFewCards(true);
+    } else {
+      setThereAreFewCards(false);
+    }
+  }, [unorganizedServices]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,32 +51,32 @@ function Home() {
         
         <span className="h-[1px] w-full bg-secondary opacity-25"></span>
         <div className="featured-services flex flex-wrap mt-5 gap-[-20px]">
-        
-        <Swiper
-        slidesPerView={1}
-        spaceBetween={10}
-        loop={true}
-        pagination={{
-          clickable: true,
-        }}
-        breakpoints={{
-          '@0.00': {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          '@1.00': {
-            slidesPerView: 1,
-            spaceBetween: 40,
-          },
-          '@1.50': {
-            slidesPerView: 3,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Pagination]}
-        className="mySwiper py-[90px] self-center"
-        
-      >
+        {thereAreFewCards && (
+           <Swiper
+          id="mySwiperWhenThereAreFewCards"
+          spaceBetween={10}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            '@0.00': {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            '@1.00': {
+              slidesPerView: 1,
+              spaceBetween: 40,
+            },
+            '@1.50': {
+              slidesPerView: 1,
+              spaceBetween: 50,
+            },
+          }}
+          modules={[Pagination]}
+          className="mySwiperWhenThereAreFewCards py-[90px] self-center"
+          
+        >
         {unorganizedServices.map((service) => (
           <SwiperSlide key={service.id} className="z-auto flex">
           {({ isNext }) => (
@@ -89,6 +97,56 @@ function Home() {
         ))}
         
       </Swiper>
+        )} 
+        
+        {!thereAreFewCards && (
+          <Swiper
+          id="mySwiperWhenThereAreSeveralCards"
+          spaceBetween={10}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            '@0.00': {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            '@1.00': {
+              slidesPerView: 1,
+              spaceBetween: 40,
+            },
+            '@1.50': {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+          }}
+          modules={[Pagination]}
+          className="mySwiperWhenThereAreSeveralCards py-[90px] self-center"
+          
+        >
+        {unorganizedServices.slice(0, 4).map((service) => (
+          <SwiperSlide key={service.id} className="z-auto flex">
+          {({ isNext }) => (
+            <Card
+              key={service.id}
+              id={service.id}
+              img={service.imgProfileUrl}
+              title={service.title}
+              description={service.description}
+              moreBig={isNext}
+              price={service.pricePerHour}
+              rating={service.rating}
+              disccount={true}
+
+            />
+              )}
+        </SwiperSlide>
+        ))}
+        
+      </Swiper>
+        )}
+        
 
         </div>
       </div>
