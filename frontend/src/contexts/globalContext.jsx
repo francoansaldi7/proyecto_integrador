@@ -84,7 +84,8 @@ const GlobalContextProvider = ({ children }) => {
   const changeServicesPage = useCallback(
     async (pageNumber)=> {
       console.log(pageNumber);
-      getAllServices(pageNumber); 
+      const data = await getAllServices(pageNumber); 
+      setServices(data.content);
     },[getAllServices] 
   );
 
