@@ -30,16 +30,16 @@ public class Services {
     @OneToMany(mappedBy = "service")
     @JsonManagedReference
     private List<Characteristic> characteristics;
-
+    
     @OneToMany
     private List<ServiceImage> gallery;
 
     @OneToMany(mappedBy = "service")
     private List<Work> works;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "type_of_service_id", referencedColumnName = "id")
-    private TypesOfServices typeOfService;
+    private List<TypesOfServices> typeOfService;
 
     @ManyToOne
     @JoinColumn(name = "service_provider_id")

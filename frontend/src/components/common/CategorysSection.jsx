@@ -17,18 +17,8 @@ const CategorysSection = () => {
     setCategories(categories)
 
   }, [services])
-//  const categories = [
-//     { id: 1, name: 'Destacado' },
-//     { id: 2, name: 'Estudio de Animacion' },
-//     { id: 3, name: 'Estudio de Filmacion' },
-//     { id: 4, name: 'Fotografia' },
-//     { id: 5, name: 'Videografia' },
-//   ];
-
-
 
   const [activeCategory, setActiveCategory] = useState(0);
-
 
   const handleCategoryClick = (categoryId) => {
     setActiveCategory(categoryId);
