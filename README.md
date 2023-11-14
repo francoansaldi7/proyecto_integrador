@@ -164,15 +164,13 @@ git branch -d feature-name
 
 ## Acknowledgments
 
-TO DO - Give credit to anyone who contributed to your project or inspired you during its development.
-Mention any third-party libraries, tools, or resources you used.
+We would like to express our gratitude for the support and education that we have received during our time at Digital House, specially to the teachers that shared their experience and resources with love and professionalism. 
 
 ## Contact Information
 
 Students that contributed on this project: 
 
 * Carmen Zeballos - czeballosricci@gmail.com
-* Magdalena Calasso - calassom@gmail.com 
 * Franco Ansaldi - fansaldi7@gmail.com 
 * Deivid Gonzalez - deividgonzalezdev@gmail.com
 * Ana Ferreira - ana.ferreirabna@gmail.com
