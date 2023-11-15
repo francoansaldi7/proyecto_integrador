@@ -97,7 +97,7 @@ const ListOfUsers = () => {
               transform: "translate(175px, 49px)",
             }}
           >
-            Mostrando 1-100 of 436 resultados
+            Mostrando 1-100 de 436 resultados
             <div
               className="tooltip-arrow"
               data-popper-arrow=""
