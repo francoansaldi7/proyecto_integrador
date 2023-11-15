@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 // import { useContext } from "react";
 // import { GlobalContext } from "../../contexts/globalContext";
-const DeleteModal = ({ handleDeleteModal, handleDeleteService }) => {
+const DeleteModal = ({ handleDeleteModal, handleDelete}) => {
   //const {deleteService} = useContext(GlobalContext);
 
   return (
@@ -47,7 +47,7 @@ const DeleteModal = ({ handleDeleteModal, handleDeleteService }) => {
               data-modal-toggle="delete-modal"
               type="button"
               className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-              onClick={() => handleDeleteService()}
+              onClick={() => handleDelete()}
             >
               Si, Estoy Seguro
             </button>
@@ -68,7 +68,7 @@ const DeleteModal = ({ handleDeleteModal, handleDeleteService }) => {
 
 DeleteModal.propTypes = {
   handleDeleteModal: PropTypes.func.isRequired,
-  handleDeleteService: PropTypes.func.isRequired
+  handleDelete: PropTypes.func.isRequired
 };
 
 export default DeleteModal;

@@ -1,53 +1,98 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import { GlobalContext } from "../../contexts/globalContext";
-import { useState } from "react";
-import DeleteModal from "./DeleteModal";
+import { useState , useCallback, useEffect, useContext} from 'react';
 import { ToastContainer, toast } from "react-toastify";
+import { AuthContex } from '../../contexts/AuthContex';
 
 import "react-toastify/dist/ReactToastify.css";
-import NavPagination from "./NavPagination";
-import UpdateForm from "./UpdateForm";
-const ListOfServices = ({ activeCreateForm }) => {
-  const [activeDeleteModal, setActiveDeleteModal] = useState(false);
-  const [activeUpdateForm, setActiveUpdateForm] = useState(false);
-  const [idToDelete, setIdToDelete] = useState(null);
-  const [idToUpdate, setIdToUpdate] = useState(null);
-  const { services, deleteService } = useContext(GlobalContext);
+import { GlobalContext } from '../../contexts/globalContext';
+import CreateFormCategories from './CreateFormCategories';
+import DeleteModal from './DeleteModal';
+import UpdateFormCategories from './UpdateFormCategories';
+const ListOfCategories = () => {
+  const {categories, setCategories, getAllCategories, saveCategory, updateCategory, deleteCategory} = useContext(GlobalContext)
 
-  const calculateTotalEarnings = (service) => {
-    let totalEarnings = 0;
-    service.reservations?.forEach((reservation) => {
-      totalEarnings += reservation.totalPrice;
-    });
-    return totalEarnings;
-  };
+      const [loading, setLoading] = useState(true);
+      const [activeCreateForm, setActiveCreateForm] = useState(false);
+      const [activeDeleteForm, setActiveDeleteForm] = useState(false);
+      const [activeUpdateForm, setActiveUpdateForm] = useState(false);
+      const [idToDelete, setIdToDelete] = useState(null);
+      const [idToUpdate, setIdToUpdate] = useState(null);
 
-  const handleDeleteModal = (idService) => {
-    setActiveDeleteModal(!activeDeleteModal);
-    setIdToDelete(idService);
-  };
+      useEffect(() => {
+        const fetchData = async () => {
+          try{    
+            const result =  await getAllCategories();
+            if(result){
+              setCategories(result);
+              setLoading(false);
+            }
+          }catch(error){
+            console.log(error);
+          }
+        }
 
-  const handleDeleteService = async () => {
-    const result = await deleteService(idToDelete);
-    if (result) {
-      setActiveDeleteModal(!activeDeleteModal);
-      toast.success("¡Servicio eliminado exitosamente!");
-    } else {
-      toast.error("Se produjo un error al eliminar el servicio.");
+        fetchData();
+      }, []);
+
+    const handleDeleteModal = (idToDelete) => {
+      setIdToDelete(idToDelete);
+      setActiveDeleteForm(!activeDeleteForm);
     }
-  };
 
-  //----------------------------------------------------------
+    const handleDelete = async () => {
+      if(idToDelete === null) return;
+      console.log(idToDelete);
+      let idToDeleteParsed = parseInt(idToDelete);
+      try {
+        const result = await deleteCategory(idToDeleteParsed);
+        if (result) {
+          setActiveDeleteForm(!activeDeleteForm);
+          setCategories(categories.filter((category) => category.id !== idToDelete));
+          toast.success("¡Categoría eliminada exitosamente!");
+          return;
+        } 
+        toast.error("Se produjo un error al eliminar la categoría.");
+      } catch (error) {
+        console.log(error);
+        toast.error("Se produjo un error al eliminar la categoría.");
+      }
+    }
 
-  const handleUpdateModal = (idService) => {
-    setIdToUpdate(idService);
-    setActiveUpdateForm(!activeUpdateForm);
-  }
 
-  const closeUpdateForm = () => {
-    setActiveUpdateForm(!activeUpdateForm);
-  }
+    const handleUpdateModal = (idCategory) => {
+      setIdToUpdate(idCategory);
+      setActiveUpdateForm(!activeUpdateForm);
+    }
+
+    const closeUpdateForm = () => {
+      setActiveUpdateForm(!activeUpdateForm);
+    }
+
+    const closeDeleteForm = () => {
+      setActiveDeleteForm(!activeDeleteForm);
+    }
+
+    const closeCreateForm = () => {
+      setActiveCreateForm(!activeCreateForm);
+    }
+
+    // const handleUpdate = async () => {
+    //   if(idToUpdate === null) return;
+    //   console.log(idToUpdate);
+    //   let idToUpdateParsed = parseInt(idToUpdate);
+    //   try {
+    //     const result = await updateCategory(idToUpdateParsed);
+    //     if (result) {
+    //       setActiveUpdateForm(!activeUpdateForm);
+    //       toast.success("¡Categoría actualizada exitosamente!");
+    //       return;
+    //     } 
+    //     toast.error("Se produjo un error al actualizar la categoría.");
+    //   } catch (error) {
+    //     console.log(error);
+    //     toast.error("Se produjo un error al actualizar la categoría.");
+    //   }
+    // }
+
   return (
     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-[95vw]">
       <ToastContainer
@@ -62,22 +107,13 @@ const ListOfServices = ({ activeCreateForm }) => {
         pauseOnHover
         theme="dark"
       />
-      {activeUpdateForm && (
-        <UpdateForm
-          closeForm={closeUpdateForm}
-          service={services.find((service) => service.id === idToUpdate)}
-        />
-      )}
-      {activeDeleteModal && (
-        <DeleteModal
-          handleDeleteModal={handleDeleteModal}
-          handleDelete={handleDeleteService}
-        />
-      )}
+      {activeUpdateForm && <UpdateFormCategories closeForm={closeUpdateForm} category={categories.find((category) => category.id === idToUpdate) } />}
+      {activeDeleteForm && <DeleteModal handleDeleteModal={closeDeleteForm} handleDelete={handleDelete} />}
+      {activeCreateForm && <CreateFormCategories closeForm={closeCreateForm} />}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
         <div className="flex-1 flex items-center space-x-2">
           <h5>
-            <span className="text-gray-500">Todos los servicios:</span>
+            <span className="text-gray-500">Todos los usuarios:</span>
             <span className="dark:text-white">12</span>
           </h5>
           <h5 className="text-gray-500 dark:text-gray-400 ml-1">1-100 (436)</h5>
@@ -91,7 +127,7 @@ const ListOfServices = ({ activeCreateForm }) => {
             >
               <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"></path>
             </svg>
-            <span className="sr-only">Mas info</span>
+            <span className="sr-only">Más información</span>
           </button>
           <div
             id="results-tooltip"
@@ -104,7 +140,7 @@ const ListOfServices = ({ activeCreateForm }) => {
               transform: "translate(175px, 49px)",
             }}
           >
-            Mostrando 1-100 de 436 resultados
+            Mostrando 1-100 of 436 resultados
             <div
               className="tooltip-arrow"
               data-popper-arrow=""
@@ -130,7 +166,7 @@ const ListOfServices = ({ activeCreateForm }) => {
             >
               <path d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 01-.517.608 7.45 7.45 0 00-.478.198.798.798 0 01-.796-.064l-.453-.324a1.875 1.875 0 00-2.416.2l-.243.243a1.875 1.875 0 00-.2 2.416l.324.453a.798.798 0 01.064.796 7.448 7.448 0 00-.198.478.798.798 0 01-.608.517l-.55.092a1.875 1.875 0 00-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 01-.064.796l-.324.453a1.875 1.875 0 00.2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 01.796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 01.517-.608 7.52 7.52 0 00.478-.198.798.798 0 01.796.064l.453.324a1.875 1.875 0 002.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 01-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 001.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 01-.608-.517 7.507 7.507 0 00-.198-.478.798.798 0 01.064-.796l.324-.453a1.875 1.875 0 00-.2-2.416l-.243-.243a1.875 1.875 0 00-2.416-.2l-.453.324a.798.798 0 01-.796.064 7.462 7.462 0 00-.478-.198.798.798 0 01-.517-.608l-.091-.55a1.875 1.875 0 00-1.85-1.566h-.344zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"></path>
             </svg>
-            Table settings
+            Configuración
           </button>
         </div>
       </div>
@@ -155,7 +191,7 @@ const ListOfServices = ({ activeCreateForm }) => {
               <input
                 type="text"
                 id="simple-search"
-                placeholder="Search htmlFor products"
+                placeholder="Buscar categoría"
                 required=""
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
               />
@@ -165,9 +201,9 @@ const ListOfServices = ({ activeCreateForm }) => {
         <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
           <button
             type="button"
-            id="createProductButton"
+            id="createCategoryButton"
             className="flex items-center justify-center text-white bg-primary hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary dark:hover:bg-primary focus:outline-none dark:focus:ring-primary"
-            onClick={activeCreateForm}
+            onClick={() => setActiveCreateForm(!activeCreateForm)}
           >
             <svg
               className="h-3.5 w-3.5 mr-1.5 -ml-1"
@@ -178,7 +214,7 @@ const ListOfServices = ({ activeCreateForm }) => {
             >
               <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"></path>
             </svg>
-            Agregar servicio
+            Agregar Categoría
           </button>
           <button
             id="filterDropdownButton"
@@ -252,7 +288,7 @@ const ListOfServices = ({ activeCreateForm }) => {
                   href="#"
                   className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
-                  Eliminar Todo
+                  Borrar todos
                 </a>
               </div>
             </div>
@@ -271,41 +307,21 @@ const ListOfServices = ({ activeCreateForm }) => {
                     className="w-4 h-4 text-primary bg-gray-100 rounded border-gray-300 focus:ring-primary dark:focus:ring-primary dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label htmlFor="checkbox-all" className="sr-only">
-                  caja
+                    checkbox
                   </label>
                 </div>
-              </th>
-              <th scope="col" className="p-4">
-                Servicio
               </th>
               <th scope="col" className="p-4">
                 Categoria
               </th>
               <th scope="col" className="p-4">
-              Disponibilidad
-              </th>
-              <th scope="col" className="p-4">
-                Precio
-              </th>
-              <th scope="col" className="p-4">
-              Mes/Reservas
-              </th>
-              <th scope="col" className="p-4">
-                Calificacion
-              </th>
-              <th scope="col" className="p-4">
-                Total/Reservas
-              </th>
-              <th scope="col" className="p-4">
-                Total/Ganancias
-              </th>
-              <th scope="col" className="p-4">
-              Última actualización
+                descripción
               </th>
             </tr>
           </thead>
+          {loading ? <tbody><tr><td>Cargando...</td></tr></tbody>: 
           <tbody>
-            {services.map((service, index) => (
+            {categories.map((category, index) => (
               <tr
                 key={index}
                 className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -332,112 +348,31 @@ const ListOfServices = ({ activeCreateForm }) => {
                 >
                   <div className="flex items-center mr-3">
                     <img
-                      src={service.imgProfileUrl}
-                      alt={`${service.title} Image`}
+                      src={category.imgProfileUrl}
+                      alt={`${category.name} Image`}
                       className="h-8  mr-3 w-10 rounded-md object-cover"
                     />
-                    {service.title}
-                  </div>
-                </th>
-                <td className="px-4 py-3">
-                  <span className="bg-primary/100 text-primary text-xs font-medium px-2 py-0.5 rounded dark:bg-primary/10 dark:text-primary">
-                    {service.typeOfService.map((type) => (
-                      type.name + " "
-                    ))}
-                  </span>
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex items-center justify-center">
-                    <div
-                      className={`h-4 w-4 rounded-full inline-block mr-2 ${
-                        service.availability ? "bg-green-500" : "bg-green-500"
-                      }`}
-                    ></div>
-                  </div>
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {service.pricePerHour}
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {service.reservations?.length}
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex items-center">
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-yellow-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <span className="text-gray-500 dark:text-gray-400 ml-1">
-                      {service.rating}
+                    <span className="bg-primary/100 text-primary text-xs font-medium px-2 py-0.5 rounded dark:bg-primary/10 dark:text-primary">
+                      {category.name}
                     </span>
                   </div>
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-5 h-5 text-gray-400 mr-2"
-                      aria-hidden="true"
-                    >
-                      <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"></path>
-                    </svg>
-                    {service.reservations?.length}
+                </th>
+                <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white max-w-[600px] overflow-hidden">
+                  <div className="flex items-center justify-center">
+                    <div>{category.description}</div>
                   </div>
                 </td>
-                <td className="px-4 py-3">{calculateTotalEarnings(service)}</td>
+                
                 <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div className="flex items-center space-x-4">
                     <button
                       type="button"
                       className="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary rounded-lg hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
                       onClick={() => {
-                        handleUpdateModal(service.id);
+                        handleUpdateModal(category.id);
                       }}
+                    
                     >
-
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 mr-2 -ml-0.5"
@@ -463,12 +398,12 @@ const ListOfServices = ({ activeCreateForm }) => {
                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path>
                         <path d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"></path>
                       </svg>
-                      Vista previa
+                      Vista Previa
                     </button>
                     <button
                       type="button"
                       className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                      onClick={() => handleDeleteModal(service.id)}
+                      onClick={() => {handleDeleteModal(category.id);}}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -484,8 +419,9 @@ const ListOfServices = ({ activeCreateForm }) => {
                   </div>
                 </td>
               </tr>
-            ))}
+            ))} 
           </tbody>
+          }
         </table>
       </div>
       <nav
@@ -497,17 +433,91 @@ const ListOfServices = ({ activeCreateForm }) => {
           <span className="font-semibold text-gray-900 dark:text-white">
             1-10
           </span>
-          de
+          of
           <span className="font-semibold text-gray-900 dark:text-white">
             1000
           </span>
         </span>
-      <NavPagination />
+        <ul className="inline-flex items-stretch -space-x-px">
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              <span className="sr-only">Anterior</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"></path>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              1
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              2
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              aria-current="page"
+              className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary bg-primary-50 border border-primary hover:bg-primary hover:text-primary dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+            >
+              3
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              ...
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              100
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              <span className="sr-only">Siguiente</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
       </nav>
     </div>
   );
 };
-ListOfServices.propTypes = {
-  activeCreateForm: PropTypes.func.isRequired,
-};
-export default ListOfServices;
+
+export default ListOfCategories;

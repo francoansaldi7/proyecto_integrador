@@ -1,11 +1,12 @@
 class Service {
   
-  constructor(serviceName, category, pricePerHour, rating, description) {
+  constructor(serviceName, category, pricePerHour, rating, description, characteristics) {
     this.setServiceName(serviceName);
     this.setCategory(category);
     this.setPricePerHour(pricePerHour);
     this.setRating(rating);
     this.setDescription(description);
+    this.setCharacteristics(characteristics);
   }
   /* {
     {
@@ -50,13 +51,12 @@ class Service {
   }
 
   setCategory(category) {
-    category = parseInt(category);
-    if (!category || category < 1 || category > 9) {
-      throw new Error('La categoría debe ser un número entre 1 y 9.');
-    }
-    this.typeOfService = {
-      id: category
-    };
+    // category = parseInt(category);
+    // if (!category || category < 1 || category > 9) {
+    //   throw new Error('La categoría debe ser un número entre 1 y 9.');
+    // }
+    console.log(category);
+    this.typeOfService = category;
   }
 
   setPricePerHour(pricePerHour) {
@@ -78,6 +78,11 @@ class Service {
       throw new Error('La descripción no puede estar vacía y debe tener menos de 1000 caracteres.');
     }
     this.description = description;
+  }
+
+  setCharacteristics(characteristics) {
+    console.log(characteristics);
+    this.characteristics = characteristics;
   }
 }
 
