@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
 
 public interface ICategoryService {
   
-  TypesOfServices save(@Valid TypesOfServices category);
+  TypesOfServices save(@Valid TypesOfServices category, String imageFile, String fileName);
 
   List<TypesOfServices> findAll();
 

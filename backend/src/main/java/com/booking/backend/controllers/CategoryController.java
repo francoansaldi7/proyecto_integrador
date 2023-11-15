@@ -31,8 +31,12 @@ public class CategoryController {
   }
 
   @PostMapping
-  public TypesOfServices save(@RequestBody TypesOfServices category) {
-    return categoryService.save(category);
+  public TypesOfServices save(@RequestBody TypesOfServicesExtended category) {
+    return categoryService.save(category.category(), category.imageFile(), category.fileName());
+  }
+
+  public record TypesOfServicesExtended(TypesOfServices category, String imageFile, String fileName) {
+    
   }
 
   @PutMapping("/{id}")

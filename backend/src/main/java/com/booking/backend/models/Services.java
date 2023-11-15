@@ -27,8 +27,8 @@ public class Services {
     private List<List<LocalDate>> availability;
     private String imgProfileUrl;
 
-    @OneToMany(mappedBy = "service")
-    @JsonManagedReference
+    @ManyToMany
+    @JoinColumn(name = "characteristic_id", referencedColumnName = "id")
     private List<Characteristic> characteristics;
     
     @OneToMany
