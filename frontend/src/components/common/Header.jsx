@@ -87,7 +87,7 @@ function Header() {
                 localStorage.clear()
                 window.location.reload()
               }}
-              className="p-2 rounded-md bg-secondary text-white hover:bg-primary">Log Out</button>
+              className="p-2 rounded-md bg-secondary text-white hover:bg-primary">Cerrar Sesion</button>
             </div>
              : 
             <>
