@@ -13,6 +13,7 @@ const GlobalContextProvider = ({ children }) => {
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
@@ -76,7 +77,8 @@ const GlobalContextProvider = ({ children }) => {
       if (!response.ok) {
         console.log(response);
         if (response.status === 401 || response.status === 403) {
-          window.location.href = "/login";
+          console.log(response.status);
+          return window.location.href = "/login";
         }
         throw new Error("Error obtaining services");
       }
@@ -160,6 +162,7 @@ const GlobalContextProvider = ({ children }) => {
 
               reader.readAsDataURL(image.file);
             } else if (response.status === 401 || response.status === 403) {
+              console.log(response.status);
               return (window.location.href = "/login");
             } else {
               getAllServices(); // Llamada después de procesar todas las imágenes
@@ -342,6 +345,105 @@ const GlobalContextProvider = ({ children }) => {
     }
   });
 
+
+
+// ------------------------ CHARACTERISTICS FETCHS -------------------
+
+ const getAllCharacteristics = useCallback(async () => {
+   try {
+     const response = await fetch("http://localhost:8080/api/v1/characteristic");
+     if (!response.ok) {
+       throw new Error("Error obtaining characteristics");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const findCharacteristic = useCallback(async (idCharacteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`
+     );
+     if (!response.ok) {
+       throw new Error("Error finding characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const saveCharacteristic = useCallback(async (characteristic) => {
+   try {
+     const response = await fetch("http://localhost:8080/api/v1/characteristic", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(characteristic),
+     });
+     if (!response.ok) {
+       throw new Error("Error saving characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const deleteCharacteristic = useCallback(async (idCharacteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       {
+         method: "DELETE",
+       }
+     );
+     if (!response.ok) {
+       throw new Error("Error deleting characteristic");
+     }
+     const data = await response.text();
+     if(data !== true){
+       throw new Error(data);
+     }
+     return true;
+   } catch (error) {
+     console.error(error);
+     return false;
+   }
+ })
+
+ const updateCharacteristic = useCallback(async (idCharacteristic, characteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       {
+         method: "PUT",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(characteristic),
+       }
+     );
+     if (!response.ok) {
+       throw new Error("Error updating characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -361,6 +463,13 @@ const GlobalContextProvider = ({ children }) => {
       deleteCategory,
       updateCategory,
       findCategory,
+      characteristics,
+      setCharacteristics,
+      getAllCharacteristics,
+      findCharacteristic,
+      saveCharacteristic,
+      deleteCharacteristic,
+      updateCharacteristic,
       unorganizedServices,
       setUnorganizedServices,
       handleShuffle,
@@ -379,6 +488,20 @@ const GlobalContextProvider = ({ children }) => {
       changeServicesPage,
       sevicesTotalPages,
       loadingServices,
+      categories,
+      setCategories,
+      getAllCategories,
+      saveCategory,
+      deleteCategory,
+      updateCategory,
+      findCategory,
+      getAllCharacteristics,
+      findCharacteristic,
+      saveCharacteristic,
+      deleteCharacteristic,
+      updateCharacteristic,
+      characteristics,
+      setCharacteristics,
     ]
   );
 
