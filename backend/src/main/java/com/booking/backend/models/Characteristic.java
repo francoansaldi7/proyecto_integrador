@@ -19,10 +19,6 @@ public class Characteristic {
     private String name;
     private String iconName;
 
-    @ManyToOne
-    @JoinColumn(name = "service_id")
-    @JsonBackReference
-    private Services service;
 
 }
 

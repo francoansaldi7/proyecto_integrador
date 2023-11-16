@@ -6,10 +6,13 @@ import { GlobalContext } from "../contexts/globalContext";
 
 import ListOfUsers from "../components/common/ListOfUsers";
 import BlockedDashboard from "../components/common/BlockedDashboard";
+import ListOfCategories from "../components/common/ListOfCategories";
 
 const Dashboard = () => {
   const [isTabletOrSmaller, setIsTabletOrSmaller] = useState(window.innerWidth <= 768);
+  const [showServices, setShowServices] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,19 +71,40 @@ const Dashboard = () => {
         <div className="dark flex flex-col min-h-screen bg-gray-950 relative pt-24 items-center">
           <div className="my-8">
             <button
-              className={`text-white px-4 py-2 mx-2 rounded-lg ${!showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
-              onClick={() => setShowUsers(false)}
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${showServices ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => {
+                setShowCategories(false)
+                setShowUsers(false);
+                setShowServices(true); 
+              }}
             >
               Servicios
             </button>
             <button
               className={`text-white px-4 py-2 mx-2 rounded-lg ${showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
-              onClick={() => setShowUsers(true)}
+              onClick={() => {
+                setShowServices(false); 
+                setShowCategories(false)
+                setShowUsers(true)
+              }}
             >
               Usuarios
             </button>
-            {showUsers ? <ListOfUsers /> : <ListOfServices activeCreateForm={handleActiveCreateForm} />}
+            <button
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${showCategories ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => {
+                setShowUsers(false)
+                setShowServices(false)
+                setShowCategories(true)
+              }}
+            >
+              Categorías
+            </button>
+             {showServices && <ListOfServices activeCreateForm={handleActiveCreateForm} />}
+            {showUsers && <ListOfUsers />}
             {activeCreateForm && <CreateForm closeForm={handleActiveCreateForm} />}
+
+            {showCategories && <ListOfCategories />}
           </div>
         </div>
       )

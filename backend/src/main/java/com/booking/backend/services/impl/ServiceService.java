@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.datasource.S3DataSource;
+import com.booking.backend.models.Characteristic;
 import com.booking.backend.models.ServiceImage;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.TypesOfServices;
@@ -42,18 +42,20 @@ public class ServiceService implements IServiceService {
     @Autowired
     private S3DataSource s3DataSource;
 
+    @Autowired
+    private CharacteristicsService characteristicsService;
+
     /**
      * Saves the service.
      *
-     * @param service    The service to be saved.
-     * @param imageFiles The array of image files to be uploaded.
+     * @param service The service to be saved.
      * @return The saved service.
      * @throws RuntimeException if the service already exists.
-     * @throws IOException      if there is an error uploading the image files.
      */
     public Services save(Services service) throws RuntimeException {
         // Check if the service already exists in the repository
         Services serviceExists = serviceRepository.findById(service.getId()).orElse(null);
+        
         if (serviceExists != null) {
             throw new RuntimeException("Service already exists");
         }
@@ -61,32 +63,38 @@ public class ServiceService implements IServiceService {
         // List to store the uploaded service images
         List<ServiceImage> serviceImages = new ArrayList<>();
 
-        // // Convert the array of image files to a list
-        // List<MultipartFile> imageFilesList = Arrays.asList(imageFiles);
-
-        // // Iterate over each image file
-        // imageFilesList.forEach(img -> {
-        //     try {
-        //         // Upload the image file to the S3 data source and get the URL
-        //         String url = s3DataSource.uploadFile(img);
-
-        //         // Create a new service image with the URL and save it
-        //         ServiceImage savedServiceImage = serviceImageService.save(new ServiceImage(url));
-
-        //         // Add the saved service image to the list
-        //         serviceImages.add(savedServiceImage);
-        //     } catch (IOException e) {
-        //         e.printStackTrace();
-        //     }
-        // });
-
         // Set the type of service for the service
-        Optional<TypesOfServices> optionalTypeOfService = typeOfServiceService.findById(service.getTypeOfService().getId());
-        if (optionalTypeOfService.isPresent()) {
-            service.setTypeOfService(optionalTypeOfService.get());
-        } else {
-            // Handle the case when the TypeOfService is not found
-            throw new RuntimeException("TypeOfService not found");
+        List<TypesOfServices> typesOfServices = service.getTypeOfService();
+
+        if (typesOfServices != null) {
+            List<TypesOfServices> optionalTypeOfServiceForSave = new ArrayList<>();
+            typesOfServices.forEach(typeOfService -> {
+                Optional<TypesOfServices> optionalTypeOfService = typeOfServiceService.findById(typeOfService.getId());
+
+                if (optionalTypeOfService.isPresent()) {
+                    optionalTypeOfServiceForSave.add(optionalTypeOfService.get());
+                } else {
+                    // Handle the case when the TypeOfService is not found
+                    throw new RuntimeException("TypeOfService not found");
+                }
+            });
+            service.setTypeOfService(optionalTypeOfServiceForSave);
+        }
+
+        // Set the characteristics for the service
+        if (service.getCharacteristics() != null) {
+            List<Characteristic> characteristicsForSave = new ArrayList<>();
+            service.getCharacteristics().forEach(characteristic -> {
+                Optional<Characteristic> optionalCharacteristic = characteristicsService
+                        .findById(characteristic.getId());
+                if (optionalCharacteristic.isPresent()) {
+                    characteristicsForSave.add(optionalCharacteristic.get());
+                } else {
+                    // Handle the case when the Characteristic is not found
+                    throw new RuntimeException("Characteristic not found");
+                }
+            });
+            service.setCharacteristics(characteristicsForSave);
         }
 
         // Set the gallery of service images for the service
@@ -96,7 +104,8 @@ public class ServiceService implements IServiceService {
         return serviceRepository.save(service);
     }
 
-    public Services uploadImage(UUID serviceId, String imageFile, boolean isProfile, String fileName) throws IOException, RuntimeException {
+    public Services uploadImage(UUID serviceId, String imageFile, boolean isProfile, String fileName)
+            throws IOException, RuntimeException {
         // Upload the image file to the S3 data source and get the URL
         String url = s3DataSource.uploadBase64Image(imageFile, fileName);
         System.out.println("URL: " + url);
@@ -143,8 +152,27 @@ public class ServiceService implements IServiceService {
 
         Services serviceToUpdate = serviceRepository.findById(id).orElse(null);
         if (serviceToUpdate != null) {
-            service.setId(id);
-            Services updatedService = serviceRepository.save(service);
+            serviceToUpdate.setTitle(service.getTitle() == null ? serviceToUpdate.getTitle() : service.getTitle());
+
+            serviceToUpdate.setDescription(
+                    service.getDescription() == null ? serviceToUpdate.getDescription() : service.getDescription());
+            serviceToUpdate.setPricePerHour(
+                    service.getPricePerHour() == 0.0 ? serviceToUpdate.getPricePerHour() : service.getPricePerHour());
+            if (service.getCharacteristics() != null) {
+                List<Characteristic> characteristicsToUpdate = new ArrayList<>();
+                service.getCharacteristics().forEach(characteristic -> {
+                    characteristicsService.findById(characteristic.getId()).ifPresent(characteristicsToUpdate::add);
+                });
+                serviceToUpdate.setCharacteristics(characteristicsToUpdate);
+            }
+            if (service.getTypeOfService() != null) {
+                List<TypesOfServices> typeOfServiceToUpdate = new ArrayList<>();
+                service.getTypeOfService().forEach(typeOfService -> {
+                    typeOfServiceService.findById(typeOfService.getId()).ifPresent(typeOfServiceToUpdate::add);
+                });
+                serviceToUpdate.setTypeOfService(typeOfServiceToUpdate);
+            }
+            Services updatedService = serviceRepository.save(serviceToUpdate);
             return updatedService;
         }
         throw new RuntimeException("Service not found");
@@ -174,7 +202,6 @@ public class ServiceService implements IServiceService {
     public List<Services> getSomeServices(int quantity) {
         return null;
     }
-
 
     @Override
     public Page<Services> findAll(Pageable pageable) {
