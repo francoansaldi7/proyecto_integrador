@@ -54,7 +54,7 @@ const UpdateForm = ({ closeForm, service }) => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { updateService, getAllCategories } = useContext(GlobalContext);
+  const { updateService, getAllCategories, getAllCharacteristics } = useContext(GlobalContext);
 
   useEffect(() => {
     setSelectedImages([{id: 0, imageUrl: service.imgProfileUrl}])
@@ -75,7 +75,17 @@ const UpdateForm = ({ closeForm, service }) => {
       } catch (error) {
         console.log(error);
       }
+
+            try {
+        const result = await getAllCharacteristics();
+        if (result) {
+          setCharacteristics(result);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
+
     fetchData();
   }, []);
 

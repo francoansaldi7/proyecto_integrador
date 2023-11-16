@@ -26,6 +26,10 @@ public class CharacteristicsService {
   }
 
   public Characteristic update(Long id, Characteristic characteristic) {
+    if(!characteristicsRepository.existsById(id)) {
+      throw new RuntimeException("Characteristic not found");
+    }
+    characteristic.setId(id);
     return characteristicsRepository.save(characteristic);
   }
 

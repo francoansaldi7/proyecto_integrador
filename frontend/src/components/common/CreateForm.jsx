@@ -54,7 +54,7 @@ const CreateForm = ({ closeForm }) => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { saveService, getAllCategories } = useContext(GlobalContext);
+  const { saveService, getAllCategories, getAllCharacteristics } = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +62,14 @@ const CreateForm = ({ closeForm }) => {
         const result = await getAllCategories();
         if (result) {
           setAllCategories(result);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        const result = await getAllCharacteristics();
+        if (result) {
+          setCharacteristics(result);
         }
       } catch (error) {
         console.log(error);
