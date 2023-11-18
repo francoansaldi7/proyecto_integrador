@@ -12,6 +12,7 @@ const GlobalContextProvider = ({ children }) => {
   const SERVICE_PAGE_SIZE = 8;
 
   const [services, setServices] = useState([]);
+  const [serviceIdsAndTitlesOnly, setServiceIdsAndTitlesOnly] = useState([]);
   const [categories, setCategories] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
@@ -42,7 +43,23 @@ const GlobalContextProvider = ({ children }) => {
     //let servicesIterable = services.content ? services.content : [];
     setUnorganizedServices(shuffleArray([...services]));
   };
+
+
+
+
+  
   // ------------------------ SERVICES FETCHS ------------------------
+  
+  
+  
+  
+  /**
+   * Asynchronous function that fetches a list of services based on the provided page number and admin status.
+   *
+   * @param {number} [pageNumber=0] - The page number of the services to fetch.
+   * @param {boolean} [isAdmin=false] - A boolean indicating whether the user is an admin.
+   * @returns {Promise} - A promise that resolves to the response data from the API call.
+   */
   const getAllServices = useCallback(
     async (pageNumber = 0, isAdmin = false) => {
       setLoadingServices(true);
@@ -78,7 +95,7 @@ const GlobalContextProvider = ({ children }) => {
         console.log(response);
         if (response.status === 401 || response.status === 403) {
           console.log(response.status);
-          return window.location.href = "/login";
+          return (window.location.href = "/login");
         }
         throw new Error("Error obtaining services");
       }
@@ -90,6 +107,21 @@ const GlobalContextProvider = ({ children }) => {
     []
   );
 
+  const findServiceById = useCallback(
+    async (idService) => {
+      let res;
+      try {
+        res = await fetch(`http://localhost:8080/api/v1/services/${idService}`);
+      } catch (error) {
+      throw new Error("Error finding service by id: ", error);
+      }
+      if (!res.ok) {
+        throw new Error("Error finding service by id");
+      }
+      const data = await res.json();
+      return data;
+    })
+
   const changeServicesPage = useCallback(
     async (pageNumber) => {
       console.log(pageNumber);
@@ -99,6 +131,14 @@ const GlobalContextProvider = ({ children }) => {
     [getAllServices]
   );
 
+  /**
+   * Saves a service and its associated images to the server.
+   * 
+   * @param {Object} service - The service object to be saved.
+   * @param {Array} images - An array of image objects associated with the service. Default is an empty array.
+   * @returns {Object} - The saved service object.
+   * @throws {Error} - If there is an error during the saving process.
+   */
   const saveService = useCallback(
     async (service, images = []) => {
       let serviceSaved;
@@ -180,6 +220,14 @@ const GlobalContextProvider = ({ children }) => {
     [getAllServices]
   );
 
+  /**
+   * Sends a PUT request to update a specific service by its ID.
+   * 
+   * @param {string} idService - The ID of the service to be updated.
+   * @param {object} service - The updated service data to be sent in the request body.
+   * @returns {object} - The updated service data returned from the API response.
+   * @throws {Error} - If there is an error editing the service.
+   */
   const updateService = useCallback(
     async (idService, service) => {
       try {
@@ -235,6 +283,52 @@ const GlobalContextProvider = ({ children }) => {
     },
     [getAllServices]
   );
+
+  const getAllIdsAndTitlesOfEachService = useCallback(async (query = "") => {
+    let res;
+    try {
+      res = await fetch(
+        `http://localhost:8080/api/v1/services/search?query=${query}`,
+      )
+    
+    } catch (error) {
+      console.error("Error obtaining services: "+ error);
+      throw new Error("Error obtaining services");
+    }
+    if (!res.ok) {
+      console.error("Error obtaining services: "+ res.status);
+      throw new Error("Error obtaining services");
+    }
+    const data = await res.json();
+    return data;  
+    
+  })
+
+  const getAllServiceReduced = useCallback(async (query = "") => {
+    let res;
+    try {
+      res = await fetch(
+        `http://localhost:8080/api/v1/services/search-all?query=${query}`,
+      )
+    
+    } catch (error) {
+      console.error("Error obtaining services: "+ error);
+      throw new Error("Error obtaining services");
+    }
+    if (!res.ok) {
+      console.error("Error obtaining services: "+ res.status);
+      throw new Error("Error obtaining services");
+    }
+    const data = await res.json();
+    return data;  
+    
+  })
+
+
+  // ------------------------ END SERVICES FETCHS ------------------------
+
+
+
 
   // ------------------------ CATEGORIES FETCHS ------------------------
 
@@ -347,6 +441,10 @@ const GlobalContextProvider = ({ children }) => {
 
 
 
+// ------------------------ END CATEGORIES FETCHS ------------------------
+
+
+
 // ------------------------ CHARACTERISTICS FETCHS -------------------
 
  const getAllCharacteristics = useCallback(async () => {
@@ -444,6 +542,9 @@ const GlobalContextProvider = ({ children }) => {
    }
  })
 
+// ------------------------ END CHARACTERISTICS FETCHS -------------------
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -452,10 +553,15 @@ const GlobalContextProvider = ({ children }) => {
     () => ({
       services,
       setServices,
+      serviceIdsAndTitlesOnly,
+      setServiceIdsAndTitlesOnly,
       getAllServices,
+      findServiceById,
       saveService,
       updateService,
       deleteService,
+      getAllIdsAndTitlesOfEachService,
+      getAllServiceReduced,
       categories,
       setCategories,
       getAllCategories,
@@ -502,6 +608,11 @@ const GlobalContextProvider = ({ children }) => {
       updateCharacteristic,
       characteristics,
       setCharacteristics,
+      getAllIdsAndTitlesOfEachService,
+      serviceIdsAndTitlesOnly,
+      setServiceIdsAndTitlesOnly,
+      findServiceById,
+      getAllServiceReduced,
     ]
   );
 

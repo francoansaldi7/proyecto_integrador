@@ -1,5 +1,5 @@
 import { AiOutlineClose } from "react-icons/ai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { GlobalContext } from "../../contexts/globalContext";
 import { toast } from "react-toastify";

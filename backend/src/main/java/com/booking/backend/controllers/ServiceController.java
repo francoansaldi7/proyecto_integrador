@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
+import com.booking.backend.repository.IServiceReduced;
+import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 import com.booking.backend.services.impl.ServiceService;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
@@ -46,10 +48,6 @@ public class ServiceController {
   @Autowired
   private VerifyRoleService verifyRoleService;
   
-  public List<Services> getSomeServices(int quantity) {
-    return serviceService.getSomeServices(quantity);
-  }
-  
 
 
     /**
@@ -58,7 +56,7 @@ public class ServiceController {
      * @return List of services.
      */
     @GetMapping
-    public Page<Services> findAll(@RequestParam(defaultValue = "1", required = false) int page,
+    public Page<IServiceReduced> findAll(@RequestParam(defaultValue = "1", required = false) int page,
                                   @RequestParam(defaultValue = "1", required = false) int size) {
         Pageable pageRequest  = PageRequest.of(page, size);
         return serviceService.findAll(pageRequest);
@@ -67,7 +65,7 @@ public class ServiceController {
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
     @CrossOrigin(value = {"${cors.allowedOrigins}"})
-    public Page<Services> findAllAdmin(@RequestParam(defaultValue = "1", required = false) int page,
+    public Page<IServiceReduced> findAllAdmin(@RequestParam(defaultValue = "1", required = false) int page,
                                   @RequestParam(defaultValue = "1", required = false) int size) {
                                     Pageable pageRequest  = PageRequest.of(page, size);
         return serviceService.findAll(pageRequest);
@@ -76,6 +74,19 @@ public class ServiceController {
     @GetMapping("/{id}")
     public Optional<Services> findById(@PathVariable UUID id) {
         return serviceService.findById(id);
+    }
+
+
+    @GetMapping("/search")
+    public List<IdAndTituloProjection> search(@RequestParam String query) {
+        return serviceService.findIdAndTitleContaining(query);
+    }
+
+        @GetMapping("/search-all")
+    public Page<IServiceReduced> searchAll(@RequestParam String query, @RequestParam(defaultValue = "1", required = false) int page,
+                                  @RequestParam(defaultValue = "1", required = false) int size) {
+        Pageable pageRequest  = PageRequest.of(page, size);
+        return serviceService.findAllByTitleContaining(query, pageRequest);
     }
 
   /**
@@ -90,22 +101,13 @@ public class ServiceController {
   @PostMapping
   @PreAuthorize("hasAuthority('USER')")
   public ResponseEntity<?> createService(@RequestBody Services service) throws Exception {
-    // try {
-    //   // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
-      
-    // } catch (JwtException e) {
-    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    // }
+
     return ResponseEntity.ok().body(serviceService.save(service));
   }
 
    @PostMapping("/{serviceId}/images")
   public ResponseEntity<?> createServiceImages(@PathVariable UUID serviceId,@RequestBody Map<String, String> imageData) throws Exception {
-    // try {
-    //    // verifyRoleService.verifyUser(token, "ROLE_ADMIN");
-    // } catch (JwtException e) {
-    //   return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.toString());
-    // }
+
     String base64Image = imageData.get("base64Image");
         String fileName = imageData.get("fileName");
     return ResponseEntity.ok().body(serviceService.uploadImage(serviceId, base64Image, false, fileName));
@@ -144,4 +146,6 @@ public class ServiceController {
     public Boolean deleteById(@PathVariable UUID serviceId) {
         return serviceService.deleteById(serviceId);
     }
+
+    
 }

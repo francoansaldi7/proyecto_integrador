@@ -19,6 +19,7 @@ import CategorysSection from "../components/common/CategorysSection";
 import ProductsAndServices from "./ProductsAndServices";
 import NavPagination from "../components/common/NavPagination";
 import { useState } from "react";
+import ServicesSearchBar from "../components/common/ServicesSearchBar";
 
 function Home() {
   const {unorganizedServices, getAllServices ,setServices, loadingServices} = useContext(GlobalContext);
@@ -46,6 +47,9 @@ function Home() {
   return (
     <>
       <PrincipalBanner />
+      <div className="p-10 bg-white">
+        <ServicesSearchBar />
+      </div>
       <div className="flex flex-col gap-7 md:p-10 bg-background md:max-lg:flex">
         <CategorysSection />
         
