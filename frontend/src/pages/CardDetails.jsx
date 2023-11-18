@@ -9,27 +9,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
-  const { services } = useContext(GlobalContext);
+  const { services, findServiceById } = useContext(GlobalContext);
   const [service, setService] = useState(null);
   const navigate = useNavigate();
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
   console.log(id);
 
-  useEffect(() => {
-    console.log(services);
-    let serviceFound = services.find((service) => service.id === id);
+  const fetchData = async () => {
+    let serviceFound = null;
+    try {
+      serviceFound = await findServiceById(id);
+      
+    } catch (error) {
+      console.error(error);
+    }
     console.log(serviceFound);
     if (serviceFound) {
-      console.log("serviceFound: " + serviceFound);
       setService(serviceFound);
-    } else {
+    }  else {
       console.log("service not found");
       return navigate("/");
     }
+  }
+
+  useEffect(() => {
+    fetchData();
   }, [services]);
-  const { state } = useLocation();
-  console.log("State:" + state);
 
   const handleCarrousel = () => {
     setShowCarrousel(!showCarousel);

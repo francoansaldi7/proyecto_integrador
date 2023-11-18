@@ -1,8 +1,10 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from 'react-router-dom';
-
+import { useEffect, useState } from "react";
 /* eslint-disable react/prop-types */
 function Card({id, img, title, description, price, moreBig = false, disccount = false, rating = 1}) {
+
+
   return (
     
 <div className={`w-full relative flex flex-col justify-evenly max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${moreBig ? 'scale-125' : ''} transition duration-500`}>
@@ -16,7 +18,8 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
       <Link to={`/details/${id}`} state={{img, title, description, price, rating, id}}>
           <img className="rounded-t-lg h-full w-full" src={img} alt="product image" />
       </Link>
-    ) : <img className="rounded-t-lg h-full w-full" src={img} alt="product image" />}
+    ) : 
+          <img className="rounded-t-lg h-full w-full" src={img} alt="product image" />}
   </div>
     <div className="px-5 py-5 mt-[-10px]">
         <Link to={`/details/${id}`} state={{img, title, description, price, rating, id}}>
