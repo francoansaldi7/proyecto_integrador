@@ -6,8 +6,51 @@
   --swiper-theme-color: rgb(84 101 255) !important;
 }
 
+.rdp {
+  --rdp-caption-font-size: 18px;
+  --rdp-accent-color: var(--swiper-theme-color) !important;
+  --rdp-background-color: #e7edff;
+  --rdp-accent-color-dark: #3003e1;
+  --rdp-background-color-dark: #180270;
+  --rdp-outline: 2px solid var(--rdp-accent-color);
+  --rdp-outline-selected: 3px solid var(--rdp-accent-color);
+  --rdp-selected-color: #fff;
+
+}
 
 
+.rdp-month{
+  width: 100% !important;
+}
+
+.rdp-table{
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.rdp-day_selected {
+  background-color: var(--rdp-accent-color) !important;
+}
+
+.rdp-day {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 15px !important;
+}
+
+.rdp-day_range_middle {
+  border-radius: 0 !important;
+}
+
+.rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
 #app {
   height: 100%;
 }
