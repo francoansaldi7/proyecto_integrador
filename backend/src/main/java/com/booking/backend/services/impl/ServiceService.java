@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,7 +19,9 @@ import com.booking.backend.models.ServiceImage;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceImageRepository;
+import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository;
+import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 import com.booking.backend.services.IServiceService;
 
 import jakarta.validation.Valid;
@@ -204,7 +207,17 @@ public class ServiceService implements IServiceService {
     }
 
     @Override
-    public Page<Services> findAll(Pageable pageable) {
-        return serviceRepository.findAll(pageable);
+    public Page<IServiceReduced> findAll(Pageable pageable) {
+        return serviceRepository.findBy(pageable);
+    }
+
+    @Override
+    public List<IdAndTituloProjection> findIdAndTitleContaining(String keyword) {
+        return serviceRepository.findAllByTitleContaining(keyword);
+    }
+
+    @Override
+    public Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable) {
+        return serviceRepository.findAllByTitleContaining(keyword, pageable);
     }
 }

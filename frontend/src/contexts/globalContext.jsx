@@ -12,7 +12,9 @@ const GlobalContextProvider = ({ children }) => {
   const SERVICE_PAGE_SIZE = 8;
 
   const [services, setServices] = useState([]);
+  const [serviceIdsAndTitlesOnly, setServiceIdsAndTitlesOnly] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
@@ -41,7 +43,23 @@ const GlobalContextProvider = ({ children }) => {
     //let servicesIterable = services.content ? services.content : [];
     setUnorganizedServices(shuffleArray([...services]));
   };
+
+
+
+
+  
   // ------------------------ SERVICES FETCHS ------------------------
+  
+  
+  
+  
+  /**
+   * Asynchronous function that fetches a list of services based on the provided page number and admin status.
+   *
+   * @param {number} [pageNumber=0] - The page number of the services to fetch.
+   * @param {boolean} [isAdmin=false] - A boolean indicating whether the user is an admin.
+   * @returns {Promise} - A promise that resolves to the response data from the API call.
+   */
   const getAllServices = useCallback(
     async (pageNumber = 0, isAdmin = false) => {
       setLoadingServices(true);
@@ -76,7 +94,8 @@ const GlobalContextProvider = ({ children }) => {
       if (!response.ok) {
         console.log(response);
         if (response.status === 401 || response.status === 403) {
-          window.location.href = "/login";
+          console.log(response.status);
+          return (window.location.href = "/login");
         }
         throw new Error("Error obtaining services");
       }
@@ -88,6 +107,21 @@ const GlobalContextProvider = ({ children }) => {
     []
   );
 
+  const findServiceById = useCallback(
+    async (idService) => {
+      let res;
+      try {
+        res = await fetch(`http://localhost:8080/api/v1/services/${idService}`);
+      } catch (error) {
+      throw new Error("Error finding service by id: ", error);
+      }
+      if (!res.ok) {
+        throw new Error("Error finding service by id");
+      }
+      const data = await res.json();
+      return data;
+    })
+
   const changeServicesPage = useCallback(
     async (pageNumber) => {
       console.log(pageNumber);
@@ -97,6 +131,14 @@ const GlobalContextProvider = ({ children }) => {
     [getAllServices]
   );
 
+  /**
+   * Saves a service and its associated images to the server.
+   * 
+   * @param {Object} service - The service object to be saved.
+   * @param {Array} images - An array of image objects associated with the service. Default is an empty array.
+   * @returns {Object} - The saved service object.
+   * @throws {Error} - If there is an error during the saving process.
+   */
   const saveService = useCallback(
     async (service, images = []) => {
       let serviceSaved;
@@ -160,6 +202,7 @@ const GlobalContextProvider = ({ children }) => {
 
               reader.readAsDataURL(image.file);
             } else if (response.status === 401 || response.status === 403) {
+              console.log(response.status);
               return (window.location.href = "/login");
             } else {
               getAllServices(); // Llamada después de procesar todas las imágenes
@@ -177,6 +220,14 @@ const GlobalContextProvider = ({ children }) => {
     [getAllServices]
   );
 
+  /**
+   * Sends a PUT request to update a specific service by its ID.
+   * 
+   * @param {string} idService - The ID of the service to be updated.
+   * @param {object} service - The updated service data to be sent in the request body.
+   * @returns {object} - The updated service data returned from the API response.
+   * @throws {Error} - If there is an error editing the service.
+   */
   const updateService = useCallback(
     async (idService, service) => {
       try {
@@ -232,6 +283,52 @@ const GlobalContextProvider = ({ children }) => {
     },
     [getAllServices]
   );
+
+  const getAllIdsAndTitlesOfEachService = useCallback(async (query = "") => {
+    let res;
+    try {
+      res = await fetch(
+        `http://localhost:8080/api/v1/services/search?query=${query}`,
+      )
+    
+    } catch (error) {
+      console.error("Error obtaining services: "+ error);
+      throw new Error("Error obtaining services");
+    }
+    if (!res.ok) {
+      console.error("Error obtaining services: "+ res.status);
+      throw new Error("Error obtaining services");
+    }
+    const data = await res.json();
+    return data;  
+    
+  })
+
+  const getAllServiceReduced = useCallback(async (query = "") => {
+    let res;
+    try {
+      res = await fetch(
+        `http://localhost:8080/api/v1/services/search-all?query=${query}`,
+      )
+    
+    } catch (error) {
+      console.error("Error obtaining services: "+ error);
+      throw new Error("Error obtaining services");
+    }
+    if (!res.ok) {
+      console.error("Error obtaining services: "+ res.status);
+      throw new Error("Error obtaining services");
+    }
+    const data = await res.json();
+    return data;  
+    
+  })
+
+
+  // ------------------------ END SERVICES FETCHS ------------------------
+
+
+
 
   // ------------------------ CATEGORIES FETCHS ------------------------
 
@@ -342,6 +439,112 @@ const GlobalContextProvider = ({ children }) => {
     }
   });
 
+
+
+// ------------------------ END CATEGORIES FETCHS ------------------------
+
+
+
+// ------------------------ CHARACTERISTICS FETCHS -------------------
+
+ const getAllCharacteristics = useCallback(async () => {
+   try {
+     const response = await fetch("http://localhost:8080/api/v1/characteristic");
+     if (!response.ok) {
+       throw new Error("Error obtaining characteristics");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const findCharacteristic = useCallback(async (idCharacteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`
+     );
+     if (!response.ok) {
+       throw new Error("Error finding characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const saveCharacteristic = useCallback(async (characteristic) => {
+   try {
+     const response = await fetch("http://localhost:8080/api/v1/characteristic", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(characteristic),
+     });
+     if (!response.ok) {
+       throw new Error("Error saving characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+ const deleteCharacteristic = useCallback(async (idCharacteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       {
+         method: "DELETE",
+       }
+     );
+     if (!response.ok) {
+       throw new Error("Error deleting characteristic");
+     }
+     const data = await response.text();
+     if(data !== true){
+       throw new Error(data);
+     }
+     return true;
+   } catch (error) {
+     console.error(error);
+     return false;
+   }
+ })
+
+ const updateCharacteristic = useCallback(async (idCharacteristic, characteristic) => {
+   try {
+     const response = await fetch(
+       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       {
+         method: "PUT",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(characteristic),
+       }
+     );
+     if (!response.ok) {
+       throw new Error("Error updating characteristic");
+     }
+     const data = await response.json();
+     return data;
+   } catch (error) {
+     console.error(error);
+     throw new Error(error);
+   }
+ })
+
+// ------------------------ END CHARACTERISTICS FETCHS -------------------
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -350,10 +553,15 @@ const GlobalContextProvider = ({ children }) => {
     () => ({
       services,
       setServices,
+      serviceIdsAndTitlesOnly,
+      setServiceIdsAndTitlesOnly,
       getAllServices,
+      findServiceById,
       saveService,
       updateService,
       deleteService,
+      getAllIdsAndTitlesOfEachService,
+      getAllServiceReduced,
       categories,
       setCategories,
       getAllCategories,
@@ -361,6 +569,13 @@ const GlobalContextProvider = ({ children }) => {
       deleteCategory,
       updateCategory,
       findCategory,
+      characteristics,
+      setCharacteristics,
+      getAllCharacteristics,
+      findCharacteristic,
+      saveCharacteristic,
+      deleteCharacteristic,
+      updateCharacteristic,
       unorganizedServices,
       setUnorganizedServices,
       handleShuffle,
@@ -379,6 +594,25 @@ const GlobalContextProvider = ({ children }) => {
       changeServicesPage,
       sevicesTotalPages,
       loadingServices,
+      categories,
+      setCategories,
+      getAllCategories,
+      saveCategory,
+      deleteCategory,
+      updateCategory,
+      findCategory,
+      getAllCharacteristics,
+      findCharacteristic,
+      saveCharacteristic,
+      deleteCharacteristic,
+      updateCharacteristic,
+      characteristics,
+      setCharacteristics,
+      getAllIdsAndTitlesOfEachService,
+      serviceIdsAndTitlesOnly,
+      setServiceIdsAndTitlesOnly,
+      findServiceById,
+      getAllServiceReduced,
     ]
   );
 
