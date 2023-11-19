@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import Service from '../Service';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {} from '@fortawesome/free-solid-svg-icons'
 import {
   FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
   TwitterIcon,
   WhatsappShareButton,
-  WhatsappIcon
+  WhatsappIcon,
 } from "react-share";
 
 const BotonesDesplegables = () => {
@@ -17,26 +18,26 @@ const BotonesDesplegables = () => {
     setMostrarBotones(!mostrarBotones);
   };
   const shareUrlF = "https://www.facebook.com/?locale=es_LA";
-  const shareUrlW = "https://www.whatsapp.com/?lang=es_LA"
-  const shareUrlT = "/details/25d67998-7025-4d2c-9076-a6fb8325dab0"
+  const shareUrlW = "https://www.whatsapp.com/?lang=es_LA";
+  const shareUrlT = "https://www.facebook.com/?locale=es_LA";
   return (
     <div>
       <button onClick={toggleBotones}>
-        {mostrarBotones ? 'Cerrar' : 'Compartir'}
+        {mostrarBotones ? <p className="text-red-700 mr-3 mt-2 text-xl">x</p> : <FontAwesomeIcon icon="fa-solid fa-share-nodes" size='xl'/>}
       </button>
 
       {mostrarBotones && (
         <div>
           <FacebookShareButton url = {shareUrlF}>
-              <FacebookIcon size={40} round = {true}/>
+              <FacebookIcon size={30} round = {true}/>
           </FacebookShareButton>
 
           <WhatsappShareButton url={shareUrlW}  >
-            <WhatsappIcon size={40} round = {true}/>
+            <WhatsappIcon size={30} round = {true}/>
           </WhatsappShareButton>
 
-          <TwitterShareButton url={shareUrlT}>
-            <TwitterIcon size={40} round = {true}/>
+          <TwitterShareButton  url={shareUrlT}>
+            <TwitterIcon size={30} round = {true}/>
           </TwitterShareButton> 
         </div>
       )}

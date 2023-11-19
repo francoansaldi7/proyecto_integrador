@@ -1,6 +1,7 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from "react";import BotonesDesplegables from './BotonesDesplegables';
+import { useEffect, useState } from "react";
+import BotonesDesplegables from './BotonesDesplegables';
 
 /* eslint-disable react/prop-types */
 function Card({id, img, title, description, price, moreBig = false, disccount = false, rating = 1}) {
@@ -27,13 +28,14 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
         </Link>  
 
-        <div className="flex items-center mt-2 mb-5">
+        <div className="flex items-center mt-2 mb-5 ml-0 mr-0 w-70">
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiOutlineStar className="w-4 h-4 text-gray-200 dark:text-gray-600"></AiOutlineStar>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{rating}</span>
+            <span className="w-30 bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{rating}</span>
+            <div> <BotonesDesplegables/> </div>
         </div>
 
         <div className="flex flex-row mb-2">
@@ -46,8 +48,6 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
             <span className="text-2xl font-bold text-gray-900 dark:text-white">${price}/<span className="text-gray-400 text-xs font-semibold">por hora</span></span>
             <Link to="" className="h-[40px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">Reservar ahora!</Link>
         </div>
-
-        <div className="mt-4"> <BotonesDesplegables /> </div>
     </div>
 </div>
 
