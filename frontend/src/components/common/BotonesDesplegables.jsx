@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Service from '../Service';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -15,9 +16,9 @@ const BotonesDesplegables = () => {
   const toggleBotones = () => {
     setMostrarBotones(!mostrarBotones);
   };
-  const shareUrlF = "https://www.facebook.com/"
+  const shareUrlF = "https://www.facebook.com/?locale=es_LA";
   const shareUrlW = "https://www.whatsapp.com/?lang=es_LA"
-  const shareUrlT = "https://twitter.com/"
+  const shareUrlT = "/details/25d67998-7025-4d2c-9076-a6fb8325dab0"
   return (
     <div>
       <button onClick={toggleBotones}>
@@ -26,7 +27,7 @@ const BotonesDesplegables = () => {
 
       {mostrarBotones && (
         <div>
-          <FacebookShareButton url={shareUrlF} >
+          <FacebookShareButton url = {shareUrlF}>
               <FacebookIcon size={40} round = {true}/>
           </FacebookShareButton>
 
