@@ -6,6 +6,7 @@ import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BotonesDesplegables from '../components/common/BotonesDesplegables';
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -99,6 +100,8 @@ function CardDetails() {
           <h3 className="text-5xl font-bold text-pink-200">{service?.title}</h3>
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
+
+        <div className="flex ml-50"> <BotonesDesplegables />  </div>
 
         <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
