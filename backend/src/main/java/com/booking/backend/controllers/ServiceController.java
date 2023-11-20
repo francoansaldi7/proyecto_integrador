@@ -1,11 +1,13 @@
 package com.booking.backend.controllers;
-
+import com.booking.backend.services.impl.ServiceService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.booking.backend.services.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -30,12 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
-import com.booking.backend.services.impl.ServiceService;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
 
 @RestController
 @RequestMapping("/api/v1/services")
+@CrossOrigin("*")
+
 public class ServiceController {
     @Autowired
     private ServiceService serviceService;
@@ -45,6 +48,9 @@ public class ServiceController {
 
   @Autowired
   private VerifyRoleService verifyRoleService;
+
+    @Autowired
+    private IServiceService iServiceService;
   
   public List<Services> getSomeServices(int quantity) {
     return serviceService.getSomeServices(quantity);
@@ -134,6 +140,17 @@ public class ServiceController {
     public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
         return serviceService.update(serviceId, updatedService);
     }
+
+    @GetMapping("/{id}/fechas-disponibles")
+    public ResponseEntity<?> getFechasDisponibles(@PathVariable UUID id) {
+        try {
+            List<LocalDate> fechasDisponibles = serviceService.obtenerFechasDisponibles(id);
+            return new ResponseEntity<>(fechasDisponibles, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("No se encontró el servicio con ID " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     /**
      * Deletes a service by its ID.

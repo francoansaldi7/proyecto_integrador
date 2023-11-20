@@ -1,12 +1,17 @@
 package com.booking.backend.services.impl;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import com.booking.backend.services.impl.CharacteristicsService;
+import com.booking.backend.services.impl.ServiceImageService;
+import com.booking.backend.services.impl.TypeOfServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -207,4 +212,26 @@ public class ServiceService implements IServiceService {
     public Page<Services> findAll(Pageable pageable) {
         return serviceRepository.findAll(pageable);
     }
+
+
+    @Override
+    public List<LocalDate> obtenerFechasDisponibles(UUID id) {
+        Optional<Services> serviceOptional = serviceRepository.findById(id);
+
+        if (serviceOptional.isPresent()) {
+            Services service = serviceOptional.get();
+            List<List<LocalDate>> availability = service.getAvailability();
+            List<LocalDate> fechasDisponibles = new ArrayList<>();
+
+            for (List<LocalDate> rangoDeFechas : availability) {
+                fechasDisponibles.addAll(rangoDeFechas);
+            }
+
+            return fechasDisponibles;
+        } else {
+            throw new RuntimeException("El servicio con ID " + id + " no existe.");
+        }
+    }
+
+
 }
