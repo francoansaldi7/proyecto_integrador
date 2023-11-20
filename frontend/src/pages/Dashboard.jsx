@@ -6,10 +6,15 @@ import { GlobalContext } from "../contexts/globalContext";
 
 import ListOfUsers from "../components/common/ListOfUsers";
 import BlockedDashboard from "../components/common/BlockedDashboard";
+import ListOfCategories from "../components/common/ListOfCategories";
+import ListOfCharacteristics from "../components/common/ListOfCharacteristics";
 
 const Dashboard = () => {
   const [isTabletOrSmaller, setIsTabletOrSmaller] = useState(window.innerWidth <= 768);
+  const [showServices, setShowServices] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
+  const [showCharacteristics, setShowCharacteristics] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,25 +73,64 @@ const Dashboard = () => {
         <div className="dark flex flex-col min-h-screen bg-gray-950 relative pt-24 items-center">
           <div className="my-8">
             <button
-              className={`text-white px-4 py-2 mx-2 rounded-lg ${!showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
-              onClick={() => setShowUsers(false)}
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${showServices ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => {
+                setShowCategories(false)
+                setShowUsers(false);
+                setShowCharacteristics(false)
+                setShowServices(true); 
+              }}
             >
               Servicios
             </button>
             <button
               className={`text-white px-4 py-2 mx-2 rounded-lg ${showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
-              onClick={() => setShowUsers(true)}
+              onClick={() => {
+                setShowServices(false); 
+                setShowCategories(false)
+                setShowCharacteristics(false)
+                setShowUsers(true)
+              }}
             >
               Usuarios
             </button>
             <button
+<<<<<<< HEAD
               className={`text-white px-4 py-2 mx-2 rounded-lg ${!showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
               onClick={() => setShowUsers(false)}
             >
               Categorias
             </button>
             {showUsers ? <ListOfUsers /> : <ListOfServices activeCreateForm={handleActiveCreateForm} />}
+=======
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${showCategories ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => {
+                setShowUsers(false)
+                setShowServices(false)
+                setShowCharacteristics(false)
+                setShowCategories(true)
+              }}
+            >
+              Categorías
+            </button>
+            <button
+              className={`text-white px-4 py-2 mx-2 rounded-lg ${showCategories ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
+              onClick={() => {
+                setShowUsers(false)
+                setShowServices(false)
+                setShowCategories(false)
+                setShowCharacteristics(true)
+              }}
+            >
+              Características
+            </button>
+            {showCharacteristics && <ListOfCharacteristics />}
+             {showServices && <ListOfServices activeCreateForm={handleActiveCreateForm} />}
+            {showUsers && <ListOfUsers />}
+>>>>>>> fdd1c0374ec3e78726c602c38ac73e7839895bc2
             {activeCreateForm && <CreateForm closeForm={handleActiveCreateForm} />}
+
+            {showCategories && <ListOfCategories />}
           </div>
         </div>
       )

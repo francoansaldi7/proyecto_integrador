@@ -9,27 +9,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
-  const { services } = useContext(GlobalContext);
+  const { services, findServiceById } = useContext(GlobalContext);
   const [service, setService] = useState(null);
   const navigate = useNavigate();
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
   console.log(id);
 
-  useEffect(() => {
-    console.log(services);
-    let serviceFound = services.find((service) => service.id === id);
+  const fetchData = async () => {
+    let serviceFound = null;
+    try {
+      serviceFound = await findServiceById(id);
+      
+    } catch (error) {
+      console.error(error);
+    }
     console.log(serviceFound);
     if (serviceFound) {
-      console.log("serviceFound: " + serviceFound);
       setService(serviceFound);
-    } else {
+    }  else {
       console.log("service not found");
       return navigate("/");
     }
+  }
+
+  useEffect(() => {
+    fetchData();
   }, [services]);
-  const { state } = useLocation();
-  console.log("State:" + state);
 
   const handleCarrousel = () => {
     setShowCarrousel(!showCarousel);
@@ -40,13 +46,13 @@ function CardDetails() {
     <>
       <div className="fixed bg-black opacity-25 h-screen w-screen right-0 top-0 z-10"></div>
 
-      <div className="xl:ml-2 fixed top-0 bg-secondary bg-gradient-to-b from-secondary to-primary w-[97vw] h-[85vh] flex justify-between flex-col rounded-lg gap-10 z-50 ml-[1vw] mt-[9vh] overflow-y-auto min-[375px]:w-[366px] min-[414px]:w-[405px] min-[414px]:ml-1 min-[390px]:ml-3 min-[393px]:ml-[13px] min-[412px]:ml-5 md:w-[750px] md:ml-2 min-[820px]:w-[800px] min-[912px]:w-[890px] min-[540px]:w-[530px] lg:w-[1010px] xl:w-[1260px] 2xl:ml-[300px]">
-        <div className="w-full bg-white flex justify-between rounded-mg md:w-[100%] min-[375px]:justify-center md:justify-start">
+      <div className="xl:ml-2 fixed top-0 bg-secondary bg-gradient-to-b from-gray-900 to-primary-dark w-[97vw] h-[85vh] flex justify-between flex-col rounded-lg gap-10 z-50 ml-[1vw] mt-[9vh] overflow-y-auto min-[375px]:w-[366px] min-[414px]:w-[405px] min-[414px]:ml-1 min-[390px]:ml-3 min-[393px]:ml-[13px] min-[412px]:ml-5 md:w-[750px] md:ml-2 min-[820px]:w-[800px] min-[912px]:w-[890px] min-[540px]:w-[530px] lg:w-[1010px] xl:w-[1260px] 2xl:ml-[300px]">
+        <div className="w-full bg-secondary-dark flex justify-between rounded-mg md:w-[100%] min-[375px]:justify-center md:justify-start">
           <div className="flex items-center">
             <h1 className="text-3xl text-primary font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
-            <AiOutlineHeart className="text-3xl text-primary pointer ml-[-35px] min-[412px]:ml-[-15px]" />
+            <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">
             <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
@@ -105,18 +111,18 @@ function CardDetails() {
             </span>
           </div>
 
-        <div className="p-10 m-10 mt-[-10px] rounded-md bg-secondary shadow-md shadow-black/30">
+        <div className="p-10 m-10 mt-[-10px] rounded-md bg-secondary-dark shadow-md shadow-black/30">
           <p className="description text-white text-lg">{service?.description}</p>
         </div>
-        <div className="p-10 m-10 rounded-md bg-secondary shadow-md shadow-black/30">
+        <div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
           <h1 className="font-bold text-white text-2xl pb-2">Caracteristicas</h1>
           <hr className="pb-4"></hr>
           <div className="grid gap-4 grid-cols-3">
           
           {service?.characteristics.map((characteristic) => 
-            <div className="flex justify-start space-x-2 hover:space-x-8" key={characteristic.id}>
-              <FontAwesomeIcon icon={characteristic.iconName} />
-              <p className="description text-white flex-col">{characteristic.name}</p>
+            <div className="flex justify-start space-x-2 hover:bg-primary-dark/50 hover:cursor-pointer p-2 rounded-md text-white" key={characteristic.id}>
+              <FontAwesomeIcon className="text-2xl" icon={characteristic.iconName} />
+              <p className="description  flex-col">{characteristic.name}</p>
             </div>
           )}
 

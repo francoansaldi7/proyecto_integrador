@@ -27,19 +27,19 @@ public class Services {
     private List<List<LocalDate>> availability;
     private String imgProfileUrl;
 
-    @OneToMany(mappedBy = "service")
-    @JsonManagedReference
+    @ManyToMany
+    @JoinColumn(name = "characteristic_id", referencedColumnName = "id")
     private List<Characteristic> characteristics;
-
+    
     @OneToMany
     private List<ServiceImage> gallery;
 
     @OneToMany(mappedBy = "service")
     private List<Work> works;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "type_of_service_id", referencedColumnName = "id")
-    private TypesOfServices typeOfService;
+    private List<TypesOfServices> typeOfService;
 
     @ManyToOne
     @JoinColumn(name = "service_provider_id")
