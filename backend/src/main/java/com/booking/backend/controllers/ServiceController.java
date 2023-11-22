@@ -36,7 +36,8 @@ import com.booking.backend.services.impl.ServiceService;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
 
-@CrossOrigin ("*")
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/services")
 public class ServiceController {
@@ -65,7 +66,6 @@ public class ServiceController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
-    @CrossOrigin(value = {"${cors.allowedOrigins}"})
     public Page<IServiceReduced> findAllAdmin(@RequestParam(defaultValue = "1", required = false) int page,
                                   @RequestParam(defaultValue = "1", required = false) int size) {
                                     Pageable pageRequest  = PageRequest.of(page, size);

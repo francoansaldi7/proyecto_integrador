@@ -2,10 +2,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Favorite from "../components/common/Favorite";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -52,7 +53,7 @@ function CardDetails() {
             <h1 className="text-3xl text-primary font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
-            <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
+            <Favorite serviceId={id} favorites={service?.favorites}/>
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">
             <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>

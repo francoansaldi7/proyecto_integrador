@@ -13,6 +13,6 @@ import com.booking.backend.models.User;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByUsername(String username );
+    Optional<User> findByUsername(String username);
     Optional <User> findById(UUID id);
 }

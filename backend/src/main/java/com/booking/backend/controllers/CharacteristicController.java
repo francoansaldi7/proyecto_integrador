@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.booking.backend.models.Characteristic;
 import com.booking.backend.services.impl.CharacteristicsService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/characteristic")
 public class CharacteristicController {
