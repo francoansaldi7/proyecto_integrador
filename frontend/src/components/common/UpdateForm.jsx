@@ -54,17 +54,13 @@ const UpdateForm = ({ closeForm, service }) => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { updateService, getAllCategories, getAllCharacteristics } = useContext(GlobalContext);
+  const { updateService, getAllCategories, getAllCharacteristics, findServiceById } = useContext(GlobalContext);
 
   useEffect(() => {
     setSelectedImages([{id: 0, imageUrl: service.imgProfileUrl}])
-    service.gallery.map((image) => {
-      setSelectedImages((prev) => [...prev, image]);
-    })
-    console.log(service.characteristics);
-    service.characteristics.map((characteristic) => {
-      setSelectedCharacteristics((prev) => [...prev, characteristic]);
-    })
+    
+    
+    
 
     const fetchData = async () => {
       try {
@@ -83,6 +79,20 @@ const UpdateForm = ({ closeForm, service }) => {
         }
       } catch (error) {
         console.log(error);
+      }
+
+      try {
+        const result = await findServiceById(service.id);
+        if (result) {
+          result.gallery.map((image) => {
+      setSelectedImages((prev) => [...prev, image]);
+    })
+    result.characteristics.map((characteristic) => {
+      setSelectedCharacteristics((prev) => [...prev, characteristic]);
+    })
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 
@@ -153,13 +163,18 @@ const UpdateForm = ({ closeForm, service }) => {
   }, [category])
 
   const handleCharacteristics = (characteristic) => {
-    setSelectedCharacteristics((prev) => {
-      if (prev.includes(characteristic)) {
-        return prev.filter((characteristicInIterable) => characteristicInIterable !== characteristic);
-      } else {
-        return [...prev, characteristic];
+    const oldCharacteristics = selectedCharacteristics;
+    const newCharacteristics = [...oldCharacteristics];
+    let isAlredyExist = false;
+    oldCharacteristics.map((oldCharacteristic) => {
+      if (oldCharacteristic.id === characteristic.id) {
+        isAlredyExist = true; newCharacteristics.splice(newCharacteristics.indexOf(oldCharacteristic), 1);
       }
     })
+    if (!isAlredyExist) {
+      newCharacteristics.push(characteristic);
+    }
+    setSelectedCharacteristics(newCharacteristics);
   }
 
   const handlePricePerHour = (event) => {
@@ -362,7 +377,13 @@ const UpdateForm = ({ closeForm, service }) => {
                         type="checkbox"
                         className="m-2"
                         required=""
-                        checked={selectedCharacteristics.map(character => character.id).includes(characteristic.id)}
+                        checked={selectedCharacteristics && selectedCharacteristics.find(character =>  {
+                          if(character.id === characteristic.id) {
+                            return true;
+                          }
+                          return false;
+                        
+                        })}
                         onChange={() => handleCharacteristics(characteristic)}
                       ></input>
                       <label htmlFor={`characteristics-${characteristic.id}`} className="dark:text-white">{characteristic.name}</label>

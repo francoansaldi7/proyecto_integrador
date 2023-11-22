@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -14,6 +18,7 @@ import com.booking.backend.services.impl.ServiceImageService;
 import com.booking.backend.services.impl.TypeOfServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +28,9 @@ import com.booking.backend.models.ServiceImage;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceImageRepository;
+import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository;
+import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 import com.booking.backend.services.IServiceService;
 
 import jakarta.validation.Valid;
@@ -177,6 +184,11 @@ public class ServiceService implements IServiceService {
                 });
                 serviceToUpdate.setTypeOfService(typeOfServiceToUpdate);
             }
+            // The line code below is provisional, it must be replaced by a method of the service to reserve, i mean ReservationService and be excluded from this class.
+            serviceToUpdate.getAvailability().putAll( service.getAvailability() != null ? service.getAvailability() : serviceToUpdate.getAvailability());
+            
+
+
             Services updatedService = serviceRepository.save(serviceToUpdate);
             return updatedService;
         }
@@ -209,29 +221,84 @@ public class ServiceService implements IServiceService {
     }
 
     @Override
-    public Page<Services> findAll(Pageable pageable) {
-        return serviceRepository.findAll(pageable);
+    public Page<IServiceReduced> findAll(Pageable pageable) {
+        return serviceRepository.findBy(pageable);
     }
 
 
     @Override
-    public List<LocalDate> obtenerFechasDisponibles(UUID id) {
+    public NavigableMap<LocalDate, LocalDate> getUnavailableDates(UUID id) {
         Optional<Services> serviceOptional = serviceRepository.findById(id);
 
         if (serviceOptional.isPresent()) {
             Services service = serviceOptional.get();
-            List<List<LocalDate>> availability = service.getAvailability();
-            List<LocalDate> fechasDisponibles = new ArrayList<>();
+            NavigableMap<LocalDate, LocalDate> availability = new TreeMap<>(service.getAvailability());
 
-            for (List<LocalDate> rangoDeFechas : availability) {
-                fechasDisponibles.addAll(rangoDeFechas);
-            }
 
-            return fechasDisponibles;
+            return availability;
         } else {
-            throw new RuntimeException("El servicio con ID " + id + " no existe.");
+            throw new RuntimeException("THE SERVICE WITH ID " + id + " does not exist.");
         }
     }
 
+    @Override
+    public List<IdAndTituloProjection> findIdAndTitleContaining(String keyword) {
+        return serviceRepository.findAllByTitleContaining(keyword);
+    }
+
+    @Override
+    public Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable, boolean dateVerification, LocalDate startDate, LocalDate endDate, Long typeOfService) {
+        Page<IServiceReduced> serviceReduced;
+        if (typeOfService == null) {
+            serviceReduced = serviceRepository.findAllByTitleContaining(keyword, pageable);
+        } else {
+            TypesOfServices typesOfServiceForSave = typeOfServiceService.findById(typeOfService).orElse(null);
+            serviceReduced = serviceRepository.findByTitleContainingAndTypeOfService(keyword, typesOfServiceForSave, pageable);
+        }
+
+        if (startDate != null && endDate != null && dateVerification) {
+            Page<IServiceReduced> newServiceReduced = new PageImpl<>(Collections.emptyList());
+            List<IServiceReduced> newServiceReducedList = new ArrayList<>();
+            if(serviceReduced.isEmpty()) {
+                return newServiceReduced;
+            }
+            serviceReduced.getContent().forEach(service -> {
+
+                if(this.getAvailability(startDate, endDate, service)) {
+                    newServiceReducedList.add(service);
+                }
+            });
+            newServiceReduced = new PageImpl<>(newServiceReducedList, pageable, serviceReduced.getTotalElements());
+            return newServiceReduced;
+        }
+        return serviceReduced;
+    }
+
+        public Page<IServiceReduced> findAllByTitleContainingAndTypeOfService(String keyword, TypesOfServices typeOfService, Pageable pageable) {
+        return serviceRepository.findByTitleContainingAndTypeOfService(keyword, typeOfService, pageable);
+    }
+
+    public Boolean getAvailability(LocalDate startDate, LocalDate endDate, IServiceReduced service) {
+        System.out.println(service.getAvailability());
+        NavigableMap<LocalDate, LocalDate> availability = new TreeMap<>(service.getAvailability());
+     
+        
+       if(service.getAvailability().containsKey(startDate)) {
+           return false; // The start date coincides with another reservation
+       }
+
+       Map.Entry<LocalDate, LocalDate> lowerEntry = availability.lowerEntry(startDate);
+       if (lowerEntry != null && lowerEntry.getValue().isAfter(startDate)) {
+           return false; // The start date is within another reservation
+       }
+       
+        Map.Entry<LocalDate, LocalDate> higherEntry = availability.higherEntry(startDate);
+        if (higherEntry != null && !endDate.isBefore(higherEntry.getKey())) {
+            return false; // The end date is within another reservation
+        }
+       return true;
+    
+        
+    }
 
 }

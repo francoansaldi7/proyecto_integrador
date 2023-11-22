@@ -4,12 +4,11 @@ import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../contexts/globalContext";
 import { CgClose } from "react-icons/cg";
 import { FaChessQueen } from "react-icons/fa";
-import SearchBar from "../SearchBar";
-import { AuthContex } from "../../contexts/AuthContex";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function Header() {
   const {handleShuffle} = useContext(GlobalContext)
-  const {isLoggedIn} = useContext(AuthContex);
+  const {isLoggedIn} = useContext(AuthContext);
 
   const [isShowing, setIsShowing] = useState(false);
   const [user] = useState(isLoggedIn());
@@ -59,21 +58,18 @@ function Header() {
             <ul className="flex-row  flex justify-between  text-background md:text-primary md:flex-row text-[22px] md:text-[18px] h-full font-medium md:text-sm md:gap-8 items-center">
               <li className=" hover:text-violet-600">
                 <Link to="#section2">Sobre nosotros</Link>
-
               </li>
               <li className=" hover:text-violet-600 ">
                 <Link to="#section3">Contacto</Link>
               </li>
-              <li className=" hover:text-violet-600 ">
+              <li className=" hover:text-violet-600 2xl:mr-10">
                 <Link to="#section1">Productos & Servicios</Link>
               </li>
-              <li className="">
-                <SearchBar />
-              </li>
+
             {user.isLoggedIn ? 
             <div className="cursor-pointer flex flex-row gap-3 justify-center items-center">
               <h4>Bienvenido</h4>
-              <div className="h-10 w-10 bg-white rounded-full relative flex items-center justify-center">
+              <div className="h-10 w-10 bg-white rounded-full relative flex items-center justify-center 2xl:mr-5">
                 <h2 className="font-extrabold">{initials}</h2>
                 {user.isAdmin &&  (<FaChessQueen className="text-yellow-400 absolute top-[-10px] left-1/2 -translate-x-1/2 "/>)}
               </div>
@@ -87,7 +83,7 @@ function Header() {
                 localStorage.clear()
                 window.location.reload()
               }}
-              className="p-2 rounded-md bg-secondary text-white hover:bg-primary">Log Out</button>
+              className="p-2 rounded-md bg-secondary text-white hover:bg-primary 2xl:mr-10">Log Out</button>
             </div>
              : 
             <>

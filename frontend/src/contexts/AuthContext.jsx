@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { User } from "../components/User";
 import { jwtDecode } from "jwt-decode";
 
-const AuthContex = createContext();
+const AuthContext = createContext();
 
-const AuthContexProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   /**
    * Saves user data to a server using a POST request.
    *
@@ -76,6 +76,7 @@ const AuthContexProvider = ({ children }) => {
           isUser: false,
           isAdmin: true,
           name: data.name,
+          userId: data.id
         };
       } else if (data.rol === "USER") {
         return {
@@ -83,6 +84,7 @@ const AuthContexProvider = ({ children }) => {
           isUser: true,
           isAdmin: false,
           name: data.name,
+          userId: data.id
         };
       }
       return {
@@ -90,6 +92,7 @@ const AuthContexProvider = ({ children }) => {
         isUser: false,
         isAdmin: false,
         name: "",
+        userId: ""
       };
     } catch (error) {
       return {
@@ -97,6 +100,7 @@ const AuthContexProvider = ({ children }) => {
         isUser: false,
         isAdmin: false,
         name: "",
+        userId: ""
       };
     }
   };
@@ -108,9 +112,9 @@ const AuthContexProvider = ({ children }) => {
     updateUser
   };
 
-  return <AuthContex.Provider value={data}>{children}</AuthContex.Provider>;
+  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };
-AuthContexProvider.propTypes = {
+AuthContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-export { AuthContexProvider, AuthContex };
+export { AuthContextProvider as AuthContextProvider, AuthContext as AuthContext };
