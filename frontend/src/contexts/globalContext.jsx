@@ -13,6 +13,7 @@ const GlobalContextProvider = ({ children }) => {
 
   const [services, setServices] = useState([]);
   const [serviceIdsAndTitlesOnly, setServiceIdsAndTitlesOnly] = useState([]);
+  const [searchedServices, setSearchedServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
@@ -304,11 +305,11 @@ const GlobalContextProvider = ({ children }) => {
     
   })
 
-  const getAllServiceReduced = useCallback(async (query = "") => {
+  const getAllServicesReduced = useCallback(async (query = "",  typeOfServiceId = null, startDate = null, endDate = null, pageNumber = 0) => {
     let res;
     try {
       res = await fetch(
-        `http://localhost:8080/api/v1/services/search-all?query=${query}`,
+        `http://localhost:8080/api/v1/services/search-all?query=${query}&size=${SERVICE_PAGE_SIZE}&page=${pageNumber}${startDate ? `&startDate=${startDate}` : ""}${endDate ? `&endDate=${endDate}` : ""}${typeOfServiceId ? `&typeOfService=${typeOfServiceId}` : ""}`,
       )
     
     } catch (error) {
@@ -323,6 +324,15 @@ const GlobalContextProvider = ({ children }) => {
     return data;  
     
   })
+
+    const changeSearchedServicesPage = useCallback(
+    async (pageNumber) => {
+      console.log(pageNumber);
+      const data = await getAllServicesReduced(pageNumber);
+      setSearchedServices(data.content);
+    },
+    [getAllServicesReduced]
+  );
 
 
   // ------------------------ END SERVICES FETCHS ------------------------
@@ -561,7 +571,10 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       getAllIdsAndTitlesOfEachService,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      changeSearchedServicesPage,
       categories,
       setCategories,
       getAllCategories,
@@ -612,7 +625,10 @@ const GlobalContextProvider = ({ children }) => {
       serviceIdsAndTitlesOnly,
       setServiceIdsAndTitlesOnly,
       findServiceById,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      changeSearchedServicesPage,
     ]
   );
 

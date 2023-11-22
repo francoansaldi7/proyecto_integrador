@@ -1,9 +1,11 @@
 package com.booking.backend.services;
 
 import com.booking.backend.models.Services;
+import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +17,5 @@ public interface IServiceService extends IBaseCrudService<Services, Services> {
 
     List<IdAndTituloProjection> findIdAndTitleContaining(String keyword);
 
-    Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable);
+    public Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable, boolean dateVerification, LocalDate startDate, LocalDate endDate, Long typeOfService);
 }

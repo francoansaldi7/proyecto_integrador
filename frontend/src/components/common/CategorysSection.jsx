@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../contexts/globalContext";
 const CategorysSection = () => {
-  const [categories, setCategories] = useState([])
-  const {services, setUnorganizedServices, getAllCategories}= useContext(GlobalContext);
+  //const [categories, setCategories] = useState([])
+  const {services, setUnorganizedServices, getAllCategories, setCategories, categories}= useContext(GlobalContext);
 
   useEffect(() => {
     async function fetchData() {

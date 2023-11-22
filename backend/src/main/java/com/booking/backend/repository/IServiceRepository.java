@@ -27,7 +27,9 @@ public interface IServiceRepository extends JpaRepository<Services, UUID> {
         String getTitle();
     }
 
-    Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable);
+    Page<IServiceReduced> findByTitleContainingAndTypeOfService(String keyword,  TypesOfServices typeOfService, Pageable pageable);
+
+        Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable);
 
     Page<IServiceReduced> findBy(Pageable pageable);
     

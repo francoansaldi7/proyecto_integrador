@@ -1,6 +1,7 @@
 package com.booking.backend.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
+import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 import com.booking.backend.services.impl.ServiceService;
@@ -84,9 +86,12 @@ public class ServiceController {
 
         @GetMapping("/search-all")
     public Page<IServiceReduced> searchAll(@RequestParam String query, @RequestParam(defaultValue = "1", required = false) int page,
-                                  @RequestParam(defaultValue = "1", required = false) int size) {
+                                  @RequestParam(defaultValue = "1", required = false) int size, @RequestParam(required = false) LocalDate startDate, @RequestParam(required = false) LocalDate endDate, @RequestParam(required = false) Long typeOfService) {
         Pageable pageRequest  = PageRequest.of(page, size);
-        return serviceService.findAllByTitleContaining(query, pageRequest);
+        if(startDate == null || endDate == null) {
+            return serviceService.findAllByTitleContaining(query, pageRequest, false, null, null, typeOfService);
+        }
+        return serviceService.findAllByTitleContaining(query, pageRequest, true, startDate, endDate, typeOfService);
     }
 
   /**
