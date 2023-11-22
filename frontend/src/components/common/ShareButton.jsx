@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/ProductShare.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCopy} from '@fortawesome/free-solid-svg-icons'
 
 const ShareButton = ({ name, description, image, id }) => {
     const [modal, setModal] = useState(false);
@@ -88,17 +89,17 @@ const ShareButton = ({ name, description, image, id }) => {
                             <input value={state.value} className='input-disabled' readOnly />
                             <CopyToClipboard text={state.value}>
                                 <button className='btn-copy-to-clipboard'>
-                                    <img src="../../public/copy-regular.svg" className='copy-to-clipboard' />
+                                <FontAwesomeIcon className="mx-3 mt-1" icon="fa-regular fa-copy" style={{color: "#ffffff",}} size='2xl'/>
                                 </button>
                             </CopyToClipboard>
                         </div>
                         <input value={state.desc} className='input-desc' onChange={descCreate} placeholder='Inserte mensaje adicional' />
                         <div className='buttons-social-networks'>
                             <button onClick={handleWhatsAppShare}>
-                                <img src="../../public/redes-whatsapp.svg" alt="" className="social-network-img" />
+                                <img src="../../public/whatsapp.png" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleFacebookShare}>
-                                <img src="../../public/redes-facebook.svg" alt="" className="social-network-img" />
+                                <img src="../../public/facebook.png" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleTwitterShare}>
                                 <img src="../../public/redes-twitter.svg" alt="" className="social-network-img" />
