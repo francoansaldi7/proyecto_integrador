@@ -1,6 +1,6 @@
 package com.booking.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,5 +54,7 @@ public class Services {
     @JoinColumn(name = "service_provider_id")
     private ServiceProvider serviceProvider;
 
+    @ManyToMany(mappedBy = "favoriteServices")
+    private List<User> favorites;
 
 }

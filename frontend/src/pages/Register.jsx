@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { AuthContex } from '../contexts/AuthContex';
+import { AuthContext } from '../contexts/AuthContext';
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Register() {
     
     //Contexto Global de Auth
-    const {saveUser} =  useContext(AuthContex);
+    const {saveUser} =  useContext(AuthContext);
 
     const validationSchema = Yup.object().shape({
             name: Yup.string()

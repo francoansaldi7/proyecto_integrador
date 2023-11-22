@@ -555,6 +555,52 @@ const GlobalContextProvider = ({ children }) => {
 // ------------------------ END CHARACTERISTICS FETCHS -------------------
 
 
+// ------------------------ FAVORITES FETCHS ------------------------
+
+const addFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Favorito agregado correctamente");
+      }      
+    } catch (error) {
+      console.error("Error al agregar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+const deleteFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        console.log("Favorito eliminado correctamente");
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+// ------------------------ END FAVORITES FETCHS -------------------
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -595,6 +641,8 @@ const GlobalContextProvider = ({ children }) => {
       changeServicesPage,
       sevicesTotalPages,
       loadingServices,
+      addFavorite,
+      deleteFavorite
     }),
     [
       services,
@@ -629,6 +677,8 @@ const GlobalContextProvider = ({ children }) => {
       searchedServices,
       setSearchedServices,
       changeSearchedServicesPage,
+      addFavorite,
+      deleteFavorite
     ]
   );
 
