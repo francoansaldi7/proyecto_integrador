@@ -2,10 +2,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Favorite from "../components/common/Favorite";
+import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
 
 function CardDetails() {
@@ -53,7 +55,7 @@ function CardDetails() {
             <h1 className="text-3xl text-primary font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
-            <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
+            <Favorite serviceId={id} favorites={service?.favorites}/>
             <div className="flex px-5 text-primary"><ShareButton className="text-lime-400" id={service?.id} name={service?.title} description={service?.description} image={service?.imgProfileUrl}/></div>
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">
@@ -131,12 +133,15 @@ function CardDetails() {
 
           </div>
         </div>
-
+        <div className="availability">
+          <ShowServiceAvailability/>
+        </div>
         <div className="flex justify-end mr-20 mb-10">
+
           <Link
             to=""
 
-            className="w-[120px] text-white bg-secondary hover:bg-pink-200 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
           </Link>
         </div>

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.services.impl.CategoryService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {

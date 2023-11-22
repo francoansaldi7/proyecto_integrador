@@ -13,6 +13,7 @@ const GlobalContextProvider = ({ children }) => {
 
   const [services, setServices] = useState([]);
   const [serviceIdsAndTitlesOnly, setServiceIdsAndTitlesOnly] = useState([]);
+  const [searchedServices, setSearchedServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
@@ -304,11 +305,11 @@ const GlobalContextProvider = ({ children }) => {
     
   })
 
-  const getAllServiceReduced = useCallback(async (query = "") => {
+  const getAllServicesReduced = useCallback(async (query = "",  typeOfServiceId = null, startDate = null, endDate = null, pageNumber = 0) => {
     let res;
     try {
       res = await fetch(
-        `http://localhost:8080/api/v1/services/search-all?query=${query}`,
+        `http://localhost:8080/api/v1/services/search-all?query=${query}&size=${SERVICE_PAGE_SIZE}&page=${pageNumber}${startDate ? `&startDate=${startDate}` : ""}${endDate ? `&endDate=${endDate}` : ""}${typeOfServiceId ? `&typeOfService=${typeOfServiceId}` : ""}`,
       )
     
     } catch (error) {
@@ -323,6 +324,33 @@ const GlobalContextProvider = ({ children }) => {
     return data;  
     
   })
+
+    const changeSearchedServicesPage = useCallback(
+    async (pageNumber) => {
+      console.log(pageNumber);
+      const data = await getAllServicesReduced(pageNumber);
+      setSearchedServices(data.content);
+    },
+    [getAllServicesReduced]
+  );
+
+  const getUnavailableDatesOfService = useCallback(
+    async (serviceId) => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/v1/services/${serviceId}/unavailable-dates`
+        );
+        if (!response.ok) {
+          throw new Error("Error obtaining unavailable dates");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw new Error(error);
+      }
+    }
+  )
 
 
   // ------------------------ END SERVICES FETCHS ------------------------
@@ -545,6 +573,53 @@ const GlobalContextProvider = ({ children }) => {
 // ------------------------ END CHARACTERISTICS FETCHS -------------------
 
 
+// ------------------------ FAVORITES FETCHS ------------------------
+
+const addFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Favorito agregado correctamente");
+      }      
+    } catch (error) {
+      console.error("Error al agregar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+const deleteFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        console.log("Favorito eliminado correctamente");
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+// ------------------------ END FAVORITES FETCHS -------------------
+
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -561,7 +636,11 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       getAllIdsAndTitlesOfEachService,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      getUnavailableDatesOfService,
+      changeSearchedServicesPage,
       categories,
       setCategories,
       getAllCategories,
@@ -582,6 +661,8 @@ const GlobalContextProvider = ({ children }) => {
       changeServicesPage,
       sevicesTotalPages,
       loadingServices,
+      addFavorite,
+      deleteFavorite
     }),
     [
       services,
@@ -590,6 +671,7 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       unorganizedServices,
+      getUnavailableDatesOfService,
       handleShuffle,
       changeServicesPage,
       sevicesTotalPages,
@@ -612,7 +694,12 @@ const GlobalContextProvider = ({ children }) => {
       serviceIdsAndTitlesOnly,
       setServiceIdsAndTitlesOnly,
       findServiceById,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      changeSearchedServicesPage,
+      addFavorite,
+      deleteFavorite
     ]
   );
 
