@@ -1,6 +1,6 @@
 import { useState , useCallback, useEffect, useContext} from 'react';
 import { ToastContainer, toast } from "react-toastify";
-import { AuthContex } from '../../contexts/AuthContex';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalContext } from '../../contexts/globalContext';

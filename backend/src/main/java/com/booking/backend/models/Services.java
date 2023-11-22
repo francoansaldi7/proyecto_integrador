@@ -1,6 +1,6 @@
 package com.booking.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +48,8 @@ public class Services {
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
     private List<Review> reservations;
 
+    @ManyToMany(mappedBy = "favoriteServices")
+    private List<User> favorites;
 
     public Services(UUID id, String name) {
         if (id == null) {
