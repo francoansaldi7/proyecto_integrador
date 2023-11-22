@@ -43,11 +43,11 @@ const CategorysSection = () => {
   };
 
   return (
-    <div className="flex sm:self-center rounded-xl bg-gray-200 p-[1px] flex-col sm:flex-row self-start w-full sm:w-[unset] mx-0">
+    <div className="grid grid-cols-1  rounded-xl bg-gray-200 p-[1px]  lg:flex-row self-start w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-10">
       {categories.map((category) => (
         <div
           key={category.id}
-          className={`category hover:bg-white p-2 rounded-xl cursor-pointer hover:shadow-sm hover:shadow-slate-700/30 transition-colors ${
+          className={`category flex justify-center hover:bg-white p-2 rounded-xl cursor-pointer hover:shadow-sm hover:shadow-slate-700/30 transition-colors ${
             activeCategory === category.id ? 'bg-white shadow-sm shadow-slate-700/30' : ''
           }`}
           onClick={() => handleCategoryClick(category.id)}
