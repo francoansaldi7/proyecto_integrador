@@ -15,7 +15,8 @@ function Login() {
   const { authenticateUser } = useContext(AuthContext);
 
   //Desde el login
-  const { state } = useLocation();
+  const  { state }  = useLocation();
+  console.log(state);
   const prevPath = state && state?.previousPath;
   let isInBooking = prevPath ? true : false;
   console.log(prevPath);
@@ -36,6 +37,7 @@ function Login() {
       const loginInfo = await authenticateUser(values.username, values.password);
       localStorage.setItem("registrationToken", loginInfo);
       toast.success("Sesión iniciada exitosamente");
+      window.location.href = '/'
     } catch (error) {
       console.error(error);
       toast.error("Se produjo un error al iniciar la sesión");

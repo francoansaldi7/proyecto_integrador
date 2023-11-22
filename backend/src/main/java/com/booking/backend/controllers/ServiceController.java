@@ -1,11 +1,14 @@
 package com.booking.backend.controllers;
-
+import com.booking.backend.services.impl.ServiceService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.booking.backend.services.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
+import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
 import com.booking.backend.services.impl.ServiceService;
@@ -49,6 +53,9 @@ public class ServiceController {
 
   @Autowired
   private VerifyRoleService verifyRoleService;
+
+    @Autowired
+    private IServiceService iServiceService;
   
 
 
@@ -85,9 +92,12 @@ public class ServiceController {
 
         @GetMapping("/search-all")
     public Page<IServiceReduced> searchAll(@RequestParam String query, @RequestParam(defaultValue = "1", required = false) int page,
-                                  @RequestParam(defaultValue = "1", required = false) int size) {
+                                  @RequestParam(defaultValue = "1", required = false) int size, @RequestParam(required = false) LocalDate startDate, @RequestParam(required = false) LocalDate endDate, @RequestParam(required = false) Long typeOfService) {
         Pageable pageRequest  = PageRequest.of(page, size);
-        return serviceService.findAllByTitleContaining(query, pageRequest);
+        if(startDate == null || endDate == null) {
+            return serviceService.findAllByTitleContaining(query, pageRequest, false, null, null, typeOfService);
+        }
+        return serviceService.findAllByTitleContaining(query, pageRequest, true, startDate, endDate, typeOfService);
     }
 
   /**
@@ -137,6 +147,17 @@ public class ServiceController {
     public Services update(@PathVariable UUID serviceId, @RequestBody Services updatedService) {
         return serviceService.update(serviceId, updatedService);
     }
+
+    @GetMapping("/{id}/unavailable-dates")
+    public ResponseEntity<?> getUnavailableDates(@PathVariable UUID id) {
+        try {
+            NavigableMap<LocalDate, LocalDate> fechasDisponibles = serviceService.getUnavailableDates(id);
+            return new ResponseEntity<>(fechasDisponibles, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("No se encontró el servicio con ID " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     /**
      * Deletes a service by its ID.

@@ -7,6 +7,7 @@ import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Favorite from "../components/common/Favorite";
+import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -129,12 +130,15 @@ function CardDetails() {
 
           </div>
         </div>
-
+        <div className="availability">
+          <ShowServiceAvailability/>
+        </div>
         <div className="flex justify-end mr-20 mb-10">
+
           <Link
             to=""
 
-            className="w-[120px] text-white bg-secondary hover:bg-pink-200 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
           </Link>
         </div>

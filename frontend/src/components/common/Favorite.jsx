@@ -1,8 +1,8 @@
-import React from 'react';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useState,useEffect,useContext } from "react";
 import { AuthContext } from '../../contexts/AuthContext';
 import { GlobalContext } from '../../contexts/globalContext';
+import PropTypes from 'prop-types';
 
 
 const Favorite = ({serviceId, favorites}) => {
@@ -22,7 +22,7 @@ const Favorite = ({serviceId, favorites}) => {
 
     //Funciones
     const showFavorite = () => {      
-        return userInfo.isUser && userInfo.isLoggedIn;
+        return userInfo.isUser || userInfo.isAdmin && userInfo.isLoggedIn;
     }
 
     const toggleFavorite = () => {
@@ -45,10 +45,17 @@ const Favorite = ({serviceId, favorites}) => {
                     <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
                 }
             </div>:
-            <></>
+            <div>
+
+                
+            </div>
         }
         </>
     )
+}
+Favorite.propTypes = {
+    serviceId: PropTypes.number,
+    favorites: PropTypes.array
 }
 
 export default Favorite
