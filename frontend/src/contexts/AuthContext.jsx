@@ -69,6 +69,16 @@ const AuthContextProvider = ({ children }) => {
   const isLoggedIn = () => {
     try {
       const data = jwtDecode(localStorage.getItem("registrationToken"));
+      const currentTime = Math.floor(Date.now() / 1000);
+      if(data.exp < currentTime) {
+        return {
+          isLoggedIn: false,
+          isUser: false,
+          isAdmin: false,
+          name: "",
+          userId: ""
+        };
+      }
 
       if (data.rol === "ADMIN") {
         return {
