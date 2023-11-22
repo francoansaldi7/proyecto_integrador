@@ -1,7 +1,7 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import BotonesDesplegables from './BotonesDesplegables';
+import ShareButton from './ShareButton';
 
 /* eslint-disable react/prop-types */
 function Card({id, img, title, description, price, moreBig = false, disccount = false, rating = 1}) {
@@ -27,7 +27,6 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
         <Link to={`/details/${id}`} state={{img, title, description, price, rating, id}}>
             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
         </Link>  
-
         <div className="flex items-center mt-2 mb-5 ml-0 mr-0 w-70">
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
@@ -35,9 +34,8 @@ function Card({id, img, title, description, price, moreBig = false, disccount = 
             <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
             <AiOutlineStar className="w-4 h-4 text-gray-200 dark:text-gray-600"></AiOutlineStar>
             <span className="w-30 bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{rating}</span>
-            <div> <BotonesDesplegables/> </div>
+            <div className="flex px-5"><ShareButton id={id} name={title} description={description} image={img} /></div>
         </div>
-
         <div className="flex flex-row mb-2">
           <p className="relative text-gray-500 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">{description}</p>
 

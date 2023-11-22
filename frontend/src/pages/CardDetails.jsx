@@ -6,7 +6,7 @@ import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BotonesDesplegables from '../components/common/BotonesDesplegables';
+import ShareButton from '../components/common/ShareButton';
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -54,6 +54,7 @@ function CardDetails() {
               {service?.title}
             </h1>
             <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
+            <div className="flex px-5 text-primary"><ShareButton className="text-lime-400" id={service?.id} name={service?.title} description={service?.description} image={service?.imgProfileUrl}/></div>
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">
             <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
@@ -101,7 +102,6 @@ function CardDetails() {
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
 
-        <div className="flex ml-50"> <BotonesDesplegables />  </div>
 
         <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
