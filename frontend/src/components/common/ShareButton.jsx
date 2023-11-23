@@ -96,19 +96,19 @@ const ShareButton = ({ name, description, image, id }) => {
                         <input value={state.desc} className='input-desc' onChange={descCreate} placeholder='Inserte mensaje adicional' />
                         <div className='buttons-social-networks'>
                             <button onClick={handleWhatsAppShare}>
-                                <img src="../../public/whatsapp.png" alt="" className="social-network-img" />
+                                <img src="whatsapp.png" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleFacebookShare}>
-                                <img src="../../public/facebook.png" alt="" className="social-network-img" />
+                                <img src="facebook.png" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleTwitterShare}>
-                                <img src="../../public/redes-twitter.svg" alt="" className="social-network-img" />
+                                <img src="redes-twitter.svg" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleInstagramShare}>
-                                <img src="../../public/redes-instagram.svg" alt="" className="social-network-img" />
+                                <img src="redes-instagram.svg" alt="" className="social-network-img" />
                             </button>
                             <button onClick={handleTelegramShare}>
-                                <img src="../../public/redes-telegram.svg" alt="" className="social-network-img" />
+                                <img src="redes-telegram.svg" alt="" className="social-network-img" />
                             </button>
                         </div>
                         <button className='close-modal' onClick={toggleModal}>

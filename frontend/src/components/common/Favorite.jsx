@@ -45,7 +45,7 @@ const Favorite = ({serviceId, favorites}) => {
                     <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
                 }
             </div>:
-            <div onClick={()=> window.location.href = '/login'}>
+            <div onClick={()=> window.location.href = `${window.location.origin}/login`}>
                 <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
                 
             </div>

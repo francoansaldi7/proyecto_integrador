@@ -48,7 +48,7 @@ public class User implements Serializable, UserDetails {
   @Column(name = "last_password_reset_date")
   private Timestamp lastPasswordResetDate;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "service_favorite",
           joinColumns = @JoinColumn(name = "user_id"),
