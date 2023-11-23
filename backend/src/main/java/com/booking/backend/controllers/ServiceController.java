@@ -1,44 +1,24 @@
 package com.booking.backend.controllers;
-import com.booking.backend.services.impl.ServiceService;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Optional;
-import java.util.UUID;
-
-import com.booking.backend.services.IServiceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.jwt.JwtException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.booking.backend.models.Services;
-import com.booking.backend.models.TypesOfServices;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository.IdAndTituloProjection;
+import com.booking.backend.services.IServiceService;
 import com.booking.backend.services.impl.ServiceService;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.*;
 
 
 @CrossOrigin("*")
