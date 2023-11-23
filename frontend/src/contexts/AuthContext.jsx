@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { User } from "../components/User";
 import { jwtDecode } from "jwt-decode";
 
-const AuthContex = createContext();
+const AuthContext = createContext();
 
-const AuthContexProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   /**
    * Saves user data to a server using a POST request.
    *
@@ -19,7 +19,7 @@ const AuthContexProvider = ({ children }) => {
   const saveUser = async (name, username, email, password, role = 1) => {
     const user = new User(name, username, email, password, role);
     try {
-      const userSaved = await fetch("http://localhost:8080/api/v1/users", {
+      const userSaved = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const AuthContexProvider = ({ children }) => {
 
   const updateUser = async (user) => {
     try {
-      const userSaved = await fetch(`http://localhost:8080/api/v1/users/${user.id}`, {
+      const userSaved = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const AuthContexProvider = ({ children }) => {
   };
   const authenticateUser = async (username, password) => {
     try {
-      const token = await fetch("http://localhost:8080/api/v1/users/login", {
+      const token = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,6 +69,16 @@ const AuthContexProvider = ({ children }) => {
   const isLoggedIn = () => {
     try {
       const data = jwtDecode(localStorage.getItem("registrationToken"));
+      const currentTime = Math.floor(Date.now() / 1000);
+      if(data.exp < currentTime) {
+        return {
+          isLoggedIn: false,
+          isUser: false,
+          isAdmin: false,
+          name: "",
+          userId: ""
+        };
+      }
 
       if (data.rol === "ADMIN") {
         return {
@@ -76,6 +86,7 @@ const AuthContexProvider = ({ children }) => {
           isUser: false,
           isAdmin: true,
           name: data.name,
+          userId: data.id
         };
       } else if (data.rol === "USER") {
         return {
@@ -83,6 +94,7 @@ const AuthContexProvider = ({ children }) => {
           isUser: true,
           isAdmin: false,
           name: data.name,
+          userId: data.id
         };
       }
       return {
@@ -90,6 +102,7 @@ const AuthContexProvider = ({ children }) => {
         isUser: false,
         isAdmin: false,
         name: "",
+        userId: ""
       };
     } catch (error) {
       return {
@@ -97,6 +110,7 @@ const AuthContexProvider = ({ children }) => {
         isUser: false,
         isAdmin: false,
         name: "",
+        userId: ""
       };
     }
   };
@@ -108,9 +122,9 @@ const AuthContexProvider = ({ children }) => {
     updateUser
   };
 
-  return <AuthContex.Provider value={data}>{children}</AuthContex.Provider>;
+  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };
-AuthContexProvider.propTypes = {
+AuthContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-export { AuthContexProvider, AuthContex };
+export { AuthContextProvider as AuthContextProvider, AuthContext as AuthContext };

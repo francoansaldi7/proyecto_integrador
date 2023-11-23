@@ -1,0 +1,113 @@
+/* Estilos para el overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.658);
+    z-index: 9999;
+  }
+  
+  /* Estilos para el contenido modal */
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #241E4C;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    color: white;
+  }
+  
+  .modal-content h1 {
+    font-size: 30px;
+  }
+  
+  /* Estilos para los botones de redes sociales */
+  .buttons-social-networks {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .buttons-social-networks button {
+    background: none;
+    border: none;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .buttons-social-networks button:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Otros estilos */
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .custom-svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .social-network-img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .input-disabled {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #5465FF;
+    cursor: not-allowed;
+  }
+  
+  .input-desc {
+    width: 96.2%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #5465FF;
+  }
+  
+  .btn-copy-to-clipboard {
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+  }
+  
+  .display-copies {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .copy-to-clipboard {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 8px;
+    
+  }
+  
+  .copy-to-clipboard img {
+    color: white;
+  }

@@ -1,16 +1,16 @@
 import { useState , useCallback, useEffect, useContext} from 'react';
 import { ToastContainer, toast } from "react-toastify";
-import { AuthContex } from '../../contexts/AuthContex';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import "react-toastify/dist/ReactToastify.css";
 const ListOfUsers = () => {
-  const {updateUser} = useContext(AuthContex)
+  const {updateUser} = useContext(AuthContext)
       const [users, setUsers] = useState();
       const [loading, setLoading] = useState(true);
 
       const getAllUsers = useCallback(async () => {
         try {
-          const response = await fetch(`http://localhost:8080/api/v1/users`);
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users`);
           const data = await response.json();
           console.log(data);
           setUsers(data);

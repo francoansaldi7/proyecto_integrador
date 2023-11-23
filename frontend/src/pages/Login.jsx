@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { AuthContex } from "../contexts/AuthContex";
+import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -12,10 +12,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   //Contexto Global de Auth
-  const { authenticateUser } = useContext(AuthContex);
+  const { authenticateUser } = useContext(AuthContext);
 
   //Desde el login
-  const { state } = useLocation();
+  const  { state }  = useLocation();
+  console.log(state);
   const prevPath = state && state?.previousPath;
   let isInBooking = prevPath ? true : false;
   console.log(prevPath);
@@ -33,9 +34,10 @@ function Login() {
 
   const onSubmitLogin = async (values) => {
     try {
-      const token = await authenticateUser(values.username, values.password);
-      localStorage.setItem("registrationToken", token);
+      const loginInfo = await authenticateUser(values.username, values.password);
+      localStorage.setItem("registrationToken", loginInfo);
       toast.success("Sesión iniciada exitosamente");
+      window.location.href = '/'
     } catch (error) {
       console.error(error);
       toast.error("Se produjo un error al iniciar la sesión");

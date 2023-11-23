@@ -2,11 +2,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
+import Favorite from "../components/common/Favorite";
+import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
+import ShareButton from '../components/common/ShareButton';
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -47,13 +50,14 @@ function CardDetails() {
     <>
       <div className="fixed bg-black opacity-25 h-screen w-screen right-0 top-0 z-10"></div>
 
-      <div className="xl:ml-2 fixed top-0 bg-secondary bg-gradient-to-b from-gray-900 to-primary-dark w-[97vw] h-[85vh] flex justify-between flex-col rounded-lg gap-10 z-50 ml-[1vw] mt-[9vh] overflow-y-auto min-[375px]:w-[366px] min-[414px]:w-[405px] min-[414px]:ml-1 min-[390px]:ml-3 min-[393px]:ml-[13px] min-[412px]:ml-5 md:w-[750px] md:ml-2 min-[820px]:w-[800px] min-[912px]:w-[890px] min-[540px]:w-[530px] lg:w-[1010px] xl:w-[1260px] 2xl:ml-[300px]">
+      <div className="fixed top-[107px] left-[2vw] bg-secondary bg-gradient-to-b from-gray-900 to-primary-dark w-[96vw] h-[calc(100vh-110px)] flex justify-between flex-col rounded-lg gap-10 z-50  overflow-y-auto ">
         <div className="w-full bg-secondary-dark flex justify-between rounded-mg md:w-[100%] min-[375px]:justify-center md:justify-start">
           <div className="flex items-center">
-            <h1 className="text-3xl text-primary font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
+            <h1 className="text-3xl text-white font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
-            <AiOutlineHeart className="text-3xl text-primary hover:cursor-pointer ml-[-35px] min-[412px]:ml-[-15px]" />
+            <Favorite serviceId={id} favorites={service?.favorites}/>
+            <div className="flex px-5 text-primary"><ShareButton className="text-lime-400" id={service?.id} name={service?.title} description={service?.description} image={service?.imgProfileUrl}/></div>
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">
             <p className="text-red-700 mr-3 mt-2 text-2xl">x</p>
@@ -101,6 +105,7 @@ function CardDetails() {
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
 
+
         <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
@@ -118,10 +123,10 @@ function CardDetails() {
         <div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
           <h1 className="font-bold text-white text-2xl pb-2">Caracteristicas</h1>
           <hr className="pb-4"></hr>
-          <div className="grid gap-4 grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           
           {service?.characteristics.map((characteristic) => 
-            <div className="flex justify-start space-x-2 hover:bg-primary-dark/50 hover:cursor-pointer p-2 rounded-md text-white" key={characteristic.id}>
+            <div className="grid grid-cols-4 space-x-2 hover:bg-primary-dark/50 hover:cursor-pointer p-2 rounded-md text-white" key={characteristic.id}>
               <FontAwesomeIcon className="text-2xl" icon={characteristic.iconName} />
               <p className="description  flex-col">{characteristic.name}</p>
             </div>
@@ -130,16 +135,21 @@ function CardDetails() {
           </div>
         </div>
 
+        <div className="availability flex justify-center">
+          <ShowServiceAvailability/>
+        </div>
         <div className="flex justify-center space-x-2 hover:cursor-pointer bg-secondary-dark/100 p-2 rounded-md text-white">
           <PoliciesAndConditions />
         </div>
 
         
-               <div className="flex justify-end mr-20 mb-10">
+              
+        <div className="flex justify-end mr-20 mb-10">
+
           <Link
             to=""
 
-            className="w-[120px] text-white bg-secondary hover:bg-pink-200 hover:text-primary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800">
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
           </Link>
         </div>

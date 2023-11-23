@@ -13,6 +13,7 @@ const GlobalContextProvider = ({ children }) => {
 
   const [services, setServices] = useState([]);
   const [serviceIdsAndTitlesOnly, setServiceIdsAndTitlesOnly] = useState([]);
+  const [searchedServices, setSearchedServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
   const [unorganizedServices, setUnorganizedServices] = useState([]);
@@ -80,7 +81,7 @@ const GlobalContextProvider = ({ children }) => {
       let response;
       try {
         response = await fetch(
-          `http://localhost:8080/api/v1/services${
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/services${
             isAdmin ? "/admin" : ""
           }?size=${SERVICE_PAGE_SIZE}&page=${pageNumber}`,
           {
@@ -111,7 +112,7 @@ const GlobalContextProvider = ({ children }) => {
     async (idService) => {
       let res;
       try {
-        res = await fetch(`http://localhost:8080/api/v1/services/${idService}`);
+        res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${idService}`);
       } catch (error) {
       throw new Error("Error finding service by id: ", error);
       }
@@ -145,7 +146,7 @@ const GlobalContextProvider = ({ children }) => {
       let response;
       try {
         try {
-          response = await fetch(`http://localhost:8080/api/v1/services`, {
+          response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/services`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -176,7 +177,7 @@ const GlobalContextProvider = ({ children }) => {
 
                 // Envía la imagen en Base64 al servidor
                 const response = await fetch(
-                  `http://localhost:8080/api/v1/services/${serviceSaved.id}/${
+                  `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${serviceSaved.id}/${
                     storeCurrentIndex === 0 ? "image-profile" : "images"
                   }`,
                   {
@@ -232,7 +233,7 @@ const GlobalContextProvider = ({ children }) => {
     async (idService, service) => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/services/${idService}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${idService}`,
           {
             method: "PUT",
             headers: {
@@ -265,7 +266,7 @@ const GlobalContextProvider = ({ children }) => {
       }
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/services/${idService}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${idService}`,
           {
             method: "DELETE",
           }
@@ -288,7 +289,7 @@ const GlobalContextProvider = ({ children }) => {
     let res;
     try {
       res = await fetch(
-        `http://localhost:8080/api/v1/services/search?query=${query}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/search?query=${query}`,
       )
     
     } catch (error) {
@@ -304,11 +305,11 @@ const GlobalContextProvider = ({ children }) => {
     
   })
 
-  const getAllServiceReduced = useCallback(async (query = "") => {
+  const getAllServicesReduced = useCallback(async (query = "",  typeOfServiceId = null, startDate = null, endDate = null, pageNumber = 0) => {
     let res;
     try {
       res = await fetch(
-        `http://localhost:8080/api/v1/services/search-all?query=${query}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/search-all?query=${query}&size=${SERVICE_PAGE_SIZE}&page=${pageNumber}${startDate ? `&startDate=${startDate}` : ""}${endDate ? `&endDate=${endDate}` : ""}${typeOfServiceId ? `&typeOfService=${typeOfServiceId}` : ""}`,
       )
     
     } catch (error) {
@@ -323,6 +324,33 @@ const GlobalContextProvider = ({ children }) => {
     return data;  
     
   })
+
+    const changeSearchedServicesPage = useCallback(
+    async (pageNumber) => {
+      console.log(pageNumber);
+      const data = await getAllServicesReduced(pageNumber);
+      setSearchedServices(data.content);
+    },
+    [getAllServicesReduced]
+  );
+
+  const getUnavailableDatesOfService = useCallback(
+    async (serviceId) => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${serviceId}/unavailable-dates`
+        );
+        if (!response.ok) {
+          throw new Error("Error obtaining unavailable dates");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw new Error(error);
+      }
+    }
+  )
 
 
   // ------------------------ END SERVICES FETCHS ------------------------
@@ -334,7 +362,7 @@ const GlobalContextProvider = ({ children }) => {
 
   const getAllCategories = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/categories");
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`);
       if (!response.ok) {
         throw new Error("Error obtaining categories");
       }
@@ -355,7 +383,7 @@ const GlobalContextProvider = ({ children }) => {
         console.log(category);
         const categoryParsed = JSON.stringify(category);
       console.log(categoryParsed);
-        const response = await fetch("http://localhost:8080/api/v1/categories", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -385,7 +413,7 @@ const GlobalContextProvider = ({ children }) => {
     console.log(idCategory);
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/categories/${idCategory}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/categories/${idCategory}`,
         {
           method: "DELETE",
         }
@@ -403,7 +431,7 @@ const GlobalContextProvider = ({ children }) => {
   const updateCategory = useCallback(async (idCategory, category) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/categories/${idCategory}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/categories/${idCategory}`,
         {
           method: "PUT",
           headers: {
@@ -426,7 +454,7 @@ const GlobalContextProvider = ({ children }) => {
   const findCategory = useCallback(async (idCategory) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/categories/${idCategory}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/categories/${idCategory}`
       );
       if (!response.ok) {
         throw new Error("Error finding category");
@@ -449,7 +477,7 @@ const GlobalContextProvider = ({ children }) => {
 
  const getAllCharacteristics = useCallback(async () => {
    try {
-     const response = await fetch("http://localhost:8080/api/v1/characteristic");
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`);
      if (!response.ok) {
        throw new Error("Error obtaining characteristics");
      }
@@ -463,9 +491,7 @@ const GlobalContextProvider = ({ children }) => {
 
  const findCharacteristic = useCallback(async (idCharacteristic) => {
    try {
-     const response = await fetch(
-       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`
-     );
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`);
      if (!response.ok) {
        throw new Error("Error finding characteristic");
      }
@@ -479,7 +505,7 @@ const GlobalContextProvider = ({ children }) => {
 
  const saveCharacteristic = useCallback(async (characteristic) => {
    try {
-     const response = await fetch("http://localhost:8080/api/v1/characteristic", {
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`, {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
@@ -500,7 +526,7 @@ const GlobalContextProvider = ({ children }) => {
  const deleteCharacteristic = useCallback(async (idCharacteristic) => {
    try {
      const response = await fetch(
-       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`,
        {
          method: "DELETE",
        }
@@ -522,7 +548,7 @@ const GlobalContextProvider = ({ children }) => {
  const updateCharacteristic = useCallback(async (idCharacteristic, characteristic) => {
    try {
      const response = await fetch(
-       `http://localhost:8080/api/v1/characteristic/${idCharacteristic}`,
+       `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`,
        {
          method: "PUT",
          headers: {
@@ -545,6 +571,53 @@ const GlobalContextProvider = ({ children }) => {
 // ------------------------ END CHARACTERISTICS FETCHS -------------------
 
 
+// ------------------------ FAVORITES FETCHS ------------------------
+
+const addFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+  `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Favorito agregado correctamente");
+      }      
+    } catch (error) {
+      console.error("Error al agregar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+const deleteFavorite = useCallback(
+  async (userId, serviceId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}/favorites/${serviceId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        console.log("Favorito eliminado correctamente");
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar el favorito", error);
+    }
+  },
+  [getAllServices]
+);
+
+// ------------------------ END FAVORITES FETCHS -------------------
+
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -561,7 +634,11 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       getAllIdsAndTitlesOfEachService,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      getUnavailableDatesOfService,
+      changeSearchedServicesPage,
       categories,
       setCategories,
       getAllCategories,
@@ -582,6 +659,8 @@ const GlobalContextProvider = ({ children }) => {
       changeServicesPage,
       sevicesTotalPages,
       loadingServices,
+      addFavorite,
+      deleteFavorite
     }),
     [
       services,
@@ -590,6 +669,7 @@ const GlobalContextProvider = ({ children }) => {
       updateService,
       deleteService,
       unorganizedServices,
+      getUnavailableDatesOfService,
       handleShuffle,
       changeServicesPage,
       sevicesTotalPages,
@@ -612,7 +692,12 @@ const GlobalContextProvider = ({ children }) => {
       serviceIdsAndTitlesOnly,
       setServiceIdsAndTitlesOnly,
       findServiceById,
-      getAllServiceReduced,
+      getAllServicesReduced,
+      searchedServices,
+      setSearchedServices,
+      changeSearchedServicesPage,
+      addFavorite,
+      deleteFavorite
     ]
   );
 

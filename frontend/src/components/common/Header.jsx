@@ -4,11 +4,11 @@ import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../contexts/globalContext";
 import { CgClose } from "react-icons/cg";
 import { FaChessQueen } from "react-icons/fa";
-import { AuthContex } from "../../contexts/AuthContex";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function Header() {
   const {handleShuffle} = useContext(GlobalContext)
-  const {isLoggedIn} = useContext(AuthContex);
+  const {isLoggedIn} = useContext(AuthContext);
 
   const [isShowing, setIsShowing] = useState(false);
   const [user] = useState(isLoggedIn());
