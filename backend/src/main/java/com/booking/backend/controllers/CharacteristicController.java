@@ -3,17 +3,21 @@ package com.booking.backend.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import com.booking.backend.models.Characteristic;
 import com.booking.backend.services.impl.CharacteristicsService;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "${cors.allowedOrigins}")
 @RestController
 @RequestMapping("/api/v1/characteristic")
 public class CharacteristicController {
   @Autowired
   private CharacteristicsService characteristicsService;
+
+    @Value("${cors.allowedOrigins}")
+    private String allowedOrigins;
 
   @GetMapping
   public Iterable<Characteristic> getCharacteristics() {

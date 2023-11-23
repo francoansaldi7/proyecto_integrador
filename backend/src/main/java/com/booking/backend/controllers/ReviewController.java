@@ -5,18 +5,21 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import com.booking.backend.models.Review;
 import com.booking.backend.services.impl.ReviewService;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "${cors.allowedOrigins}")
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @Value("${cors.allowedOrigins}")
+    private String allowedOrigins;
     /**
      * Retrieves all reviews.
      *

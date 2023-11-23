@@ -1,4 +1,4 @@
-import { AiOutlineClose, AiOutlineCloudUpload } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Service from "../Service";

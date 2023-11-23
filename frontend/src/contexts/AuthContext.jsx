@@ -19,7 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const saveUser = async (name, username, email, password, role = 1) => {
     const user = new User(name, username, email, password, role);
     try {
-      const userSaved = await fetch("http://localhost:8080/api/v1/users", {
+      const userSaved = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const AuthContextProvider = ({ children }) => {
 
   const updateUser = async (user) => {
     try {
-      const userSaved = await fetch(`http://localhost:8080/api/v1/users/${user.id}`, {
+      const userSaved = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const AuthContextProvider = ({ children }) => {
   };
   const authenticateUser = async (username, password) => {
     try {
-      const token = await fetch("http://localhost:8080/api/v1/users/login", {
+      const token = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

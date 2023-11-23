@@ -5,6 +5,7 @@ import com.booking.backend.repository.IUserRepository;
 import com.booking.backend.services.impl.FavoriteService;
 import com.booking.backend.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "${cors.allowedOrigins}")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -35,6 +36,8 @@ public class UserController {
     @Autowired
     private FavoriteService favoriteService;
 
+    @Value("${cors.allowedOrigins}")
+    private String allowedOrigins;
 
     public record LoginRequest(String username, String password) {
     }

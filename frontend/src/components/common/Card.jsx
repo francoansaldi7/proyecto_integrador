@@ -1,6 +1,5 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import ShareButton from "./ShareButton";
 
 /* eslint-disable react/prop-types */

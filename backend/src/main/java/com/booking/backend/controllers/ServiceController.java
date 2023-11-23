@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import com.booking.backend.services.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
 
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "${cors.allowedOrigins}")
 @RestController
 @RequestMapping("/api/v1/services")
 public class ServiceController {
@@ -57,7 +58,8 @@ public class ServiceController {
     @Autowired
     private IServiceService iServiceService;
   
-
+    @Value("${cors.allowedOrigins}")
+    private String allowedOrigins;
 
     /**
      * Retrieves all services.
