@@ -5,7 +5,12 @@
 :root {
   --swiper-theme-color: rgb(84 101 255) !important;
 }
-
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+  color: white !important;
+}
+.MuiBox-root css-n079s8{
+  width: 80% !important;
+}
 .rdp {
   --rdp-caption-font-size: 18px;
   --rdp-accent-color: var(--swiper-theme-color) !important;

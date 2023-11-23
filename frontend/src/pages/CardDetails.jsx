@@ -6,6 +6,7 @@ import { AiOutlineHeart, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
 import { GlobalContext } from "../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -129,7 +130,12 @@ function CardDetails() {
           </div>
         </div>
 
-        <div className="flex justify-end mr-20 mb-10">
+        <div className="flex justify-center space-x-2 hover:cursor-pointer bg-secondary-dark/100 p-2 rounded-md text-white">
+          <PoliciesAndConditions />
+        </div>
+
+        
+               <div className="flex justify-end mr-20 mb-10">
           <Link
             to=""
 

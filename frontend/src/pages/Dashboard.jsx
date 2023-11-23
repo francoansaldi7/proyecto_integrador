@@ -95,14 +95,6 @@ const Dashboard = () => {
               Usuarios
             </button>
             <button
-<<<<<<< HEAD
-              className={`text-white px-4 py-2 mx-2 rounded-lg ${!showUsers ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
-              onClick={() => setShowUsers(false)}
-            >
-              Categorias
-            </button>
-            {showUsers ? <ListOfUsers /> : <ListOfServices activeCreateForm={handleActiveCreateForm} />}
-=======
               className={`text-white px-4 py-2 mx-2 rounded-lg ${showCategories ? 'bg-slate-500 shadow' : 'bg-blue-500'}`}
               onClick={() => {
                 setShowUsers(false)
@@ -127,7 +119,6 @@ const Dashboard = () => {
             {showCharacteristics && <ListOfCharacteristics />}
              {showServices && <ListOfServices activeCreateForm={handleActiveCreateForm} />}
             {showUsers && <ListOfUsers />}
->>>>>>> fdd1c0374ec3e78726c602c38ac73e7839895bc2
             {activeCreateForm && <CreateForm closeForm={handleActiveCreateForm} />}
 
             {showCategories && <ListOfCategories />}
