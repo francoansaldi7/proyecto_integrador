@@ -76,7 +76,7 @@ const ShareButton = ({ name, description, image, id }) => {
     return (
         <section>
             <button onClick={toggleModal}>
-                <FontAwesomeIcon icon="fa-solid fa-share-nodes" size='2xl'/>
+                <FontAwesomeIcon className='text-primary hover:text-secondary-dark transition-colors' icon="fa-solid fa-share-nodes" size='2xl'/>
             </button>
             {modal && (
                 <div>
