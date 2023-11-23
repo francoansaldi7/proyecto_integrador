@@ -18,7 +18,7 @@ public class ReservationService {
     @Autowired
     UserService userService;
     @Autowired
-    ServiceService serviceService;
+    //ServiceService serviceService;
 
     public ReservationService() {
 
