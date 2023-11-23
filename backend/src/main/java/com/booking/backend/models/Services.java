@@ -1,6 +1,6 @@
 package com.booking.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 import java.util.UUID;
 
 @Entity
@@ -19,12 +22,18 @@ import java.util.UUID;
 public class Services {
     @Id
     private UUID id = UUID.randomUUID();
-    private String name;
     private String title;
     private String description;
     private float rating;
     private float pricePerHour;
-    private List<List<LocalDate>> availability;
+
+    @ElementCollection
+    @CollectionTable(name = "service_availability")
+    @MapKeyColumn(name = "starting_date")
+    @Column(name = "ending_date")
+    private Map<LocalDate, LocalDate> availability = new TreeMap<>();
+
+
     private String imgProfileUrl;
 
     @ManyToMany
@@ -45,18 +54,7 @@ public class Services {
     @JoinColumn(name = "service_provider_id")
     private ServiceProvider serviceProvider;
 
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
-    private List<Review> reservations;
-
-
-    public Services(UUID id, String name) {
-        if (id == null) {
-            id = UUID.randomUUID();
-        } else {
-            this.id = id;
-        }
-        this.name = name;
-    }
-
+    @ManyToMany(mappedBy = "favoriteServices")
+    private List<User> favorites;
 
 }

@@ -1,22 +1,18 @@
 package com.booking.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name="users")
@@ -51,6 +47,14 @@ public class User implements Serializable, UserDetails {
 
   @Column(name = "last_password_reset_date")
   private Timestamp lastPasswordResetDate;
+
+  @ManyToMany
+  @JoinTable(
+          name = "service_favorite",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "service_id"))
+  @JsonBackReference
+  private List<Services> favoriteServices;
 
   public User(UUID id) {
     this.id = id;
