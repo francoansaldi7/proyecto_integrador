@@ -55,7 +55,7 @@ function CardDetails() {
             <h1 className="text-3xl text-white font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
-            <Favorite serviceId={id} favorites={service?.favorites}/>
+            <Favorite serviceId={id}/>
             <div className="flex px-5 text-primary"><ShareButton className="text-lime-400" id={service?.id} name={service?.title} description={service?.description} image={service?.imgProfileUrl}/></div>
           </div>
           <Link to="/" className="absolute right-[10px] top-[-5px]">

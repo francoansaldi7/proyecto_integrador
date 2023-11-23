@@ -5,20 +5,20 @@ import { GlobalContext } from '../../contexts/globalContext';
 import PropTypes from 'prop-types';
 
 
-const Favorite = ({serviceId, favorites}) => {
+const Favorite = ({serviceId}) => {
     //Contextos
     const { isLoggedIn } = useContext(AuthContext);
-    const { addFavorite, deleteFavorite } = useContext(GlobalContext);
+    const { addFavorite, deleteFavorite, userFavorites } = useContext(GlobalContext);
 
     //States
     const [favorite, setFavorite] = useState(false);
     const userInfo = isLoggedIn();
 
     useEffect(() => {
-        if(favorites){
-            setFavorite(favorites.some((user) => user.id === userInfo.userId));
+        if(userFavorites){
+            setFavorite(userFavorites.some((service) => service.id === serviceId));
         }
-      }, [favorites]);
+      }, [userFavorites]);
 
     //Funciones
     const showFavorite = () => {      

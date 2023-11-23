@@ -65,6 +65,11 @@ function Header() {
               <li className=" hover:text-violet-600 2xl:mr-10">
                 <Link to="#section1">Productos & Servicios</Link>
               </li>
+              {user.isLoggedIn ? 
+              <li className=" hover:text-violet-600 2xl:mr-10">
+                <Link to="/favServices">Favoritos</Link>
+              </li>:null}
+              
 
             {user.isLoggedIn ? 
             <div className="cursor-pointer flex flex-row gap-3 justify-center items-center">
