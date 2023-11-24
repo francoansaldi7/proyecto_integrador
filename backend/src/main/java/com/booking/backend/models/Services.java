@@ -55,7 +55,6 @@ public class Services {
     private ServiceProvider serviceProvider;
 
     @ManyToMany(mappedBy = "favoriteServices")
-    @JsonBackReference
     private List<User> favorites;
 
 }

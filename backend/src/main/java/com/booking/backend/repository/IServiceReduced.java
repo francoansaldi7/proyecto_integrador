@@ -7,7 +7,6 @@ import java.util.NavigableMap;
 import java.util.UUID;
 
 import com.booking.backend.models.TypesOfServices;
-import com.booking.backend.models.User;
 
 public interface IServiceReduced {
       UUID getId();

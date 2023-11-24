@@ -1,8 +1,7 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import ShareButton from "./ShareButton";
-import Favorite from "./Favorite";
 
 /* eslint-disable react/prop-types */
 function Card({
@@ -15,7 +14,6 @@ function Card({
   disccount = false,
   rating = 1,
 }) {
-
   return (
     <div
       className={`w-full relative flex flex-col justify-evenly max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${
@@ -104,16 +102,8 @@ function Card({
           </Link>
         </div>
       </div>
-      <div className="flex justify-end m-5">
-        <Favorite
-        serviceId={id}
-        />
-      </div>
     </div>
- 
-
   );
-
 }
 
 export default Card;
