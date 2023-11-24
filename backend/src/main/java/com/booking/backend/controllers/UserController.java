@@ -1,5 +1,6 @@
 package com.booking.backend.controllers;
 
+import com.booking.backend.models.Services;
 import com.booking.backend.models.User;
 import com.booking.backend.repository.IUserRepository;
 import com.booking.backend.services.impl.FavoriteService;
@@ -104,9 +105,16 @@ public class UserController {
     @PutMapping("/{userId}/favorites/{serviceId}")
     public void addFavorite(@PathVariable UUID userId, @PathVariable UUID serviceId) {
         favoriteService.add(userId, serviceId);
+        System.out.println("favorito agregado " + userId + " service " + serviceId);
     }
     @DeleteMapping("/{userId}/favorites/{serviceId}")
     public void deleteFavorite(@PathVariable UUID userId, @PathVariable UUID serviceId) {
         favoriteService.delete(userId, serviceId);
+        System.out.println("favorito borrado " + userId + " service " + serviceId);
+    }
+
+    @GetMapping("/{userId}/favorites")
+    public List<Services> getFavoriteServices(@PathVariable UUID userId) {
+        return favoriteService.getUserFavorites(userId);
     }
 }

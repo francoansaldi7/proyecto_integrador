@@ -17,6 +17,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import ProtectedRoute from './components/utils/ProtectedRoute';
+import FavServices from './pages/FavServices';
 library.add(fab, fas, far)
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/contact" element={<Contact />}/>
         <Route path="/aboutUs/" element={<AboutUs />}/>
         <Route path="/products&services" element={<ProductsAndServices />}/>
+        <Route path="/favServices" element={<FavServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
         <Route  element={<ProtectedRoute redirectPage='/login' authority='ADMIN' />}>

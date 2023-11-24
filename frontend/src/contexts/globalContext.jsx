@@ -6,6 +6,8 @@ import {
   useCallback,
 } from "react";
 import PropTypes from "prop-types";
+import { jwtDecode } from "jwt-decode";
+
 const GlobalContext = createContext(null);
 
 const GlobalContextProvider = ({ children }) => {
@@ -19,6 +21,7 @@ const GlobalContextProvider = ({ children }) => {
   const [unorganizedServices, setUnorganizedServices] = useState([]);
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
+  const [userFavorites, setUserFavorites] = useState([]);
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -66,13 +69,13 @@ const GlobalContextProvider = ({ children }) => {
       setLoadingServices(true);
       let headers;
       const url = window.location.href;
+      const userToken = localStorage.getItem("registrationToken");
+            
       isAdmin = url.includes("/dashboard");
       isAdmin
         ? (headers = {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-              "registrationToken"
-            )}`,
+            Authorization: `Bearer ${userToken}`,
           })
         : (headers = {
             "Content-Type": "application/json",
@@ -103,6 +106,12 @@ const GlobalContextProvider = ({ children }) => {
       const data = await response.json();
       setLoadingServices(false);
       setSevicesTotalPages(data.totalPages);
+
+      if(userToken){
+        const userId = jwtDecode(localStorage.getItem("registrationToken")).id;
+        getUserFavorites(userId);
+      }
+      
       return data;
     },
     []
@@ -573,6 +582,29 @@ const GlobalContextProvider = ({ children }) => {
 
 // ------------------------ FAVORITES FETCHS ------------------------
 
+const getUserFavorites = useCallback(
+  async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites`,
+        {
+            headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Favoritos listados correctamente");
+        const data = await response.json();
+        setUserFavorites(data);
+      }      
+    } catch (error) {
+      console.error("Error al agregar el favorito", error);
+    }
+  },
+  []
+);
+
 const addFavorite = useCallback(
   async (userId, serviceId) => {
     try {
@@ -585,14 +617,15 @@ const addFavorite = useCallback(
           },
         }
       );     
-      if (response.ok) {
+      if (response.ok) {        
         console.log("Favorito agregado correctamente");
+        await getUserFavorites(userId);
       }      
     } catch (error) {
       console.error("Error al agregar el favorito", error);
     }
   },
-  [getAllServices]
+  [getUserFavorites]
 );
 
 const deleteFavorite = useCallback(
@@ -604,14 +637,15 @@ const deleteFavorite = useCallback(
           method: "DELETE",
         }
       );
-      if (response.ok) {
+      if (response.ok) {        
         console.log("Favorito eliminado correctamente");
+        await getUserFavorites(userId);
       }
     } catch (error) {
       console.error("Error al intentar eliminar el favorito", error);
     }
   },
-  [getAllServices]
+  [getUserFavorites]
 );
 
 // ------------------------ END FAVORITES FETCHS -------------------
@@ -660,7 +694,8 @@ const deleteFavorite = useCallback(
       sevicesTotalPages,
       loadingServices,
       addFavorite,
-      deleteFavorite
+      deleteFavorite,
+      userFavorites
     }),
     [
       services,
@@ -697,7 +732,8 @@ const deleteFavorite = useCallback(
       setSearchedServices,
       changeSearchedServicesPage,
       addFavorite,
-      deleteFavorite
+      deleteFavorite,
+      userFavorites
     ]
   );
 
