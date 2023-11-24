@@ -14,7 +14,6 @@ function Card({
   moreBig = false,
   disccount = false,
   rating = 1,
-  favorites = [],
 }) {
 
   return (
@@ -106,7 +105,9 @@ function Card({
         </div>
       </div>
       <div className="flex justify-end m-5">
-        <Favorite/>
+        <Favorite
+        serviceId={id}
+        />
       </div>
     </div>
  
