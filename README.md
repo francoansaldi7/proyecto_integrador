@@ -191,31 +191,31 @@ GloCast es una revolucionaria aplicación móvil y web diseñada para transforma
 
 Características Clave
 
-1.Experiencia de Usuario Sencilla
+1. Experiencia de Usuario Sencilla
 GloCast cuenta con una interfaz intuitiva y amigable, asegurando que tanto clientes como diseñadores gráficos puedan navegar fácilmente por la aplicación. Los usuarios pueden crear cuentas, explorar servicios y gestionar sus proyectos de diseño con facilidad.
 
-2.Mercado de Servicios Dinámico
+2. Mercado de Servicios Dinámico
 Los clientes pueden explorar un vibrante mercado de servicios de diseño gráfico, donde pueden revisar portfolios, perfiles y precios de diseñadores gráficos y estudios. Esto garantiza que los clientes encuentren la combinación perfecta para sus necesidades de diseño.
 
-3.Reservas y Programación Simplificadas
+3. Reservas y Programación Simplificadas
 Reservar servicios de diseño es pan comido con GloCast. Los clientes pueden especificar fácilmente los detalles del proyecto, los plazos y los presupuestos. La aplicación también incluye una función de programación, que permite a los clientes establecer plazos y hitos del proyecto.
 
-4.Comunicación sin Problemas
+4. Comunicación sin Problemas
 GloCast ofrece un sólido sistema de mensajería, que permite a clientes y diseñadores comunicarse sin esfuerzo. Discute los requisitos del proyecto, proporciona comentarios y recibe actualizaciones directamente dentro de la aplicación.
 
-5.Pagos Seguros
+5. Pagos Seguros
 Hemos integrado una pasarela de pago segura, garantizando transacciones financieras seguras y sin problemas. Los clientes pueden realizar pagos por servicios de diseño a través de GloCast, mientras que los diseñadores reciben una compensación rápida.
 
-6.Gestión de Proyectos
+6. Gestión de Proyectos
 Tanto clientes como diseñadores pueden gestionar efectivamente sus proyectos de diseño dentro de la aplicación. Realiza un seguimiento del progreso del proyecto, envía revisiones y mantiene un cronograma del proyecto para una colaboración sin problemas.
 
-7.Valoraciones y Reseñas
+7. Valoraciones y Reseñas
 Después de completar el proyecto, los usuarios pueden valorar y reseñar a los diseñadores gráficos y estudios. Esta función construye confianza y transparencia, ayudando a futuros clientes a elegir al proveedor de servicios adecuado.
 
-8.Portfolios Impresionantes
+8. Portfolios Impresionantes
 Los diseñadores gráficos pueden mostrar sus increíbles portfolios en GloCast, permitiendo a los clientes potenciales echar un vistazo a su trabajo anterior y experiencia.
 
-9.Mantente Informado con Notificaciones
+9. Mantente Informado con Notificaciones
 GloCast envía notificaciones oportunas sobre actualizaciones del proyecto, mensajes y plazos próximos, asegurando que los usuarios se mantengan informados y comprometidos durante su viaje de diseño.
 
 Público Objetivo
