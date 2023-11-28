@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 function Login() {
   //Contexto Global de Auth
   const { authenticateUser } = useContext(AuthContext);
+  const location = useLocation();
+  const isFromReservation = new URLSearchParams(location.search).get("fromReservation");
 
   //Desde el login
   const  { state }  = useLocation();
@@ -81,6 +83,13 @@ function Login() {
           isValid,
         }) => (
           <div className="rounded-md p-2 bg-gray-800 p-5 max-w-[800px] w-full">
+            {isFromReservation && (
+              <div className="bg-yellow-200 text-yellow-800 p-4 mb-4">
+                <p>
+                  El inicio de sesión es obligatorio para realizar la reserva.
+                  Si aún no estás registrado, por favor, <a href="/Register">Registrate aqui</a>.
+                </p>
+            </div>)}
             <h2 className="text-white text-center font-bold text-2xl">
               Iniciar sesión
             </h2>

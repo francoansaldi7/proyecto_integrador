@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
@@ -10,6 +10,8 @@ import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
 import Favorite from "../components/common/Favorite";
 import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
+import { AuthContext } from "../contexts/AuthContext";
+import ReservasPage from "./ReservasPage";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -19,6 +21,17 @@ function CardDetails() {
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
   console.log(id);
+  const { isLoggedIn } = useContext(AuthContext);
+  
+  const handleReserveClick = () => {
+    const userIsLoggedIn = isLoggedIn();
+
+    if (userIsLoggedIn.isLoggedIn) {
+      window.location.href = "/reservas";
+    } else {
+      window.location.href = "`/login?fromReservation=true`";   
+    }
+  };
 
   const fetchData = async () => {
     let serviceFound = null;
@@ -146,12 +159,11 @@ function CardDetails() {
               
         <div className="flex justify-end mr-20 mb-10">
 
-          <Link
-            to=""
-
+          <button onClick={handleReserveClick} > <Link 
             className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
-          </Link>
+          </Link> </button>
+          
         </div>
       </div>
     </>
