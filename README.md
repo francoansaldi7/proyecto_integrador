@@ -79,6 +79,26 @@ Other libraries & resources:
 * [React DOM](https://es.legacy.reactjs.org/docs/react-dom.html)
 * [React-Icons](https://icons8.com/icons)
 * [Swiper](https://swiperjs.com/demos)
+* [Emotion](https://emotion.sh/docs/introduction)
+* [Font-Awesome](https://fontawesome.com/v5/docs/web/use-with/react)
+* [MUI](https://mui.com/)
+* [Ant Design](https://ant.design/)
+* [Date-fns](https://date-fns.org/)
+* [Dotenv](https://www.npmjs.com/package/react-dotenv)
+* [Formik](https://formik.org/)
+* [Jwt-decode](https://www.npmjs.com/package/jwt-decode)
+* [Lottie-React](https://lottiefiles.com/)
+* [React-copy-to-clipboard](https://www.npmjs.com/package/react-copy-to-clipboard)
+* [React-day-picker](https://react-day-picker.js.org/)
+* [React-magic-motion](https://www.react-magic-motion.com/)
+* [React-paginate](https://www.npmjs.com/package/react-paginate)
+* [React-router-hash-link](https://www.npmjs.com/package/react-router-hash-link)
+* [React-share](https://www.npmjs.com/package/react-share)
+* [React-social-icons](https://www.npmjs.com/package/react-social-icons)
+* [React-spring](https://www.react-spring.dev/)
+* [React-toastify](https://www.npmjs.com/package/react-toastify)
+* [Styled-components](https://styled-components.com/)
+* [YUP](https://www.npmjs.com/package/yup)
 
 
 ## Features
@@ -256,14 +276,34 @@ GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí
 
 
 ## Tecnologías Utilizadas
-Este proyecto fue construido utilizando React Js y Java con Spring Boot
+Este proyecto fue construido utilizando [React Js](https://react.dev/) & [Java with Spring Boot](https://spring.io/projects/spring-boot) 
 
 Otras bibliotecas y recursos:
 
-Tailwind CSS
-React DOM
-React-Icons
-Swiper
+* [Tailwind CSS](https://tailwindcss.com/)
+* [React DOM](https://es.legacy.reactjs.org/docs/react-dom.html)
+* [React-Icons](https://icons8.com/icons)
+* [Swiper](https://swiperjs.com/demos)
+* [Emotion](https://emotion.sh/docs/introduction)
+* [Font-Awesome](https://fontawesome.com/v5/docs/web/use-with/react)
+* [MUI](https://mui.com/)
+* [Ant Design](https://ant.design/)
+* [Date-fns](https://date-fns.org/)
+* [Dotenv](https://www.npmjs.com/package/react-dotenv)
+* [Formik](https://formik.org/)
+* [Jwt-decode](https://www.npmjs.com/package/jwt-decode)
+* [Lottie-React](https://lottiefiles.com/)
+* [React-copy-to-clipboard](https://www.npmjs.com/package/react-copy-to-clipboard)
+* [React-day-picker](https://react-day-picker.js.org/)
+* [React-magic-motion](https://www.react-magic-motion.com/)
+* [React-paginate](https://www.npmjs.com/package/react-paginate)
+* [React-router-hash-link](https://www.npmjs.com/package/react-router-hash-link)
+* [React-share](https://www.npmjs.com/package/react-share)
+* [React-social-icons](https://www.npmjs.com/package/react-social-icons)
+* [React-spring](https://www.react-spring.dev/)
+* [React-toastify](https://www.npmjs.com/package/react-toastify)
+* [Styled-components](https://styled-components.com/)
+* [YUP](https://www.npmjs.com/package/yup)
 
 ## Funcionalidades
 POR HACER: Enumerar las características clave de tu proyecto.
