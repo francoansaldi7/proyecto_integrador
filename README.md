@@ -100,6 +100,8 @@ Other libraries & resources:
 * [Styled-components](https://styled-components.com/)
 * [YUP](https://www.npmjs.com/package/yup)
 
+* [Chat GPT](https://chat.openai.com/) was used to generate sample data
+
 
 ## Features
 
@@ -304,6 +306,9 @@ Otras bibliotecas y recursos:
 * [React-toastify](https://www.npmjs.com/package/react-toastify)
 * [Styled-components](https://styled-components.com/)
 * [YUP](https://www.npmjs.com/package/yup)
+  
+* [Chat GPT](https://chat.openai.com/) fue utilizado para generar datos de muestra
+
 
 ## Funcionalidades
 POR HACER: Enumerar las características clave de tu proyecto.
