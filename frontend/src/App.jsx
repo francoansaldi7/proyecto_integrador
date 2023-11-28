@@ -19,6 +19,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import ProtectedRoute from './components/utils/ProtectedRoute';
 import FavServices from './pages/FavServices';
 library.add(fab, fas, far)
+import ReservasPage from './pages/ReservasPage';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/favServices" element={<FavServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
+        <Route path="/reservas" element={<ReservasPage />} />
         <Route  element={<ProtectedRoute redirectPage='/login' authority='ADMIN' />}>
           <Route path="/dashboard" element={<Dashboard />}/>
         </Route>
