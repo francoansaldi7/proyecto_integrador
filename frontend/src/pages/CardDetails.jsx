@@ -27,9 +27,9 @@ function CardDetails() {
     const userIsLoggedIn = isLoggedIn();
 
     if (userIsLoggedIn.isLoggedIn) {
-      window.location.href = "/reservas";
+      window.location.href = `${window.location.origin}/reservas`;
     } else {
-      window.location.href = "`/login?fromReservation=true`";   
+      window.location.href = `${window.location.origin}/login?fromReservation=true`;   
     }
   };
 
