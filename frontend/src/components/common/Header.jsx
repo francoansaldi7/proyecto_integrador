@@ -88,12 +88,6 @@ function Header() {
                 <Link to="/dashboard">Dashboard</Link>
               </button>
               )}
-              <button 
-              onClick={()=> {
-                localStorage.clear()
-                window.location.reload()
-              }}
-              className="p-2 rounded-md bg-secondary text-white hover:bg-primary 2xl:mr-10">Log Out</button>
             </div>
              : 
             <>

@@ -39,10 +39,14 @@ function ProfileDropdown({initials}) {
           'aria-labelledby': 'basic-button',
         }}
       >       
-        <MenuItem onClick={() => navigate("/") }>Mi perfil</MenuItem>      
+        <MenuItem onClick={() => navigate("/dashboard") }>Dashboard</MenuItem>      
         <MenuItem onClick={() => navigate("/favServices")}>Favoritos</MenuItem>
-        <MenuItem onClick={() => navigate("/favServices") }>Mis reservas</MenuItem>
-        <MenuItem onClick={() => navigate("/favServices") }>Cerrar sesión</MenuItem>
+        <MenuItem onClick={() => navigate("/ReservationHistory") }>Mis reservas</MenuItem>
+        <MenuItem onClick={() => {
+          localStorage.clear()
+          window.location.reload()
+          navigate("/")
+        } }>Cerrar sesión</MenuItem>
       </Menu>
     </div>
   );
