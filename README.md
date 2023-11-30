@@ -6,27 +6,27 @@ EN:
 
 Overview
 
-GloCast is a revolutionary mobile and web application designed to revolutionize the way you book graphic design services. Our platform seamlessly connects graphic designers, freelancers, and design studios with clients seeking a wide range of design solutions. Whether you're in need of captivating logos, stunning website graphics, or engaging marketing materials, GloCast empowers you to find the perfect design talent and collaborate effortlessly.
+GloCast is a revolutionary mobile and web application designed to revolutionize the way you book photography, filmmaking and design services. Our platform seamlessly connects photographers, filmmakers, graphic designers, freelancers, and design studios with clients seeking a wide range of photography/design solutions. Whether you're in need of professional photographers, stunning website graphics, or engaging marketing materials, GloCast empowers you to find the perfect talent and collaborate effortlessly.
 
 Key Features
 
 1. Effortless User Experience
-GloCast boasts an intuitive and user-friendly interface, ensuring both clients and graphic designers can effortlessly navigate the app. Users can create accounts, explore services, and manage their design projects with ease.
+GloCast boasts an intuitive and user-friendly interface, ensuring both clients and photography professionals can effortlessly navigate the app. Users can create accounts, explore services, and manage their projects with ease.
 
 2. Dynamic Service Marketplace
-Clients can explore a vibrant marketplace of graphic design services, where they can review portfolios, profiles, and pricing of graphic designers and studios. This ensures that clients find the perfect match for their design needs.
+Clients can explore a vibrant marketplace of graphic design services, photography services, and filmmaking services, where they can review portfolios, profiles, and pricing. This ensures that clients find the perfect match for their needs.
 
 3. Booking and Scheduling Made Simple
-Booking design services is a breeze with GloCast. Clients can easily specify project details, timelines, and budgets. The app also includes a scheduling feature, allowing clients to set project deadlines and milestones.
+Booking services is a breeze with GloCast. Clients can easily specify project details, timelines, and budgets. Simply select time and date to book the service and you're ready to go!
 
 4. Seamless Communication
-GloCast provides a robust messaging system, enabling clients and designers to communicate effortlessly. Discuss project requirements, provide feedback, and receive updates directly within the app.
+GloCast provides a robust messaging system, enabling clients and professionals to communicate effortlessly. Discuss project requirements, provide feedback, and receive updates directly within the app.
 
 5. Secure Payments
-We've integrated a secure payment gateway, ensuring safe and hassle-free financial transactions. Clients can make payments for design services through GloCast, while designers receive prompt compensation.
+We'll integrate a secure payment gateway, ensuring safe and hassle-free financial transactions. Clients will be able to make payments for the selected services through GloCast, while professionals receive prompt compensation.
 
 6. Project Management
-Both clients and designers can effectively manage their design projects within the app. Track project progress, submit revisions, and maintain a project timeline for a seamless collaboration experience.
+Both clients and professionals can effectively manage their projects within the app. Track project progress, submit revisions, and maintain a project timeline for a seamless collaboration experience.
 
 7. Ratings and Reviews
 After project completion, users can rate and review graphic designers and studios. This feature builds trust and transparency, helping future clients choose the right service provider.
@@ -210,27 +210,27 @@ ES:
 
 Visión general
 
-GloCast es una revolucionaria aplicación móvil y web diseñada para transformar la manera en que reservas servicios de diseño gráfico. Nuestra plataforma conecta de manera fluida a diseñadores gráficos, freelancers y estudios de diseño con clientes que buscan una amplia gama de soluciones de diseño. Ya sea que necesites logotipos cautivadores, impresionantes gráficos web o materiales de marketing atractivos, GloCast te permite encontrar el talento de diseño perfecto y colaborar sin esfuerzo.
+GloCast es una revolucionaria aplicación móvil y web diseñada para transformar la manera en que reservas servicios de fotografía, producción de películas y diseño. Nuestra plataforma conecta fotógrafos, cineastas, diseñadores gráficos, freelancers y estudios de diseño con clientes que buscan una amplia gama de soluciones dentro del mundo de la fotografía. Ya sea que necesites fotógrafos profesionales, impresionantes gráficos web o materiales de marketing atractivos, GloCast te permite encontrar el talento perfecto y colaborar sin esfuerzo.
 
 Características Clave
 
 1. Experiencia de Usuario Sencilla
-GloCast cuenta con una interfaz intuitiva y amigable, asegurando que tanto clientes como diseñadores gráficos puedan navegar fácilmente por la aplicación. Los usuarios pueden crear cuentas, explorar servicios y gestionar sus proyectos de diseño con facilidad.
+GloCast cuenta con una interfaz intuitiva y amigable para el usuario, asegurando que tanto los clientes como los profesionales de la fotografía puedan navegar fácilmente por la aplicación. Los usuarios pueden crear cuentas, explorar servicios y gestionar sus proyectos con facilidad.
 
 2. Mercado de Servicios Dinámico
-Los clientes pueden explorar un vibrante mercado de servicios de diseño gráfico, donde pueden revisar portfolios, perfiles y precios de diseñadores gráficos y estudios. Esto garantiza que los clientes encuentren la combinación perfecta para sus necesidades de diseño.
+Los clientes pueden explorar un vibrante mercado de servicios de diseño gráfico, servicios de fotografía y servicios de producción cinematográfica, donde pueden revisar portfolios, perfiles y precios. Esto garantiza que los clientes encuentren la combinación perfecta para sus necesidades.
 
 3. Reservas y Programación Simplificadas
-Reservar servicios de diseño es pan comido con GloCast. Los clientes pueden especificar fácilmente los detalles del proyecto, los plazos y los presupuestos. La aplicación también incluye una función de programación, que permite a los clientes establecer plazos y hitos del proyecto.
+Reservar servicios es muy fácil con GloCast. Los clientes pueden especificar fácilmente los detalles del proyecto, los plazos y los presupuestos. Simplemente selecciona la fecha y hora para reservar el servicio ¡y listo!
 
 4. Comunicación sin Problemas
-GloCast ofrece un sólido sistema de mensajería, que permite a clientes y diseñadores comunicarse sin esfuerzo. Discute los requisitos del proyecto, proporciona comentarios y recibe actualizaciones directamente dentro de la aplicación.
+GloCast ofrece un sólido sistema de mensajería, que permite a clientes y profesionales comunicarse sin esfuerzo. Discute los requisitos del proyecto, proporciona comentarios y recibe actualizaciones directamente dentro de la aplicación.
 
 5. Pagos Seguros
-Hemos integrado una pasarela de pago segura, garantizando transacciones financieras seguras y sin problemas. Los clientes pueden realizar pagos por servicios de diseño a través de GloCast, mientras que los diseñadores reciben una compensación rápida.
+Integraremos un sistema de pago seguro, garantizando transacciones financieras seguras y sin problemas. Los clientes podrán realizar pagos por los servicios seleccionados a través de GloCast, mientras que los profesionales recibirán su compensación rápidamente.
 
 6. Gestión de Proyectos
-Tanto clientes como diseñadores pueden gestionar efectivamente sus proyectos de diseño dentro de la aplicación. Realiza un seguimiento del progreso del proyecto, envía revisiones y mantiene un cronograma del proyecto para una colaboración sin problemas.
+Tanto clientes como profesionales pueden gestionar efectivamente sus proyectos dentro de la aplicación. Realiza un seguimiento del progreso del proyecto, envía revisiones y mantiene un cronograma del proyecto para una colaboración sin problemas.
 
 7. Valoraciones y Reseñas
 Después de completar el proyecto, los usuarios pueden valorar y reseñar a los diseñadores gráficos y estudios. Esta función construye confianza y transparencia, ayudando a futuros clientes a elegir al proveedor de servicios adecuado.
