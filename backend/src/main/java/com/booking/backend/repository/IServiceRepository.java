@@ -1,14 +1,11 @@
 package com.booking.backend.repository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.booking.backend.models.Services;
@@ -32,6 +29,6 @@ public interface IServiceRepository extends JpaRepository<Services, UUID> {
         Page<IServiceReduced> findAllByTitleContaining(String keyword, Pageable pageable);
 
     Page<IServiceReduced> findBy(Pageable pageable);
-    
-
+    @Override
+    <S extends Services> S save(S Services);
 }
