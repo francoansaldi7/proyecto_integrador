@@ -11,7 +11,7 @@ import Favorite from "../components/common/Favorite";
 import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
 import { AuthContext } from "../contexts/AuthContext";
-import ReservasPage from "./ReservasPage";
+//import ReservasPage from "./ReservasPage";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
@@ -31,6 +31,7 @@ function CardDetails() {
     } else {
       window.location.href = `${window.location.origin}/login?fromReservation=true`;   
     }
+
   };
 
   const fetchData = async () => {
@@ -58,6 +59,10 @@ function CardDetails() {
     setShowCarrousel(!showCarousel);
     console.log("handleCarrousel");
   };
+
+  const saveData= ()=>{
+    localStorage.setItem("description", service.description)
+  }
 
   return (
     <>
@@ -159,7 +164,7 @@ function CardDetails() {
               
         <div className="flex justify-end mr-20 mb-10">
 
-          <button onClick={handleReserveClick} > <Link 
+          <button onClick={()=>{handleReserveClick() ; saveData()}} > <Link 
             className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
           </Link> </button>

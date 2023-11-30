@@ -20,6 +20,7 @@ import ProtectedRoute from './components/utils/ProtectedRoute';
 import FavServices from './pages/FavServices';
 library.add(fab, fas, far)
 import ReservasPage from './pages/ReservasPage';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
   return (
     <>
       <Header />
-
+      <AuthContextProvider> 
       <Routes>
         <Route path="/" element={<Home />}>
         <Route path="/details/*" element={<CardDetails />}/>
@@ -38,13 +39,15 @@ function App() {
         <Route path="/favServices" element={<FavServices />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
+        
         <Route path="/reservas" element={<ReservasPage />} />
+       
         <Route  element={<ProtectedRoute redirectPage='/login' authority='ADMIN' />}>
           <Route path="/dashboard" element={<Dashboard />}/>
         </Route>
         <Route path='/confirm' element={<ConfirmRegistration />} /> 
       </Routes>
-
+      </AuthContextProvider>
       <Footer />
     </>
   )

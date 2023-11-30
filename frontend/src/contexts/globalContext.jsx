@@ -22,6 +22,7 @@ const GlobalContextProvider = ({ children }) => {
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
+  
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -650,6 +651,19 @@ const deleteFavorite = useCallback(
 
 // ------------------------ END FAVORITES FETCHS -------------------
 
+// ------------------------ START USERS FETCHS -------------------
+const getUser = useCallback(async (userId) => {
+  console.log(userId)
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}`);
+    const data = await response.json();
+    console.log(data);
+    return data
+  } catch (error) {
+    console.error("Error obtaining user", error);
+  }
+}, []);
+
 
 
   useEffect(() => {
@@ -695,7 +709,9 @@ const deleteFavorite = useCallback(
       loadingServices,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      getUser
+      
     }),
     [
       services,
@@ -733,7 +749,8 @@ const deleteFavorite = useCallback(
       changeSearchedServicesPage,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      getUser
     ]
   );
 
