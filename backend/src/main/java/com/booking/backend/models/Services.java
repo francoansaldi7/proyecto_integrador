@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,6 +45,16 @@ public class Services {
     
     @OneToMany
     private List<ServiceImage> gallery;
+
+
+    @OneToMany(mappedBy = "service")
+    @OrderBy("createdAt DESC")
+    //@Limit(limit = 10)
+    @Fetch(FetchMode.SUBSELECT)
+    @BatchSize(size = 10) // Esto limita la cantidad de reviews cargadas
+    private List<Review> reviews;
+
+
 
     @OneToMany(mappedBy = "service")
     private List<Work> works;
