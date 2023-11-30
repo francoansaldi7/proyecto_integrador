@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { GlobalContext } from "../contexts/globalContext";
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
 
 // Import Swiper styles
 import "swiper/css";

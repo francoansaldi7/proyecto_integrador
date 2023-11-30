@@ -22,6 +22,7 @@ const GlobalContextProvider = ({ children }) => {
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
+  const [userReservationHistory, setUserReservationHistory] = useState([]);
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -652,6 +653,37 @@ const deleteFavorite = useCallback(
 
 
 
+// ------------------------ RESERVATION HISTORY FETCHS ------------------------
+
+
+const getUserReservationHistory = useCallback(
+  async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/reservations`,
+        {
+            headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Reservas listadas correctamente");
+        const data = await response.json();
+        setUserReservationHistory(data);
+      }      
+    } catch (error) {
+      console.error("Error al intentar visualizar el historial de reservas", error);
+    }
+  },
+  []
+);
+
+
+// ------------------------ END RESERVATION HISTORY FETCHS ------------------------
+
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -695,7 +727,9 @@ const deleteFavorite = useCallback(
       loadingServices,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      userReservationHistory,
+      getUserReservationHistory
     }),
     [
       services,
@@ -733,7 +767,9 @@ const deleteFavorite = useCallback(
       changeSearchedServicesPage,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      userReservationHistory,
+      getUserReservationHistory
     ]
   );
 

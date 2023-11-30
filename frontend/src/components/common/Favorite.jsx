@@ -53,9 +53,5 @@ const Favorite = ({serviceId}) => {
         </>
     )
 }
-Favorite.propTypes = {
-    serviceId: PropTypes.number,
-    favorites: PropTypes.array
-}
 
 export default Favorite

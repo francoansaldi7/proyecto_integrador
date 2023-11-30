@@ -5,6 +5,8 @@ import { GlobalContext } from "../../contexts/globalContext";
 import { CgClose } from "react-icons/cg";
 import { FaChessQueen } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useLocation } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown";
 
 function Header() {
   const {handleShuffle} = useContext(GlobalContext)
@@ -13,6 +15,7 @@ function Header() {
   const [isShowing, setIsShowing] = useState(false);
   const [user] = useState(isLoggedIn());
   const initials = getInitials(user.name);
+  const id = useLocation().pathname.split("/").pop();
   useEffect(() => {
     const isMobile = document.documentElement.clientWidth >= 768;
     console.log(
@@ -38,7 +41,7 @@ function Header() {
   
   return (
 
-      <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30 to-primary/30 p-5 backdrop-blur-lg fixed w-screen shadow-secondary/50 shadow-md rounded-lg z-50 items-center">
+      <div className="flex justify-between flex-row  bg-gradient-to-r from-blue-200/30 to-primary/30 p-5 backdrop-blur-lg fixed w-screen shadow-secondary/50 shadow-md rounded-lg z-50 items-center"> 
         <div className="ml-10 flex flex-row relative xl:justify-between" >
           <Link to="/" onClick={handleShuffle}>
             <img
@@ -73,9 +76,11 @@ function Header() {
 
             {user.isLoggedIn ? 
             <div className="cursor-pointer flex flex-row gap-3 justify-center items-center">
-              <h4>Bienvenido</h4>
+              <h4>Bienvenido</h4>              
               <div className="h-10 w-10 bg-white rounded-full relative flex items-center justify-center 2xl:mr-5">
+                              
                 <h2 className="font-extrabold">{initials}</h2>
+                <ProfileDropdown initials={initials}></ProfileDropdown>
                 {user.isAdmin &&  (<FaChessQueen className="text-yellow-400 absolute top-[-10px] left-1/2 -translate-x-1/2 "/>)}
               </div>
               {user.isAdmin &&  (
