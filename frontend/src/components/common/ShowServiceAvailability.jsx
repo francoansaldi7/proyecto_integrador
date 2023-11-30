@@ -30,7 +30,13 @@ const ShowServiceAvailability = () => {
     }
     let dates = [];
     Object.keys(dateRangeObject).map((dateString) => {
-      dates.push({from: new Date(dateString), to: new Date(dateRangeObject[dateString])});
+      const [year, month, day] = dateString.split('-').map(Number);
+      const [toYear, toMonth, toDay] = dateRangeObject[dateString].split('-').map(Number);
+
+       const fromDate = new Date(year, month, day + 1);
+      const toDate = new Date(toYear, toMonth, toDay + 1);
+
+      dates.push({from: fromDate, to: toDate});
     });
 
     return dates;
