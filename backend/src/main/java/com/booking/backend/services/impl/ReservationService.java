@@ -17,6 +17,7 @@ public class ReservationService {
     IReservationRepository repository;
     @Autowired
     UserService userService;
+
     @Autowired
     //ServiceService serviceService;
 
@@ -101,4 +102,7 @@ public class ReservationService {
         return true;
     }
 
+    public List<Reservation> getUserReservations(UUID userId) {
+        return null;
+    }
 }
