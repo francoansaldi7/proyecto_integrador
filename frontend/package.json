@@ -21,6 +21,7 @@
     "@mui/material": "^5.14.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "antd": "^5.10.3",
+    "axios": "^1.6.2",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "font-awesome": "^4.7.0",
