@@ -69,9 +69,11 @@ const {isLoggedIn}= useContext(AuthContext)
       </div>
       <div className=" grid grid-cols-2 gap-10 w-full h-full p-5">
         <div className="service-info w-full h-full bg-gray-900 rounded-md">
-          {userCompleted? userCompleted.name: "nombre"}
-          {userCompleted? userCompleted.username: "nombre"}
-          {userCompleted? userCompleted.email: "email"}
+          Nombre: {userCompleted? userCompleted.name: "nombre"}
+          <br></br>
+          User Name: {userCompleted? userCompleted.username: "nombre"}
+          <br />
+          Email: {userCompleted? userCompleted.email: "email"}
 
           <div></div>
         </div>
