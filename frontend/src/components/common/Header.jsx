@@ -68,26 +68,15 @@ function Header() {
               <li className=" hover:text-violet-600 2xl:mr-10">
                 <Link to="#section1">Productos & Servicios</Link>
               </li>
-              {user.isLoggedIn ? 
-              <li className=" hover:text-violet-600 2xl:mr-10">
-                <Link to="/favServices">Favoritos</Link>
-              </li>:null}
               
 
             {user.isLoggedIn ? 
             <div className="cursor-pointer flex flex-row gap-3 justify-center items-center">
-              <h4>Bienvenido</h4>              
+              <h4>Bienvenido!</h4>              
               <div className="h-10 w-10 bg-white rounded-full relative flex items-center justify-center 2xl:mr-5">
-                              
-                <h2 className="font-extrabold">{initials}</h2>
                 <ProfileDropdown initials={initials}></ProfileDropdown>
-                {user.isAdmin &&  (<FaChessQueen className="text-yellow-400 absolute top-[-10px] left-1/2 -translate-x-1/2 "/>)}
               </div>
-              {user.isAdmin &&  (
-              <button className="p-2 rounded-md bg-secondary text-white hover:bg-primary">
-                <Link to="/dashboard">Dashboard</Link>
-              </button>
-              )}
+              
             </div>
              : 
             <>
@@ -102,8 +91,8 @@ function Header() {
             </ul>
           </nav>
         </div>}
-        </div>
       </div>
+    </div>
   );
 }
 
