@@ -25,7 +25,7 @@ function CardDetails() {
   console.log(id);
   const { isLoggedIn } = useContext(AuthContext);
   
-  const handleReserveClick = (title, description, selected, pricePerHour, imgProfileUrl) => {
+  const handleReserveClick = (id ,title, description, selected, pricePerHour, imgProfileUrl) => {
     const userIsLoggedIn = isLoggedIn();
 
     if (userIsLoggedIn.isLoggedIn) {
@@ -40,7 +40,7 @@ function CardDetails() {
 
       let dayQuantity = (selected.to - selected.from) / (1000 * 60 * 60 * 24);
 
-      window.location.href = `${window.location.origin}/reservas?title=${title}&description=${description}&from=${urlFromDateParam}&to=${urlToDateParam}&pricePerHour=${pricePerHour}&imgProfileUrl=${imgProfileUrl}&dayQuantity=${dayQuantity}`;
+      window.location.href = `${window.location.origin}/reservas?id=${id}&title=${title}&description=${description}&from=${urlFromDateParam}&to=${urlToDateParam}&pricePerHour=${pricePerHour}&imgProfileUrl=${imgProfileUrl}&dayQuantity=${dayQuantity}`;
     } else {
       window.location.href = `${window.location.origin}/login?fromReservation=true`;   
     }
@@ -183,7 +183,7 @@ function CardDetails() {
               
         <div className="flex justify-end mr-20 mb-10">
 
-          <button onClick={()=>{handleReserveClick(service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl) ; saveData()}} > <Link 
+          <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl) ; saveData()}} > <Link 
             className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
           </Link> </button>

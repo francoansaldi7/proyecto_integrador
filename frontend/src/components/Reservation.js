@@ -28,7 +28,7 @@ export class Reservation {
   constructor(serviceId, userId, statusId, startingDatetime, endingDatetime) {
     this.setService({ id: serviceId });
     this.setUser({ id: userId });
-    this.setStatus({ id: statusId }); 
+    this.setStatus({ id: statusId ? statusId : 1 }); 
     this.startingDatetime = startingDatetime;
     this.endingDatetime = endingDatetime;
   }
