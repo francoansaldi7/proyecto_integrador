@@ -23,6 +23,7 @@ const GlobalContextProvider = ({ children }) => {
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
+  
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -673,6 +674,19 @@ const GlobalContextProvider = ({ children }) => {
 
   // ------------------------ RESERVATION FETCHS -------------------
 
+// ------------------------ START USERS FETCHS -------------------
+const getUser = useCallback(async (userId) => {
+  console.log(userId)
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}`);
+    const data = await response.json();
+    console.log(data);
+    return data
+  } catch (error) {
+    console.error("Error obtaining user", error);
+  }
+}, []);
+
 
   /**
    * Saves a reservation by making a POST request to the backend API.
@@ -754,7 +768,9 @@ const GlobalContextProvider = ({ children }) => {
       addFavorite,
       deleteFavorite,
       userFavorites,
-      saveReservation
+      saveReservation,
+      getUser
+      
     }),
     [
       services,
@@ -793,7 +809,7 @@ const GlobalContextProvider = ({ children }) => {
       addFavorite,
       deleteFavorite,
       userFavorites,
-
+      getUser
     ]
   );
 
