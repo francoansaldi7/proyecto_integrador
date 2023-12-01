@@ -8,7 +8,7 @@ Overview
 
 GloCast is a revolutionary mobile and web application designed to revolutionize the way you book photography, filmmaking and design services. Our platform seamlessly connects photographers, filmmakers, graphic designers, freelancers, and design studios with clients seeking a wide range of photography/design solutions. Whether you're in need of professional photographers, stunning website graphics, or engaging marketing materials, GloCast empowers you to find the perfect talent and collaborate effortlessly.
 
-Key Features
+### Key Features
 
 1. Effortless User Experience
 GloCast boasts an intuitive and user-friendly interface, ensuring both clients and photography professionals can effortlessly navigate the app. Users can create accounts, explore services, and manage their projects with ease.
@@ -29,10 +29,10 @@ We'll integrate a secure payment gateway, ensuring safe and hassle-free financia
 Both clients and professionals can effectively manage their projects within the app. Track project progress, submit revisions, and maintain a project timeline for a seamless collaboration experience.
 
 7. Ratings and Reviews
-After project completion, users can rate and review graphic designers and studios. This feature builds trust and transparency, helping future clients choose the right service provider.
+After project completion, users can rate and review the service they booked. This feature builds trust and transparency, helping future clients choose the right service provider.
 
 8. Stunning Portfolios
-Graphic designers can showcase their incredible portfolios on GloCast, allowing potential clients to get a glimpse of their previous work and expertise.
+Professionals can showcase their incredible portfolios on GloCast, allowing potential clients to get a glimpse of their previous work and expertise.
 
 9. Stay Informed with Notifications
 GloCast sends timely notifications for project updates, messages, and upcoming deadlines, ensuring users stay informed and engaged throughout their design journey.
@@ -41,17 +41,17 @@ Target Audience
 
 GloCast is tailor-made for:
 
-Clients: Businesses, entrepreneurs, and individuals seeking graphic design services for branding, marketing, and creative projects.
+Clients: Businesses, entrepreneurs, and individuals seeking photography, filmmaking or design services for branding, marketing, and any creative projects they can imagine.
 
-Graphic Designers: Freelancers and design studios looking to connect with clients and expand their client base.
+Independen professionals in the photography field: Freelancers and design/photography studios looking to connect with clients and expand their client base.
 
 Vision
-Our vision is to become the premier destination for all your graphic design needs, fostering a vibrant community of designers and clients, and promoting creativity and excellence in the field.
+Our vision is to become the premier destination for all your photography, filmmaking and/or design needs, fostering a vibrant community of professionals and clients, and promoting creativity and excellence in the field.
 
 Mission
-Our mission is to simplify the process of booking graphic design services, providing a one-stop solution for clients to connect with talented graphic designers and studios. GloCast empowers you to bring your creative visions to life while enjoying a smooth and efficient design process.
+Our mission is to simplify the process of booking photography, filmmaking & design services, providing a one-stop solution for clients to connect with talented professionals and studios. GloCast empowers you to bring your creative visions to life while enjoying a smooth and efficient process.
 
-GloCast is where creativity meets innovation, and we're here to transform the way you experience graphic design services.
+GloCast is where creativity meets innovation, and we're here to transform the way you experience photography, filmmaking & design services.
 
 ## Table of Contents
 
@@ -65,7 +65,6 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 * API Documentation
 * Database Schema
 * Testing
-* Deployment
 * Contributing
 * Acknowledgments
 * Contact Information
@@ -102,15 +101,38 @@ Other libraries & resources:
 
 * [Chat GPT](https://chat.openai.com/) was used to generate sample data
 
-
 ## Features
 
-TO DO - List the key features of your project.
+**User** features: 
+
+1. _User Profiles:_ Allow users to create accounts/profiles to manage bookings, view past sessions, and save preferences.
+2. _Search and Filter:_ Enable users to search for photographers, filmmakers or designers based on location, specialization, availability, etc.
+3. _Portfolio Viewing:_ Provide access to photographers' portfolios, allowing users to assess their style and expertise.
+4. _Booking and Scheduling:_ Allow users to schedule sessions, select dates, times, and specific services/packages.
+5. _Payment Integration:_ Secure payment gateways to facilitate easy, secure transactions for bookings and services.
+6. _Reviews and Ratings:_ Allow users to leave feedback and ratings after sessions to help others make informed choices.
+7. _Notification System:_ Send reminders, updates on bookings, confirmations, and any changes to scheduled sessions.
+
+**Professionals** features: 
+
+1. _Profile Creation:_ Photographers, filmmakers and designers can create detailed profiles showcasing their work, experience, and availability.
+2. _Booking Management:_ Access to a calendar to manage bookings, accept/reject requests, and update availability.
+3. _Service Customization:_ Set different packages, prices, and services offered.
+4. _Communication:_ In-app messaging or chat to discuss specifics, clarify details, and negotiate terms.
+5. _Payment and Earnings:_ Track earnings, manage invoices, and handle payments securely within the app.
+6. _Portfolio Management:_ Update and showcase their portfolio to attract potential clients.
+
+**Admin** Features:
+
+1. _Dashboard:_ Access to oversee and manage the entire platform, including user accounts, bookings, and transactions.
+2. _Content Management:_ Ability to moderate and manage content uploaded by photographers and users.
+3. _Analytics and Reports:_ Generate reports on bookings, revenue, user engagement, etc., for insights and improvements.
+4. _Customer Support:_ Direct communication channels to address user and professionals concerns.
+5. _Commission Management:_ Set commission rates, manage payments to professionals, and handle transaction fees.
 
 ## Installation
 
-TO DO - Provide step-by-step instructions on how to install and set up your project locally.
-Include any prerequisites or dependencies that need to be installed.
+TO DO - Check how to run the project in AWS, or locally 
 
 ## Usage
 
@@ -130,11 +152,6 @@ TO DO - Present the structure of your database, including tables, relationships,
 
 TO DO - Describe the testing process, frameworks, and libraries used for testing.
 Provide information on how to run tests.
-
-## Deployment
-
-To Do - Explain how to deploy your app to a production environment. 
-Include any configuration settings or environments variables needed for deployment.
 
 --- 
 ## Contributing
@@ -212,7 +229,7 @@ Visión general
 
 GloCast es una revolucionaria aplicación móvil y web diseñada para transformar la manera en que reservas servicios de fotografía, producción de películas y diseño. Nuestra plataforma conecta fotógrafos, cineastas, diseñadores gráficos, freelancers y estudios de diseño con clientes que buscan una amplia gama de soluciones dentro del mundo de la fotografía. Ya sea que necesites fotógrafos profesionales, impresionantes gráficos web o materiales de marketing atractivos, GloCast te permite encontrar el talento perfecto y colaborar sin esfuerzo.
 
-Características Clave
+### Características Clave
 
 1. Experiencia de Usuario Sencilla
 GloCast cuenta con una interfaz intuitiva y amigable para el usuario, asegurando que tanto los clientes como los profesionales de la fotografía puedan navegar fácilmente por la aplicación. Los usuarios pueden crear cuentas, explorar servicios y gestionar sus proyectos con facilidad.
@@ -233,31 +250,31 @@ Integraremos un sistema de pago seguro, garantizando transacciones financieras s
 Tanto clientes como profesionales pueden gestionar efectivamente sus proyectos dentro de la aplicación. Realiza un seguimiento del progreso del proyecto, envía revisiones y mantiene un cronograma del proyecto para una colaboración sin problemas.
 
 7. Valoraciones y Reseñas
-Después de completar el proyecto, los usuarios pueden valorar y reseñar a los diseñadores gráficos y estudios. Esta función construye confianza y transparencia, ayudando a futuros clientes a elegir al proveedor de servicios adecuado.
+Después de completar el proyecto, los usuarios pueden calificar y dejar reseñas sobre el servicio que reservaron. Esta función fomenta la confianza y la transparencia, ayudando a los futuros clientes a elegir al proveedor de servicios adecuado.
 
 8. Portfolios Impresionantes
-Los diseñadores gráficos pueden mostrar sus increíbles portfolios en GloCast, permitiendo a los clientes potenciales echar un vistazo a su trabajo anterior y experiencia.
+Los profesionales pueden mostrar sus increíbles portfolios en GloCast, permitiendo a los clientes potenciales echar un vistazo a su trabajo anterior y experiencia.
 
 9. Mantente Informado con Notificaciones
-GloCast envía notificaciones oportunas sobre actualizaciones del proyecto, mensajes y plazos próximos, asegurando que los usuarios se mantengan informados y comprometidos durante su viaje de diseño.
+GloCast envía notificaciones sobre actualizaciones del proyecto, mensajes y plazos próximos, asegurando que los usuarios se mantengan informados y comprometidos durante su experiencia con nosotros.
 
 Público Objetivo
 
 GloCast está hecho a medida para:
 
-Clientes: Empresas, emprendedores e individuos que buscan servicios de diseño gráfico para branding, marketing y proyectos creativos.
+Clientes: Empresas, emprendedores e individuos que buscan servicios de fotografía, producción cinematográfica o diseño para branding, marketing y cualquier proyecto creativo que puedan imaginar.
 
-Diseñadores Gráficos: Freelancers y estudios de diseño que buscan conectar con clientes y expandir su base de clientes.
+Profesionales independientes en el campo de la fotografía: Freelancers y estudios de diseño/fotografía que buscan conectarse con clientes y ampliar su base de clientes.
 
 Visión
 
-Nuestra visión es convertirnos en el destino principal para todas tus necesidades de diseño gráfico, fomentando una comunidad vibrante de diseñadores y clientes, y promoviendo la creatividad y la excelencia en el campo.
+Nuestra visión es convertirnos en el destino principal para todas tus necesidades de fotografía, producción cinematográfica y/o diseño, fomentando una comunidad vibrante de profesionales y clientes, y promoviendo la creatividad y la excelencia en el campo.
 
 Misión
 
-Nuestra misión es simplificar el proceso de reserva de servicios de diseño gráfico, proporcionando una solución integral para que los clientes se conecten con talentosos diseñadores gráficos y estudios. GloCast te permite dar vida a tus visiones creativas mientras disfrutas de un proceso de diseño fluido y eficiente.
+Nuestra misión es simplificar el proceso de reserva de servicios de fotografía, producción cinematográfica y diseño, proporcionando una solución integral para que los clientes se conecten con profesionales y estudios talentosos. GloCast te permite dar vida a tus visiones creativas mientras disfrutas de un proceso fluido y eficiente.
 
-GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí para transformar la manera en que experimentas los servicios de diseño gráfico.
+GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí para transformar la manera en que experimentas los servicios de fotografía, producción cinematográfica y diseño.
 
 
 ## Tabla de Contenidos
@@ -271,7 +288,6 @@ GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí
 * Documentación de la API
 * Esquema de la Base de Datos
 * Pruebas
-* Implementación
 * Contribuciones
 * Reconocimientos
 * Información de Contacto
@@ -311,7 +327,33 @@ Otras bibliotecas y recursos:
 
 
 ## Funcionalidades
-POR HACER: Enumerar las características clave de tu proyecto.
+
+Características para **Usuarios**:
+
+1. _Perfiles de Usuario:_ Permitir a los usuarios crear cuentas/perfiles para gestionar reservas, ver sesiones anteriores y guardar preferencias.
+2. _Búsqueda y Filtros:_ Habilitar a los usuarios para buscar fotógrafos, cineastas o diseñadores según la ubicación, especialización, disponibilidad, etc.
+3. _Visualización de Portfolios:_ Proporcionar acceso a los portfolios de los fotógrafos, permitiendo a los usuarios evaluar su estilo y experiencia.
+4. _Reservas:_ Permitir a los usuarios reservar sesiones, seleccionar fechas, horarios y servicios/paquetes específicos.
+5. _Integración de Pagos:_ Sistema de pago seguro para facilitar transacciones fáciles y seguras para reservas y servicios.
+6. _Opiniones y Valoraciones:_ Permitir a los usuarios dejar comentarios y valoraciones después de las sesiones para ayudar a otros a tomar decisiones informadas.
+7. _Sistema de Notificaciones:_ Enviar recordatorios, actualizaciones sobre reservas, confirmaciones y cualquier cambio en las sesiones programadas.
+
+Características para **Profesionales**:
+
+1. _Creación de Perfiles:_ Fotógrafos, cineastas y diseñadores pueden crear perfiles detallados mostrando su trabajo, experiencia y disponibilidad.
+2. _Gestión de Reservas:_ Acceso a un calendario para gestionar reservas, aceptar/rechazar solicitudes y actualizar la disponibilidad.
+3. _Personalización de Servicios:_ Establecer diferentes paquetes, precios y servicios ofrecidos.
+4. _Comunicación:_ Mensajería interna o chat para discutir detalles específicos, aclarar detalles y negociar términos.
+5. _Pagos y Ganancias:_ Seguir las ganancias, gestionar facturas y manejar los pagos de forma segura dentro de la aplicación.
+6. _Gestión de Portfolios:_ Actualizar y mostrar su portfolio para atraer a posibles clientes.
+
+Características para **Administradores**:
+
+1. _Panel de Control:_ Acceso para supervisar y gestionar toda la plataforma, incluyendo cuentas de usuarios, reservas y transacciones.
+2. _Gestión de Contenido:_ Capacidad para moderar y gestionar el contenido subido por fotógrafos y usuarios.
+3. _Análisis e Informes:_ Generar informes sobre reservas, ingresos, participación de usuarios, etc., para obtener información y mejoras.
+4. _Soporte al Cliente:_ Canales de comunicación directa para atender preocupaciones de usuarios y profesionales.
+5. _Gestión de Comisiones:_ Establecer tasas de comisión, gestionar pagos a profesionales y manejar tarifas de transacción.
 
 ## Instalación
 POR HACER: Proporcionar instrucciones paso a paso sobre cómo instalar y configurar tu proyecto localmente.
@@ -331,10 +373,6 @@ POR HACER: Presenta la estructura de tu base de datos, incluyendo tablas, relaci
 ## Pruebas
 POR HACER: Describe el proceso de pruebas, frameworks y bibliotecas utilizadas para las pruebas.
 Proporciona información sobre cómo ejecutar pruebas.
-
-## Implementación
-POR HACER: Explica cómo implementar tu aplicación en un entorno de producción.
-Incluye cualquier configuración o variables de entorno necesarias para la implementación.
 
 ---
 
