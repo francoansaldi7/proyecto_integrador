@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { GlobalContext } from "../contexts/globalContext";
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -20,6 +20,7 @@ import ProductsAndServices from "./ProductsAndServices";
 import NavPagination from "../components/common/NavPagination";
 import { useState } from "react";
 import ServicesSearchBar from "../components/common/ServicesSearchBar";
+import AddButtonWhatApp from "../components/common/AddButtonWhatApp";
 
 function Home() {
   const {unorganizedServices, getAllServices ,setServices, loadingServices} = useContext(GlobalContext);
@@ -201,13 +202,16 @@ function Home() {
 
       <AboutUs />
     </section>
-    
+  
     <section id="section3">
     <hr className="h-[1px] w-full bg-secondary opacity-50"></hr>
       <Contact />
     </section>
-
+    <div className="fixed bottom-8 right-5">
+    <AddButtonWhatApp/>
+    </div>
       <Outlet />
+      
     </>
   );
 }
