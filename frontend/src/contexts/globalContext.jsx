@@ -7,6 +7,7 @@ import {
 } from "react";
 import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
+import { Reservation } from "../components/Reservation";
 
 const GlobalContext = createContext(null);
 
@@ -49,15 +50,8 @@ const GlobalContextProvider = ({ children }) => {
     setUnorganizedServices(shuffleArray([...services]));
   };
 
-
-
-
-  
   // ------------------------ SERVICES FETCHS ------------------------
-  
-  
-  
-  
+
   /**
    * Asynchronous function that fetches a list of services based on the provided page number and admin status.
    *
@@ -71,7 +65,7 @@ const GlobalContextProvider = ({ children }) => {
       let headers;
       const url = window.location.href;
       const userToken = localStorage.getItem("registrationToken");
-            
+
       isAdmin = url.includes("/dashboard");
       isAdmin
         ? (headers = {
@@ -108,30 +102,31 @@ const GlobalContextProvider = ({ children }) => {
       setLoadingServices(false);
       setSevicesTotalPages(data.totalPages);
 
-      if(userToken){
+      if (userToken) {
         const userId = jwtDecode(localStorage.getItem("registrationToken")).id;
         getUserFavorites(userId);
       }
-      
+
       return data;
     },
     []
   );
 
-  const findServiceById = useCallback(
-    async (idService) => {
-      let res;
-      try {
-        res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${idService}`);
-      } catch (error) {
+  const findServiceById = useCallback(async (idService) => {
+    let res;
+    try {
+      res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${idService}`
+      );
+    } catch (error) {
       throw new Error("Error finding service by id: ", error);
-      }
-      if (!res.ok) {
-        throw new Error("Error finding service by id");
-      }
-      const data = await res.json();
-      return data;
-    })
+    }
+    if (!res.ok) {
+      throw new Error("Error finding service by id");
+    }
+    const data = await res.json();
+    return data;
+  });
 
   const changeServicesPage = useCallback(
     async (pageNumber) => {
@@ -144,7 +139,7 @@ const GlobalContextProvider = ({ children }) => {
 
   /**
    * Saves a service and its associated images to the server.
-   * 
+   *
    * @param {Object} service - The service object to be saved.
    * @param {Array} images - An array of image objects associated with the service. Default is an empty array.
    * @returns {Object} - The saved service object.
@@ -156,16 +151,19 @@ const GlobalContextProvider = ({ children }) => {
       let response;
       try {
         try {
-          response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/services`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem(
-                "registrationToken"
-              )}`,
-            },
-            body: JSON.stringify(service),
-          });
+          response = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/services`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                  "registrationToken"
+                )}`,
+              },
+              body: JSON.stringify(service),
+            }
+          );
         } catch (error) {
           console.error(error);
           throw new Error(error);
@@ -187,9 +185,9 @@ const GlobalContextProvider = ({ children }) => {
 
                 // Envía la imagen en Base64 al servidor
                 const response = await fetch(
-                  `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${serviceSaved.id}/${
-                    storeCurrentIndex === 0 ? "image-profile" : "images"
-                  }`,
+                  `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${
+                    serviceSaved.id
+                  }/${storeCurrentIndex === 0 ? "image-profile" : "images"}`,
                   {
                     method: "POST",
                     body: JSON.stringify({
@@ -233,7 +231,7 @@ const GlobalContextProvider = ({ children }) => {
 
   /**
    * Sends a PUT request to update a specific service by its ID.
-   * 
+   *
    * @param {string} idService - The ID of the service to be updated.
    * @param {object} service - The updated service data to be sent in the request body.
    * @returns {object} - The updated service data returned from the API response.
@@ -299,43 +297,55 @@ const GlobalContextProvider = ({ children }) => {
     let res;
     try {
       res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/search?query=${query}`,
-      )
-    
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/services/search?query=${query}`
+      );
     } catch (error) {
-      console.error("Error obtaining services: "+ error);
+      console.error("Error obtaining services: " + error);
       throw new Error("Error obtaining services");
     }
     if (!res.ok) {
-      console.error("Error obtaining services: "+ res.status);
+      console.error("Error obtaining services: " + res.status);
       throw new Error("Error obtaining services");
     }
     const data = await res.json();
-    return data;  
-    
-  })
+    return data;
+  });
 
-  const getAllServicesReduced = useCallback(async (query = "",  typeOfServiceId = null, startDate = null, endDate = null, pageNumber = 0) => {
-    let res;
-    try {
-      res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/search-all?query=${query}&size=${SERVICE_PAGE_SIZE}&page=${pageNumber}${startDate ? `&startDate=${startDate}` : ""}${endDate ? `&endDate=${endDate}` : ""}${typeOfServiceId ? `&typeOfService=${typeOfServiceId}` : ""}`,
-      )
-    
-    } catch (error) {
-      console.error("Error obtaining services: "+ error);
-      throw new Error("Error obtaining services");
+  const getAllServicesReduced = useCallback(
+    async (
+      query = "",
+      typeOfServiceId = null,
+      startDate = null,
+      endDate = null,
+      pageNumber = 0
+    ) => {
+      let res;
+      try {
+        res = await fetch(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/services/search-all?query=${query}&size=${SERVICE_PAGE_SIZE}&page=${pageNumber}${
+            startDate ? `&startDate=${startDate}` : ""
+          }${endDate ? `&endDate=${endDate}` : ""}${
+            typeOfServiceId ? `&typeOfService=${typeOfServiceId}` : ""
+          }`
+        );
+      } catch (error) {
+        console.error("Error obtaining services: " + error);
+        throw new Error("Error obtaining services");
+      }
+      if (!res.ok) {
+        console.error("Error obtaining services: " + res.status);
+        throw new Error("Error obtaining services");
+      }
+      const data = await res.json();
+      return data;
     }
-    if (!res.ok) {
-      console.error("Error obtaining services: "+ res.status);
-      throw new Error("Error obtaining services");
-    }
-    const data = await res.json();
-    return data;  
-    
-  })
+  );
 
-    const changeSearchedServicesPage = useCallback(
+  const changeSearchedServicesPage = useCallback(
     async (pageNumber) => {
       console.log(pageNumber);
       const data = await getAllServicesReduced(pageNumber);
@@ -344,35 +354,33 @@ const GlobalContextProvider = ({ children }) => {
     [getAllServicesReduced]
   );
 
-  const getUnavailableDatesOfService = useCallback(
-    async (serviceId) => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/v1/services/${serviceId}/unavailable-dates`
-        );
-        if (!response.ok) {
-          throw new Error("Error obtaining unavailable dates");
-        }
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error(error);
-        throw new Error(error);
+  const getUnavailableDatesOfService = useCallback(async (serviceId) => {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/services/${serviceId}/unavailable-dates`
+      );
+      if (!response.ok) {
+        throw new Error("Error obtaining unavailable dates");
       }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
     }
-  )
-
+  });
 
   // ------------------------ END SERVICES FETCHS ------------------------
-
-
-
 
   // ------------------------ CATEGORIES FETCHS ------------------------
 
   const getAllCategories = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`
+      );
       if (!response.ok) {
         throw new Error("Error obtaining categories");
       }
@@ -386,24 +394,27 @@ const GlobalContextProvider = ({ children }) => {
 
   const saveCategory = useCallback(async (category) => {
     const reader = new FileReader();
-    
+
     reader.onload = async (e) => {
       const base64Image = e.target.result;
       try {
         console.log(category);
         const categoryParsed = JSON.stringify(category);
-      console.log(categoryParsed);
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            category: category.category,
-            fileName: category.fileName,
-            imageFile: base64Image,
-          }),
-        });
+        console.log(categoryParsed);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/categories`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              category: category.category,
+              fileName: category.fileName,
+              imageFile: base64Image,
+            }),
+          }
+        );
         if (!response.ok) {
           throw new Error("Error saving category");
         }
@@ -416,7 +427,6 @@ const GlobalContextProvider = ({ children }) => {
     };
 
     reader.readAsDataURL(category.imageFile);
-
   });
 
   const deleteCategory = useCallback(async (idCategory) => {
@@ -477,179 +487,192 @@ const GlobalContextProvider = ({ children }) => {
     }
   });
 
+  // ------------------------ END CATEGORIES FETCHS ------------------------
 
+  // ------------------------ CHARACTERISTICS FETCHS -------------------
 
-// ------------------------ END CATEGORIES FETCHS ------------------------
-
-
-
-// ------------------------ CHARACTERISTICS FETCHS -------------------
-
- const getAllCharacteristics = useCallback(async () => {
-   try {
-     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`);
-     if (!response.ok) {
-       throw new Error("Error obtaining characteristics");
-     }
-     const data = await response.json();
-     return data;
-   } catch (error) {
-     console.error(error);
-     throw new Error(error);
-   }
- })
-
- const findCharacteristic = useCallback(async (idCharacteristic) => {
-   try {
-     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`);
-     if (!response.ok) {
-       throw new Error("Error finding characteristic");
-     }
-     const data = await response.json();
-     return data;
-   } catch (error) {
-     console.error(error);
-     throw new Error(error);
-   }
- })
-
- const saveCharacteristic = useCallback(async (characteristic) => {
-   try {
-     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`, {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(characteristic),
-     });
-     if (!response.ok) {
-       throw new Error("Error saving characteristic");
-     }
-     const data = await response.json();
-     return data;
-   } catch (error) {
-     console.error(error);
-     throw new Error(error);
-   }
- })
-
- const deleteCharacteristic = useCallback(async (idCharacteristic) => {
-   try {
-     const response = await fetch(
-       `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`,
-       {
-         method: "DELETE",
-       }
-     );
-     if (!response.ok) {
-       throw new Error("Error deleting characteristic");
-     }
-     const data = await response.text();
-     if(data !== true){
-       throw new Error(data);
-     }
-     return true;
-   } catch (error) {
-     console.error(error);
-     return false;
-   }
- })
-
- const updateCharacteristic = useCallback(async (idCharacteristic, characteristic) => {
-   try {
-     const response = await fetch(
-       `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic/${idCharacteristic}`,
-       {
-         method: "PUT",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(characteristic),
-       }
-     );
-     if (!response.ok) {
-       throw new Error("Error updating characteristic");
-     }
-     const data = await response.json();
-     return data;
-   } catch (error) {
-     console.error(error);
-     throw new Error(error);
-   }
- })
-
-// ------------------------ END CHARACTERISTICS FETCHS -------------------
-
-
-// ------------------------ FAVORITES FETCHS ------------------------
-
-const getUserFavorites = useCallback(
-  async (userId) => {
+  const getAllCharacteristics = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/users/${userId}/favorites`,
-        {
-            headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );     
-      if (response.ok) {
-        console.log("Favoritos listados correctamente");
-        const data = await response.json();
-        setUserFavorites(data);
-      }      
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`
+      );
+      if (!response.ok) {
+        throw new Error("Error obtaining characteristics");
+      }
+      const data = await response.json();
+      return data;
     } catch (error) {
-      console.error("Error al agregar el favorito", error);
+      console.error(error);
+      throw new Error(error);
     }
-  },
-  []
-);
+  });
 
-const addFavorite = useCallback(
-  async (userId, serviceId) => {
+  const findCharacteristic = useCallback(async (idCharacteristic) => {
     try {
       const response = await fetch(
-  `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}/favorites/${serviceId}`,
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/characteristic/${idCharacteristic}`
+      );
+      if (!response.ok) {
+        throw new Error("Error finding characteristic");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  });
+
+  const saveCharacteristic = useCallback(async (characteristic) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/characteristic`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify(characteristic),
         }
-      );     
-      if (response.ok) {        
-        console.log("Favorito agregado correctamente");
-        await getUserFavorites(userId);
-      }      
+      );
+      if (!response.ok) {
+        throw new Error("Error saving characteristic");
+      }
+      const data = await response.json();
+      return data;
     } catch (error) {
-      console.error("Error al agregar el favorito", error);
+      console.error(error);
+      throw new Error(error);
     }
-  },
-  [getUserFavorites]
-);
+  });
 
-const deleteFavorite = useCallback(
-  async (userId, serviceId) => {
+  const deleteCharacteristic = useCallback(async (idCharacteristic) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/${userId}/favorites/${serviceId}`,
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/characteristic/${idCharacteristic}`,
         {
           method: "DELETE",
         }
       );
-      if (response.ok) {        
-        console.log("Favorito eliminado correctamente");
-        await getUserFavorites(userId);
+      if (!response.ok) {
+        throw new Error("Error deleting characteristic");
+      }
+      const data = await response.text();
+      if (data !== true) {
+        throw new Error(data);
+      }
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  });
+
+  const updateCharacteristic = useCallback(
+    async (idCharacteristic, characteristic) => {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/characteristic/${idCharacteristic}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(characteristic),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Error updating characteristic");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw new Error(error);
+      }
+    }
+  );
+
+  // ------------------------ END CHARACTERISTICS FETCHS -------------------
+
+  // ------------------------ FAVORITES FETCHS ------------------------
+
+  const getUserFavorites = useCallback(async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/users/${userId}/favorites`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("Favoritos listados correctamente");
+        const data = await response.json();
+        setUserFavorites(data);
       }
     } catch (error) {
-      console.error("Error al intentar eliminar el favorito", error);
+      console.error("Error al agregar el favorito", error);
     }
-  },
-  [getUserFavorites]
-);
+  }, []);
 
-// ------------------------ END FAVORITES FETCHS -------------------
+  const addFavorite = useCallback(
+    async (userId, serviceId) => {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/users/${userId}/favorites/${serviceId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.ok) {
+          console.log("Favorito agregado correctamente");
+          await getUserFavorites(userId);
+        }
+      } catch (error) {
+        console.error("Error al agregar el favorito", error);
+      }
+    },
+    [getUserFavorites]
+  );
+
+  const deleteFavorite = useCallback(
+    async (userId, serviceId) => {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/users/${userId}/favorites/${serviceId}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (response.ok) {
+          console.log("Favorito eliminado correctamente");
+          await getUserFavorites(userId);
+        }
+      } catch (error) {
+        console.error("Error al intentar eliminar el favorito", error);
+      }
+    },
+    [getUserFavorites]
+  );
+
+  // ------------------------ END FAVORITES FETCHS -------------------
+
+  // ------------------------ RESERVATION FETCHS -------------------
 
 // ------------------------ START USERS FETCHS -------------------
 const getUser = useCallback(async (userId) => {
@@ -665,6 +688,41 @@ const getUser = useCallback(async (userId) => {
 }, []);
 
 
+  /**
+   * Saves a reservation by making a POST request to the backend API.
+   *
+   * @async
+   * @param {Reservation} reservation - The reservation data to be saved.
+   * @returns {Promise<Reservation>} - The response data from the backend API if the request is successful.
+   * @throws {Error} - If the request fails.
+   */
+  const saveReservation = async (reservation) => {
+    if (!reservation || !(reservation instanceof Reservation)) {
+      throw new Error("Invalid reservation data, It must be an instance of reservation");
+    }
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reservations`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservation),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error saving reservation");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  };
+
+  // ------------------------ END RESERVATION FETCHS -------------------
 
   useEffect(() => {
     //getAllServices();
@@ -710,6 +768,7 @@ const getUser = useCallback(async (userId) => {
       addFavorite,
       deleteFavorite,
       userFavorites,
+      saveReservation,
       getUser
       
     }),

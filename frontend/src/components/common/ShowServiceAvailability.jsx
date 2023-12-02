@@ -5,11 +5,13 @@ import "react-day-picker/dist/style.css";
 import { useContext, useEffect, useState } from "react";
 import {GlobalContext} from "../../contexts/globalContext";
 import { useParams } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-const ShowServiceAvailability = () => {
+const ShowServiceAvailability = ({selected, setSelected}) => {
   const { getUnavailableDatesOfService } = useContext(GlobalContext);
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [errors, setErrors] = useState([]);
+
   const serviceId= useParams();
   useEffect(() => {
     async function fetchData() {
@@ -30,7 +32,13 @@ const ShowServiceAvailability = () => {
     }
     let dates = [];
     Object.keys(dateRangeObject).map((dateString) => {
-      dates.push({from: new Date(dateString), to: new Date(dateRangeObject[dateString])});
+      const [year, month, day] = dateString.split('-').map(Number);
+      const [toYear, toMonth, toDay] = dateRangeObject[dateString].split('-').map(Number);
+
+       const fromDate = new Date(year, month - 1, day);
+      const toDate = new Date(toYear, toMonth - 1, toDay);
+
+      dates.push({from: fromDate, to: toDate});
     });
 
     return dates;
@@ -44,6 +52,8 @@ const ShowServiceAvailability = () => {
           className=" w-full p-2 bg-secondary-dark dark:bg-slate-500 rounded-lg  z-10 m-0 outline outline-1 outline-purple-900 text-white"
           mode="range"
           locale={es}
+          selected={selected}
+          onSelect={setSelected}
           disabled={unavailableDates}
           fromDate={new Date()}
           toDate={new Date().setFullYear(new Date().getFullYear() + 1)}
@@ -53,6 +63,8 @@ const ShowServiceAvailability = () => {
           className="w-full p-2 bg-secondary-dark dark:bg-slate-500 rounded-lg  z-10 m-0 outline outline-1 outline-purple-900 text-white hidden md:block"
           mode="range"
           locale={es}
+          selected={selected}
+          onSelect={setSelected}
           disabled={unavailableDates}
           defaultMonth={addMonths(new Date(), 1)}
           fromDate={new Date()}
@@ -68,6 +80,8 @@ const ShowServiceAvailability = () => {
 };
 
 ShowServiceAvailability.propTypes = {
+  selected: PropTypes.object,
+  setSelected: PropTypes.func,
 }
 
 export default ShowServiceAvailability;
