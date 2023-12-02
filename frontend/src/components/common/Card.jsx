@@ -80,13 +80,16 @@ function Card({
             {rating}
           </span>
         </div>
-        <div className="flex px-5 absolute top-2 right-0">
+        <div className={`flex gap-6 px-5 absolute top-2 ${disccount ? "left-0" : " right-0"}`}>
           <ShareButton
             id={id}
             name={title}
             description={description}
             image={img}
           />
+        <Favorite
+        serviceId={id}
+        />
         </div>
         <div className="flex flex-row mb-2">
           <p className="relative text-gray-500 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">
@@ -118,11 +121,7 @@ function Card({
           </button>
         </div>
       </div>
-      <div className="flex justify-end m-5">
-        <Favorite
-        serviceId={id}
-        />
-      </div>
+      
     </div>
  
 

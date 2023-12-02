@@ -731,7 +731,7 @@ const getUserReservationHistory = useCallback(
   async (userId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v1/reservations`,
+        `http://localhost:8080/api/v1/reservations/user/${userId}`,
         {
             headers: {
             "Content-Type": "application/json",

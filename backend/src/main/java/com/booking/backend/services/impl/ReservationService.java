@@ -15,6 +15,7 @@ import com.booking.backend.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.booking.backend.models.IReservationReduced;
 import com.booking.backend.models.Reservation;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.Status;
@@ -123,6 +124,10 @@ public class ReservationService {
 
     public List<Reservation> getAllReservations() {
         return repository.findAll();
+    }
+
+    public List<IReservationReduced> getAllUserReservations(UUID userId) {
+        return repository.findAllByUserId(userId);
     }
 
     private boolean isValidReservation(Reservation reservation) {

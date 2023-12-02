@@ -61,6 +61,8 @@ const id = params.get("id");
 
   return (
     <div className="grid grid-rows-[1fr_3fr_3fr] w-full min-h-screen bg-gray-950 pt-[200px] text-white">
+      <div className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition 
+       "></div>
             <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -74,7 +76,7 @@ const id = params.get("id");
         theme="dark"
       />
       {isLoading && (
-        <div className="fixed flex z-10 w-full h-full bg-[rgba(0,0,0,0.4)] justify-center items-center">
+        <div className="fixed flex z-20 w-full h-full bg-[rgba(0,0,0,0.4)] justify-center items-center">
           <svg
             className="w-20 h-20"
             version="1.1"
@@ -118,7 +120,7 @@ const id = params.get("id");
           </svg>
         </div>
       )}
-      <div className="date-info bg-gray-800 w-full h-[100px] p-5 rounded-md grid grid-cols-[2fr_2fr_2fr_2fr] items-center justify-items-center">
+      <div className="date-info bg-primary-dark w-full h-[100px] px-5 rounded-md grid grid-cols-[2fr_2fr_2fr_2fr] items-center justify-items-center z-10 border border-purple-700">
         <div className="service-info flex flex-row basis-1/2 col-span-[1/2] gap-4">
           <img
             className="rounded-full max-h-full max-w-[25%] object-cover"
@@ -141,15 +143,15 @@ const id = params.get("id");
           <div className="grid justify-items-center">{dayQuantity}</div>
         </div>
       </div>
-      <div className=" grid grid-cols-2 gap-10 w-full h-full p-5">
-        <div className="service-info w-full h-full bg-gray-800 rounded-md">
-          <div className="m-8">INFORMACION DEL SERVICIO</div>
-          <div className="m-8">{description}</div>
+      <div className="z-10 grid grid-cols-2 gap-10 w-full h-full p-5">
+        <div className="service-info w-full h-full bg-primary-dark border border-purple-700 rounded-md p-5 flex flex-col gap-4">
+          <h4 className="font-bold text-xl">INFORMACIÓN DEL SERVICIO</h4>
+          <div className="">{description}</div>
         </div>
 
         <div className=" gap-10 w-full h-full">
-          <div className="service-info w-full h-full bg-gray-800 rounded-md p-8">
-            DATOS DEL USUARIO
+          <div className="service-info w-full h-full bg-primary-dark border border-purple-700 rounded-md p-8">
+            <h4 className="font-bold text-xl">DATOS DEL USUARIO</h4>
             <br />
             <br />
             <div>Nombre: {userCompleted ? userCompleted.name : "nombre"}</div>
@@ -161,7 +163,7 @@ const id = params.get("id");
           </div>
         </div>
       </div>
-      <div className="payment-info w-[70vh] justify-self-center h-full bg-gray-800 rounded-md">
+      <div className="payment-info w-[70vh] justify-self-center h-full bg-primary-dark border border-purple-700 rounded-md z-10">
         <div className="p-8 flex flex-col gap-4">
           SELECCIONE UNA FORMA DE PAGO
           <FormGroup>
@@ -178,7 +180,7 @@ const id = params.get("id");
           <h3 className="text-3xl font-extrabold self-center">
             TOTAL A PAGAR:
           </h3>
-          <h4 className="text-4xl font-extrabold text-green-300 self-center">
+          <h4 className="text-4xl font-extrabold text-green-500 self-center">
             {" "}
             ${pricePerHour * 8 * dayQuantity}
           </h4>
