@@ -23,7 +23,7 @@ const GlobalContextProvider = ({ children }) => {
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
-  
+  const [userReservationHistory, setUserReservationHistory] = useState([]);
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -724,6 +724,37 @@ const getUser = useCallback(async (userId) => {
 
   // ------------------------ END RESERVATION FETCHS -------------------
 
+// ------------------------ RESERVATION HISTORY FETCHS ------------------------
+
+
+const getUserReservationHistory = useCallback(
+  async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/reservations`,
+        {
+            headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Reservas listadas correctamente");
+        const data = await response.json();
+        setUserReservationHistory(data);
+      }      
+    } catch (error) {
+      console.error("Error al intentar visualizar el historial de reservas", error);
+    }
+  },
+  []
+);
+
+
+// ------------------------ END RESERVATION HISTORY FETCHS ------------------------
+
+
+
   useEffect(() => {
     //getAllServices();
   }, []);
@@ -769,8 +800,9 @@ const getUser = useCallback(async (userId) => {
       deleteFavorite,
       userFavorites,
       saveReservation,
-      getUser
-      
+      getUser,
+      userReservationHistory,
+      getUserReservationHistory
     }),
     [
       services,
@@ -809,7 +841,9 @@ const getUser = useCallback(async (userId) => {
       addFavorite,
       deleteFavorite,
       userFavorites,
-      getUser
+      getUser,
+      userReservationHistory,
+      getUserReservationHistory
     ]
   );
 

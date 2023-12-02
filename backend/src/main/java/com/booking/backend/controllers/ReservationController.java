@@ -1,14 +1,13 @@
 package com.booking.backend.controllers;
 
-import java.util.List;
-import java.util.UUID;
-
+import com.booking.backend.models.Reservation;
+import com.booking.backend.services.impl.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import com.booking.backend.models.Reservation;
-import com.booking.backend.services.impl.ReservationService;
+import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "${cors.allowedOrigins}")
 @RestController
@@ -70,5 +69,10 @@ public class ReservationController {
     @DeleteMapping("/{reservationId}")
     public void deleteReservation(@PathVariable UUID reservationId) {
         reservationService.deleteReservation(reservationId);
+    }
+
+    @GetMapping("/{userId}")
+    public List<Reservation> getUserReservations(@PathVariable UUID userId) {
+        return reservationService.getUserReservations(userId);
     }
 }

@@ -18,6 +18,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import ProtectedRoute from './components/utils/ProtectedRoute';
 import FavServices from './pages/FavServices';
+import ReservationHistory from './pages/ReservationHistory';
 library.add(fab, fas, far)
 import ReservasPage from './pages/ReservasPage';
 import { AuthContextProvider } from './contexts/AuthContext';
@@ -37,13 +38,14 @@ function App() {
         <Route path="/aboutUs/" element={<AboutUs />}/>
         <Route path="/products&services" element={<ProductsAndServices />}/>
         <Route path="/favServices" element={<FavServices />}/>
+        <Route path="/reservationHistory" element={<ReservationHistory />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
         
         <Route path="/reservas" element={<ReservasPage />} />
        
         <Route  element={<ProtectedRoute redirectPage='/login' authority='ADMIN' />}>
-          <Route path="/dashboard" element={<Dashboard />}/>
+        <Route path="/dashboard" element={<Dashboard />}/>
         </Route>
         <Route path='/confirm' element={<ConfirmRegistration />} /> 
       </Routes>

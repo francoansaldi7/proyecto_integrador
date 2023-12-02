@@ -154,4 +154,7 @@ public class ReservationService {
         return true;
     }
 
+    public List<Reservation> getUserReservations(UUID userId) {
+        return null;
+    }
 }
