@@ -54,7 +54,16 @@ public class EmailService {
    * @return The confirmation account message with the URL.
    */
   public String confirmationAccountMessage(String url, String username, String email) {
-    return "<div style='text-align: center; border-radius: 15px; padding: 20px;font-family: sans-serif; background: rgb(80,74,241); background: linear-gradient(0deg, rgba(80,74,241,1) 0%, rgba(31,0,106,1) 100%);'> <h1 style='color: white'>Bienvenido A GloCast.com</h1><h2 style='color: white'>Nombre de usuario: " + username + "</h2><h2 style='color: white'>Email: " + email + "</h2><p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>Gracias por registrarte. Si los datos anteriores son correctos, por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente boton:</p> <button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: #fff; color: #222; font-weight: bold; cursor:pointer' ><a style='text-decoration: none; color: #222' href='" + url + "' >Confirm email</a></button></div>";
+    return "<div style='text-align: center; border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
+                + "<h1>Bienvenido a GloCast.com</h1>"
+                + "<h2>Nombre de usuario: " + username + "</h2>"
+                + "<h2>Email: " + email + "</h2>"
+                + "<p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>"
+                + "Gracias por registrarte. Si los datos anteriores son correctos, por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente botón:"
+                + "</p>"
+                + "<button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: rgb(120 139 255); color: white; font-weight: bold; cursor:pointer' >"
+                + "<a style='text-decoration: none; color: white' href='" + url + "' >Confirm email</a>"
+                + "</button></div>";
   }
 
 
