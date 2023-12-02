@@ -3,3 +3,5 @@
 vault/
 
 .env
+
+.env.production
