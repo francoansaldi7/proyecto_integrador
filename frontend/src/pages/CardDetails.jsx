@@ -10,11 +10,30 @@ import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
 import Favorite from "../components/common/Favorite";
 import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
+import Reviews from '../components/common/Reviews';
+import ReviewPopUp from '../components/common/ReviewPopUp';
+
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
   const { services, findServiceById } = useContext(GlobalContext);
   const [service, setService] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  // Estado para controlar la visibilidad del popup de comentario
+  //const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
+  const handleOpenReviewPopup = () => {
+    setIsReviewPopupOpen(true);
+  };
+  const handleCloseReviewPopup = () => {
+    setIsReviewPopupOpen(false);
+  };
+  const handleReviewSubmit = (data) => {
+    // Lógica para enviar la reseña al backend
+    // ...
+
+    // Cerrar el popup después de enviar la reseña
+    handleCloseReviewPopup();
+  };
   const navigate = useNavigate();
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
@@ -31,6 +50,7 @@ function CardDetails() {
     console.log(serviceFound);
     if (serviceFound) {
       setService(serviceFound);
+      setReviews(serviceFound.reviews); // Actualizamos las reseñas con las obtenidas del servicio
     }  else {
       console.log("service not found");
       return navigate("/");
@@ -46,6 +66,53 @@ function CardDetails() {
     console.log("handleCarrousel");
   };
 
+  useEffect(() => {
+    // Lógica para obtener las reseñas del producto
+    const fetchReviews = async () => {
+      try {
+        const reviewsData = await getReviewsForProduct(productId);
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error('Error al obtener reseñas:', error);
+      }
+    };
+
+    fetchReviews();
+  }, [productId]);
+
+  
+// Función para abrir el popup de comentario
+const handleOpenReviewPopup = () => {
+  setIsReviewPopupOpen(true);
+};
+
+
+const handleCloseReviewPopup = () => {
+  setIsReviewPopupOpen(false);
+};
+const handleReviewSubmit = async (reviewData) => {
+  try {
+    // Realiza la llamada a la API para enviar la reseña
+    const response = await fetch('http://tu-backend/api/v1/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reviewData),
+    });
+
+    if (response.ok) {
+      console.log('Reseña enviada correctamente');
+         } else {
+      console.error('Error al enviar la reseña:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error al enviar la reseña:', error);
+  }
+  handleCloseReviewPopup();
+  };
+
+  
   return (
     <>
       <div className="fixed bg-black opacity-25 h-screen w-screen right-0 top-0 z-10"></div>
@@ -105,8 +172,29 @@ function CardDetails() {
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
 
-
-        <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
+/REVIEWS 
+<div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
+        <h1 className="font-bold text-white text-2xl pb-2">Reseñas</h1>
+        <hr className="pb-4" />
+       //integra el componente Reviews
+        <Reviews
+          averageRating={service?.averageRating}
+          totalReviews={service?.reviews.length}
+          reviews={service?.reviews}
+        />
+      </div>
+      <button
+        className="text-white bg-primary-dark hover:bg-primary/70 p-2 rounded-md"
+        onClick={handleOpenReviewPopup}
+      >
+        Hacer comentario
+      </button>
+//muestra el comentario si está abierto
+      {isReviewPopupOpen && (
+        <ReviewPopup onClose={handleCloseReviewPopup} onSubmit={handleReviewSubmit} />
+      )}        
+      
+      <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
             <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
@@ -134,6 +222,9 @@ function CardDetails() {
 
           </div>
         </div>
+   
+   
+
 
         <div className="availability flex justify-center">
           <ShowServiceAvailability/>
