@@ -652,79 +652,6 @@ const deleteFavorite = useCallback(
 // ------------------------ END FAVORITES FETCHS -------------------
 
 
-// ------------------------ REVIEWS FETCHS ------------------------
-
-const getReviews = useCallback(
-  async (serviceId) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews?serviceId=${serviceId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.ok) {
-        console.log("Reseñas obtenidas correctamente");
-        const data = await response.json();
-        setReviews(data);
-      }
-    } catch (error) {
-      console.error("Error al obtener las reseñas", error);
-    }
-  },
-  []
-);
-
-const addReview = useCallback(
-  async (review) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(review),
-      });
-
-      if (response.ok) {
-        console.log("Reseña agregada correctamente");
-        await getReviews(review.serviceId);
-      }
-    } catch (error) {
-      console.error("Error al agregar la reseña", error);
-    }
-  },
-  [getReviews]
-);
-
-const deleteReview = useCallback(
-  async (reviewId, serviceId) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews/${reviewId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        console.log("Reseña eliminada correctamente");
-        await getReviews(serviceId);
-      }
-    } catch (error) {
-      console.error("Error al intentar eliminar la reseña", error);
-    }
-  },
-  [getReviews]
-)
-
-
-
-
-
-// ------------------------ END REVIEWS FETCHS -------------------
-
 
   useEffect(() => {
     //getAllServices();
@@ -769,7 +696,9 @@ const deleteReview = useCallback(
       loadingServices,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      userReservationHistory,
+      getUserReservationHistory
     }),
     [
       services,
@@ -807,7 +736,9 @@ const deleteReview = useCallback(
       changeSearchedServicesPage,
       addFavorite,
       deleteFavorite,
-      userFavorites
+      userFavorites,
+      userReservationHistory,
+      getUserReservationHistory
     ]
   );
 
