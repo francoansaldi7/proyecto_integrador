@@ -146,7 +146,7 @@ Include sample API requests and responses.
 
 ## Database Schema
 
-TO DO - Present the structure of your database, including tables, relationships, and field descriptions.
+![GloCast DB](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/896e7ed7-6509-44a7-a400-0ed666b002c9)
 
 ## Testing
 
@@ -368,7 +368,8 @@ POR HACER: Si tu proyecto incluye una API, documenta los puntos finales, método
 Incluye solicitudes y respuestas de muestra de la API.
 
 ## Esquema de la Base de Datos
-POR HACER: Presenta la estructura de tu base de datos, incluyendo tablas, relaciones y descripciones de campos.
+
+![GloCast DB](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/896e7ed7-6509-44a7-a400-0ed666b002c9)
 
 ## Pruebas
 POR HACER: Describe el proceso de pruebas, frameworks y bibliotecas utilizadas para las pruebas.
