@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class BookingPageApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(BookingPageApplication.class, args);
     }

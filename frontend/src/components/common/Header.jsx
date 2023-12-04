@@ -75,6 +75,8 @@ function Header() {
               <h4>Bienvenido!</h4>              
               <div className="h-10 w-10 bg-white rounded-full relative flex items-center justify-center 2xl:mr-5">
                 <ProfileDropdown initials={initials}></ProfileDropdown>
+                              
+              {user.isAdmin &&  (<FaChessQueen className="text-yellow-400 absolute top-[-10px] left-1/2 -translate-x-1/2 "/>)}
               </div>
               
             </div>

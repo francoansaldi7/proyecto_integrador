@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Carrousel from "../components/common/Carrousel";
@@ -10,15 +10,42 @@ import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
 import Favorite from "../components/common/Favorite";
 import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
+import { AuthContext } from "../contexts/AuthContext";
+//import ReservasPage from "./ReservasPage";
 
 function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
   const { services, findServiceById } = useContext(GlobalContext);
   const [service, setService] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
   console.log(id);
+  const { isLoggedIn } = useContext(AuthContext);
+  
+  const handleReserveClick = (id ,title, description, selected, pricePerHour, imgProfileUrl) => {
+    const userIsLoggedIn = isLoggedIn();
+
+    if (userIsLoggedIn.isLoggedIn) {
+      
+      if(!selected || !selected.from || !selected.to) {
+        setErrors(["Debes seleccionar una fecha"]);
+        return;
+      }
+      let urlFromDateParam = `${selected.from.getFullYear()}-${selected.from.getMonth() < 10 ? `0${selected.from.getMonth() + 1}` : selected.from.getMonth() + 1 }-${selected.from.getDate() < 10 ? `0${selected.from.getDate()}` : selected.from.getDate()}`
+
+      let  urlToDateParam = `${selected.to.getFullYear()}-${selected.to.getMonth() < 10 ? `0${selected.to.getMonth() + 1}` : selected.to.getMonth() + 1 }-${selected.to.getDate() < 10 ? `0${selected.to.getDate()}` : selected.to.getDate()}`
+
+      let dayQuantity = (selected.to - selected.from) / (1000 * 60 * 60 * 24);
+
+      window.location.href = `${window.location.origin}/reservas?id=${id}&title=${title}&description=${description}&from=${urlFromDateParam}&to=${urlToDateParam}&pricePerHour=${pricePerHour}&imgProfileUrl=${imgProfileUrl}&dayQuantity=${dayQuantity}`;
+    } else {
+      window.location.href = `${window.location.origin}/login?fromReservation=true`;   
+    }
+
+  };
 
   const fetchData = async () => {
     let serviceFound = null;
@@ -45,6 +72,10 @@ function CardDetails() {
     setShowCarrousel(!showCarousel);
     console.log("handleCarrousel");
   };
+
+  const saveData= ()=>{
+    localStorage.setItem("description", service.description)
+  }
 
   return (
     <>
@@ -136,7 +167,13 @@ function CardDetails() {
         </div>
 
         <div className="availability flex justify-center">
-          <ShowServiceAvailability/>
+          <ShowServiceAvailability selected={selected} setSelected={setSelected}/>
+        </div>
+        <div className="px-10">
+          {errors.map((error, index) => (
+            <p key={index} className="text-red-500">{error}</p>
+          ))}
+
         </div>
         <div className="flex justify-center space-x-2 hover:cursor-pointer bg-secondary-dark/100 p-2 rounded-md text-white">
           <PoliciesAndConditions />
@@ -146,12 +183,11 @@ function CardDetails() {
               
         <div className="flex justify-end mr-20 mb-10">
 
-          <Link
-            to=""
-
+          <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl) ; saveData()}} > <Link 
             className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
             Reservar ahora!
-          </Link>
+          </Link> </button>
+          
         </div>
       </div>
     </>

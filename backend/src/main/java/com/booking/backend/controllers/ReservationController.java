@@ -1,5 +1,6 @@
 package com.booking.backend.controllers;
 
+import com.booking.backend.models.IReservationReduced;
 import com.booking.backend.models.Reservation;
 import com.booking.backend.services.impl.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class ReservationController {
         return reservationService.getAllReservations();
     }
 
+    @GetMapping("/user/{userId}")
+    public List<IReservationReduced> getUserReservations(@PathVariable UUID userId) {
+        return reservationService.getAllUserReservations(userId);
+    }
     /**
      * Retrieves a reservation by their ID.
      *
@@ -71,8 +76,4 @@ public class ReservationController {
         reservationService.deleteReservation(reservationId);
     }
 
-    @GetMapping("/{userId}")
-    public List<Reservation> getUserReservations(@PathVariable UUID userId) {
-        return reservationService.getUserReservations(userId);
-    }
 }
