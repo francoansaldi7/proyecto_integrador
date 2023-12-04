@@ -13,7 +13,7 @@ public interface IUserService extends IBaseCrudService<User, User> {
 
      //void changePassword(String oldPassword, String newPassword);
 
-    User save(User user);
+    User save(User user, String origin);
 
     String getToken(String username, String password);
 }

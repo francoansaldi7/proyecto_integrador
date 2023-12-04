@@ -39,6 +39,9 @@ public class ReservationService {
     @Autowired
     IStatusRepository statusRepository;
 
+    @Autowired
+    EmailService emailService;
+
     public ReservationService() {
 
     }
@@ -74,7 +77,9 @@ public class ReservationService {
             reservation.setService(res);
             reservation.setUser(user);
             reservation.setStatus(status);
-            return repository.save(reservation);
+            Reservation result = repository.save(reservation);
+            emailService.sendBookingEmail(user.getUsername(), user.getEmail(), service.getTitle(), reservation.getStartingDatetime().getDayOfMonth() + "/" + reservation.getStartingDatetime().getMonthValue() + "/" + reservation.getStartingDatetime().getYear(), reservation.getEndingDatetime().getDayOfMonth() + "/" + reservation.getEndingDatetime().getMonthValue() + "/" + reservation.getEndingDatetime().getYear(), reservation.getTotalPrice());
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
