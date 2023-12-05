@@ -154,7 +154,7 @@ function CardDetails() {
         {service && <Rating name="rating" precision={0.1} readOnly value={service?.rating}/>}
  
             <span className="text-gray-700 dark:text-gray-600 font-semibold mr-20 md:ml-2 md:text-white md:text-lg min-[412px]:text-white min-[412px]:ml-2 min-[280px]:text-white min-[280px]:ml-1">
-              {service?.rating}
+              {Math.round(service?.rating *100)/100}
             </span>
           </div>
 
@@ -206,7 +206,7 @@ function CardDetails() {
         
       
         <Reviews
-          averageRating={service?.rating}
+          averageRating={Math.round(service?.rating *100)/100}
           totalReviews={service?.reviews.length}
           reviews={service?.reviews}
         />
