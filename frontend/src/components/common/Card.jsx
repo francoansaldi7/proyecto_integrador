@@ -21,14 +21,15 @@ function Card({
 
   const { isLoggedIn } = useContext(AuthContext);
   
-  const handleReserveClick = () => {
+  const handleReserveClick = (id) => {
     const userIsLoggedIn = isLoggedIn();
 
     if (userIsLoggedIn.isLoggedIn) {
       window.location.href = `/details/${id}`;
     } else {
-      window.location.href = "/login";   
+      window.location.href = `${window.location.origin}/login?fromReservation=true`;   
     }
+
   };
 
   return (
@@ -112,9 +113,7 @@ function Card({
           </span>
           <button
             className="h-[40px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800"
-            onClick={handleReserveClick}
-          >
-            Reservar ahora!
+            onClick={()=>{handleReserveClick(id)}}>Reservar ahora!
           </button>
         </div>
       </div>
