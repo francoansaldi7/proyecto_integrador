@@ -16,10 +16,13 @@ import java.util.stream.Collectors;
 import com.booking.backend.services.impl.CharacteristicsService;
 import com.booking.backend.services.impl.ServiceImageService;
 import com.booking.backend.services.impl.TypeOfServiceService;
+import com.booking.backend.views.Views.ServiceReduced;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.booking.backend.datasource.S3DataSource;
@@ -27,6 +30,7 @@ import com.booking.backend.models.Characteristic;
 import com.booking.backend.models.ServiceImage;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.TypesOfServices;
+import com.booking.backend.repository.IReviewRepository;
 import com.booking.backend.repository.IServiceImageRepository;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository;
@@ -56,6 +60,9 @@ public class ServiceService implements IServiceService {
 
     @Autowired
     private CharacteristicsService characteristicsService;
+
+    @Autowired
+    private IReviewRepository reviewRepository;
 
     /**
      * Saves the service.
@@ -201,9 +208,8 @@ public class ServiceService implements IServiceService {
      * @param id The ID of the service to retrieve.
      * @return The service with the specified ID, or null if not found.
      */
-    public Optional<Services> findById(UUID id) {
-
-        return serviceRepository.findById(id);
+    public Optional<ServiceReduced> findById(UUID id, Boolean reduced) {
+        return serviceRepository.findServiceReducedById(id);
     }
 
     /**
@@ -299,6 +305,26 @@ public class ServiceService implements IServiceService {
        return true;
     
         
+    }
+
+    @Async
+    public void updateRatingOfService(Services service){
+        try {
+            float newRating = reviewRepository.findAvgRatingByServiceId(service.getId()).orElse(0.0f);
+    
+            service.setRating(newRating);
+    
+            serviceRepository.save(service);
+        } catch (InterruptedException e) {
+            e.getCause();
+            e.getLocalizedMessage();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<Services> findById(UUID id) {
+        return serviceRepository.findById(id);
     }
 
 }

@@ -1,8 +1,18 @@
 package com.booking.backend.services.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.lang.Thread;
 
+import com.booking.backend.models.Services;
+import com.booking.backend.models.User;
+import com.booking.backend.repository.IReviewRepository;
+import com.booking.backend.repository.IServiceRepository;
+import com.booking.backend.repository.IUserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.booking.backend.models.Review;
@@ -10,21 +20,38 @@ import com.booking.backend.models.Review;
 @Service
 public class ReviewService {
 
-    public ReviewService() {
+    private final IReviewRepository reviewRepository;
+    private final IServiceRepository serviceRepository;
+    private final IUserRepository userRepository;
+    private final ServiceService serviceService;
 
+    @Autowired
+    public ReviewService(IReviewRepository reviewRepository, IServiceRepository serviceRepository,
+            IUserRepository userRepository, ServiceService serviceService) {
+        this.reviewRepository = reviewRepository;
+        this.serviceRepository = serviceRepository;
+        this.userRepository = userRepository;
+        this.serviceService = serviceService;
     }
 
-    /**
-     * Saves the review.
-     *
-     * @param review The review to be saved.
-     * @return The saved review.
-     */
     public Review saveReview(Review review) {
-        // TODO: Implement saving logic here
-        // Sample code:
-        // Database.save(review);
-        return review;
+        if(review.getRating() <= 0 || review.getRating() > 5 ) {
+            throw new RuntimeException("La puntuación debe estar entre 0 y 5");
+        }
+        Services service = serviceRepository.findById(review.getService().getId())
+                .orElseThrow(() -> new RuntimeException("No se encontró el servicio"));
+
+        User user = userRepository.findById(review.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("No se encontró el usuario"));
+
+        LocalDate date = LocalDate.now();
+
+        review.setDate(date);
+        review.setService(service);
+        review.setUser(user);
+        Review savedReview = reviewRepository.save(review);
+        serviceService.updateRatingOfService(service);
+        return savedReview;
     }
 
     /**
@@ -33,51 +60,34 @@ public class ReviewService {
      * @param id The ID of the review to delete.
      */
     public void deleteReview(UUID id) {
-        // TODO: Implement deletion logic here
-        // Sample code:
-        // Database.deleteReview(id);
+        reviewRepository.deleteById(id);
     }
 
-    /**
-     * Updates a review with the specified ID.
-     *
-     * @param id            The ID of the review to update.
-     * @param updatedReview The review object with updated information.
-     * @return The updated review.
-     */
     public Review updateReview(UUID id, Review updatedReview) {
-        // TODO: Implement review update logic here
-        // Sample code:
-        // Review existingReview = Database.getReview(id);
-        // if (existingReview != null) {
-        //     existingReview.update(updatedReview);
-        //     return existingReview;
-        // }
-        return updatedReview;
+        Review existingReview = reviewRepository.findById(id).orElse(null);
+        if (existingReview != null) {
+            Review updated = new Review(
+                    existingReview.getId(),
+                    updatedReview.getComment(),
+                    updatedReview.getCommentTitle(),
+                    updatedReview.getRating(),
+                    updatedReview.getDate(),
+                    updatedReview.getUser(),
+                    updatedReview.getService());
+
+            return reviewRepository.save(updated);
+        }
+        throw new RuntimeException("No se encontró la review");
     }
 
-    /**
-     * Retrieves a review by its ID.
-     *
-     * @param id The ID of the review to retrieve.
-     * @return The review with the specified ID, or null if not found.
-     */
     public Review getReview(UUID id) {
-        // TODO: Implement retrieval logic here
-        // Sample code:
-        // return Database.getReview(id);
-        return new Review(id);
+        return reviewRepository.findById(id).orElse(null);
     }
 
-    /**
-     * Retrieves all reviews from the database.
-     *
-     * @return List of all reviews.
-     */
     public List<Review> getAllReviews() {
-        // TODO: Implement method logic here
-        // Sample code:
-        // return Database.getAllReviews();
-        return null;
+        return reviewRepository.findAll();
+
     }
+
+    
 }

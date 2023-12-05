@@ -5,6 +5,7 @@ import ShareButton from "./ShareButton";
 import Favorite from "./Favorite";
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { Rating } from "@mui/material";
 
 /* eslint-disable react/prop-types */
 function Card({
@@ -71,11 +72,7 @@ function Card({
           </h5>
         </Link>
         <div className="flex items-center mt-2 mb-5 ml-0 mr-0 w-70">
-          <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
-          <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
-          <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
-          <AiFillStar className="w-4 h-4 text-yellow-300"></AiFillStar>
-          <AiOutlineStar className="w-4 h-4 text-gray-200 dark:text-gray-600"></AiOutlineStar>
+          <Rating name="rating" precision={0.1} readOnly value={rating} />
           <span className="w-30 bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
             {rating}
           </span>

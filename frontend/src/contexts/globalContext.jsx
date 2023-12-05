@@ -23,7 +23,7 @@ const GlobalContextProvider = ({ children }) => {
   const [sevicesTotalPages, setSevicesTotalPages] = useState(0);
   const [loadingServices, setLoadingServices] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
-  const [userReservationHistory, setUserReservationHistory] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     //let servicesIterable = services.content ? services.content : [];
@@ -724,7 +724,7 @@ const getUser = useCallback(async (userId) => {
 
   // ------------------------ END RESERVATION FETCHS -------------------
 
-// ------------------------ RESERVATION HISTORY FETCHS ------------------------
+  // ------------------------ RESERVATION HISTORY FETCHS ------------------------
 
 
 const getUserReservationHistory = useCallback(
@@ -741,7 +741,7 @@ const getUserReservationHistory = useCallback(
       if (response.ok) {
         console.log("Reservas listadas correctamente");
         const data = await response.json();
-        setUserReservationHistory(data);
+        return data;
       }      
     } catch (error) {
       console.error("Error al intentar visualizar el historial de reservas", error);
@@ -750,9 +750,74 @@ const getUserReservationHistory = useCallback(
   []
 );
 
+const getReviews = useCallback(
+  async (serviceId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews?serviceId=${serviceId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("Reseñas obtenidas correctamente");
+        const data = await response.json();
+        setReviews(data);
+      }
+    } catch (error) {
+      console.error("Error al obtener las reseñas", error);
+    }
+  },
+  []
+);
 
-// ------------------------ END RESERVATION HISTORY FETCHS ------------------------
+const addReview = useCallback(
+  async (review) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+      });
 
+      if (response.ok) {
+        console.log("Reseña agregada correctamente");
+        return await response.json();
+      }
+    } catch (error) {
+      console.error("Error al agregar la reseña", error);
+    }
+  },
+  [getReviews]
+);
+
+const deleteReview = useCallback(
+  async (reviewId, serviceId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reviews/${reviewId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        console.log("Reseña eliminada correctamente");
+        await getReviews(serviceId);
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar la reseña", error);
+    }
+  },
+  [getReviews]
+)
+
+
+
+// ------------------------ END REVIEWS FETCHS -------------------
 
 
   useEffect(() => {
@@ -799,9 +864,11 @@ const getUserReservationHistory = useCallback(
       addFavorite,
       deleteFavorite,
       userFavorites,
+      addReview,
+      getReviews,
+      deleteReview,
       saveReservation,
       getUser,
-      userReservationHistory,
       getUserReservationHistory
     }),
     [
@@ -841,8 +908,10 @@ const getUserReservationHistory = useCallback(
       addFavorite,
       deleteFavorite,
       userFavorites,
+      addReview,
+      getReviews,
+      deleteReview,
       getUser,
-      userReservationHistory,
       getUserReservationHistory
     ]
   );

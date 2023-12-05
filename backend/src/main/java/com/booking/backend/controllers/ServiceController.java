@@ -40,6 +40,10 @@ import com.booking.backend.services.IServiceService;
 import com.booking.backend.services.impl.ServiceService;
 import com.booking.backend.services.impl.UserDetailsServiceImpl;
 import com.booking.backend.services.impl.VerifyRoleService;
+import com.booking.backend.views.Views;
+import com.booking.backend.views.Views.ServiceReduced;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -94,8 +98,8 @@ public class ServiceController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Services> findById(@PathVariable UUID id) {
-        return serviceService.findById(id);
+    public Optional<ServiceReduced> findById(@PathVariable UUID id) {
+        return serviceService.findById(id, true);
     }
 
 

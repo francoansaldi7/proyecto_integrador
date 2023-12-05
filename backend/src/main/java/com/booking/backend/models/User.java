@@ -43,6 +43,7 @@ public class User implements Serializable, UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+  @JsonBackReference(value = "user-reviews")
   private List<Review> reviews;
 
   @Column(name = "last_password_reset_date")

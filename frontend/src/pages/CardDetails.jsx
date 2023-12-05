@@ -10,6 +10,10 @@ import PoliciesAndConditions from "../components/common/PoliciesAndConditions";
 import Favorite from "../components/common/Favorite";
 import ShowServiceAvailability from "../components/common/ShowServiceAvailability";
 import ShareButton from '../components/common/ShareButton';
+import Reviews from '../components/common/Reviews';
+import ReviewPopup from "../components/common/ReviewPopUp";
+import {Rating} from '@mui/material';
+
 import { AuthContext } from "../contexts/AuthContext";
 //import ReservasPage from "./ReservasPage";
 
@@ -17,6 +21,13 @@ function CardDetails() {
   let [showCarousel, setShowCarrousel] = useState(false);
   const { services, findServiceById } = useContext(GlobalContext);
   const [service, setService] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  // Estado para controlar la visibilidad del popup de comentario
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
+  const handleOpenOrCloseReviewPopup = () => {
+    setIsReviewPopupOpen(!isReviewPopupOpen);
+  };
+
   const [selected, setSelected] = useState(null);
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
@@ -58,6 +69,7 @@ function CardDetails() {
     console.log(serviceFound);
     if (serviceFound) {
       setService(serviceFound);
+      setReviews(serviceFound.reviews); // Actualizamos las reseñas con las obtenidas del servicio
     }  else {
       console.log("service not found");
       return navigate("/");
@@ -73,10 +85,8 @@ function CardDetails() {
     console.log("handleCarrousel");
   };
 
-  const saveData= ()=>{
-    localStorage.setItem("description", service.description)
-  }
 
+  
   return (
     <>
       <div className="fixed bg-black opacity-25 h-screen w-screen right-0 top-0 z-10"></div>
@@ -137,12 +147,12 @@ function CardDetails() {
         </div>
 
 
-        <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiOutlineStar className="w-5 h-5 text-gray-200 dark:text-gray-600"></AiOutlineStar>
+
+ 
+      
+      <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
+        {service && <Rating name="rating" precision={0.1} readOnly value={service?.rating}/>}
+ 
             <span className="text-gray-700 dark:text-gray-600 font-semibold mr-20 md:ml-2 md:text-white md:text-lg min-[412px]:text-white min-[412px]:ml-2 min-[280px]:text-white min-[280px]:ml-1">
               {service?.rating}
             </span>
@@ -165,6 +175,9 @@ function CardDetails() {
 
           </div>
         </div>
+   
+   
+
 
         <div className="availability flex justify-center">
           <ShowServiceAvailability selected={selected} setSelected={setSelected}/>
@@ -181,14 +194,23 @@ function CardDetails() {
 
         
               
-        <div className="flex justify-end mr-20 mb-10">
+        <div className="flex fixed bottom-6 left-[48%] z-50">
 
-          <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl) ; saveData()}} > <Link 
-            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
+          <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl);}} > <Link 
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900  font-bold rounded-lg text-sm p-5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors  border border-purple-700 shadow-2xl shadow-purple-600 hover:shadow-lg  hover:shadow-purple-500">
             Reservar ahora!
           </Link> </button>
           
         </div>
+        <div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
+        
+      
+        <Reviews
+          averageRating={service?.rating}
+          totalReviews={service?.reviews.length}
+          reviews={service?.reviews}
+        />
+      </div>
       </div>
     </>
   );
