@@ -724,6 +724,32 @@ const getUser = useCallback(async (userId) => {
 
   // ------------------------ END RESERVATION FETCHS -------------------
 
+  // ------------------------ RESERVATION HISTORY FETCHS ------------------------
+
+
+const getUserReservationHistory = useCallback(
+  async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/v1/reservations/user/${userId}`,
+        {
+            headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );     
+      if (response.ok) {
+        console.log("Reservas listadas correctamente");
+        const data = await response.json();
+        return data;
+      }      
+    } catch (error) {
+      console.error("Error al intentar visualizar el historial de reservas", error);
+    }
+  },
+  []
+);
+
 const getReviews = useCallback(
   async (serviceId) => {
     try {
@@ -842,7 +868,8 @@ const deleteReview = useCallback(
       getReviews,
       deleteReview,
       saveReservation,
-      getUser
+      getUser,
+      getUserReservationHistory
     }),
     [
       services,
@@ -884,7 +911,8 @@ const deleteReview = useCallback(
       addReview,
       getReviews,
       deleteReview,
-      getUser
+      getUser,
+      getUserReservationHistory
     ]
   );
 

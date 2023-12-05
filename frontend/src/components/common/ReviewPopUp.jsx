@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Rating } from '@mui/material';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Review } from '../Review';
+import { AuthContext } from '../../contexts/AuthContext';
+import { GlobalContext } from '../../contexts/globalContext';
+import PropTypes from 'prop-types';
+import { toast } from "react-toastify";
 
-const ReviewPopup = ({ onClose, onSubmit }) => {
+import "react-toastify/dist/ReactToastify.css";
+
+const ReviewPopup = ({ onClose, serviceId, setIsLoading }) => {
+  const {isLoggedIn} = useContext(AuthContext);
+  const {addReview} = useContext(GlobalContext);
   const [rating, setRating] = useState(0);
   const [title, setTitle] = useState('');
   const [comment, setComment] = useState('');
+  const userId = isLoggedIn().userId;
 
   const handleRatingChange = (event, newValue) => {
     setRating(newValue);
@@ -20,37 +30,26 @@ const ReviewPopup = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit = async () => {
-    try {
-      const reviewData = {
-        rating: rating,
-        title: title,
-        comment: comment,
-      };
-
-      // Realiza la llamada a la API para enviar la reseña
-      const response = await fetch('http://tu-backend/api/v1/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(reviewData),
-      });
-
-      if (response.ok) {
-        console.log('Reseña enviada correctamente');
-      } else {
-        console.error('Error al enviar la reseña:', response.statusText);
+      setIsLoading(true);
+      const review = new Review(serviceId, userId, rating, comment, title);
+      try {
+        await addReview(review);
+        setIsLoading(false);
+        toast.success("Se ha añadido el comentario.");
+        
+      } catch (error) {
+        setIsLoading(false);
+        console.error(error);
+        toast.error("Se produjo un error al hacer el comentario.");
       }
-    } catch (error) {
-      console.error('Error al enviar la reseña:', error);
+      onClose();
 
-    }
-
-    onSubmit();
-    onClose();
   };
 
   return (
+    <>
+           
+           
     <Dialog open={true} onClose={onClose}>
       <DialogTitle>Hacer comentario</DialogTitle>
       <DialogContent>
@@ -82,7 +81,14 @@ const ReviewPopup = ({ onClose, onSubmit }) => {
         <Button onClick={handleSubmit}>Enviar comentario</Button>
       </DialogActions>
     </Dialog>
+    </>
   );
 };
+
+ReviewPopup.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  serviceId: PropTypes.string.isRequired,
+  setIsLoading: PropTypes.func.isRequired
+}
 
 export default ReviewPopup;

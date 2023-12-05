@@ -310,7 +310,6 @@ public class ServiceService implements IServiceService {
     @Async
     public void updateRatingOfService(Services service){
         try {
-            Thread.sleep(20000);
             float newRating = reviewRepository.findAvgRatingByServiceId(service.getId()).orElse(0.0f);
     
             service.setRating(newRating);

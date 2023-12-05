@@ -12,6 +12,7 @@ import ShowServiceAvailability from "../components/common/ShowServiceAvailabilit
 import ShareButton from '../components/common/ShareButton';
 import Reviews from '../components/common/Reviews';
 import ReviewPopup from "../components/common/ReviewPopUp";
+import {Rating} from '@mui/material';
 
 import { AuthContext } from "../contexts/AuthContext";
 //import ReservasPage from "./ReservasPage";
@@ -85,28 +86,6 @@ function CardDetails() {
   };
 
 
-const handleReviewSubmit = async (reviewData) => {
-  try {
-    // Realiza la llamada a la API para enviar la reseña
-    const response = await fetch('http://tu-backend/api/v1/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reviewData),
-    });
-
-    if (response.ok) {
-      console.log('Reseña enviada correctamente');
-         } else {
-      console.error('Error al enviar la reseña:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error al enviar la reseña:', error);
-  }
-  handleOpenOrCloseReviewPopup();
-  };
-
   
   return (
     <>
@@ -167,33 +146,13 @@ const handleReviewSubmit = async (reviewData) => {
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
 
-/REVIEWS 
-<div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
-        <h1 className="font-bold text-white text-2xl pb-2">Reseñas</h1>
-        <hr className="pb-4" />
-      
-        <Reviews
-          averageRating={service?.averageRating}
-          totalReviews={service?.reviews.length}
-          reviews={service?.reviews}
-        />
-      </div>
-      <button
-        className="text-white bg-primary-dark hover:bg-primary/70 p-2 rounded-md"
-        onClick={handleOpenOrCloseReviewPopup}
-      >
-        Hacer comentario
-      </button>
-      {isReviewPopupOpen && (
-        <ReviewPopup onClose={handleOpenOrCloseReviewPopup} onSubmit={handleReviewSubmit} />
-      )}        
+
+
+ 
       
       <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiFillStar className="w-5 h-5 text-yellow-300"></AiFillStar>
-            <AiOutlineStar className="w-5 h-5 text-gray-200 dark:text-gray-600"></AiOutlineStar>
+        {service && <Rating name="rating" precision={0.1} readOnly value={service?.rating}/>}
+ 
             <span className="text-gray-700 dark:text-gray-600 font-semibold mr-20 md:ml-2 md:text-white md:text-lg min-[412px]:text-white min-[412px]:ml-2 min-[280px]:text-white min-[280px]:ml-1">
               {service?.rating}
             </span>
@@ -235,14 +194,23 @@ const handleReviewSubmit = async (reviewData) => {
 
         
               
-        <div className="flex justify-end mr-20 mb-10">
+        <div className="flex fixed bottom-6 left-[48%] z-50">
 
           <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl);}} > <Link 
-            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900/50  focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors">
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900  font-bold rounded-lg text-sm p-5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors  border border-purple-700 shadow-2xl shadow-purple-600 hover:shadow-lg  hover:shadow-purple-500">
             Reservar ahora!
           </Link> </button>
           
         </div>
+        <div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
+        
+      
+        <Reviews
+          averageRating={service?.rating}
+          totalReviews={service?.reviews.length}
+          reviews={service?.reviews}
+        />
+      </div>
       </div>
     </>
   );
