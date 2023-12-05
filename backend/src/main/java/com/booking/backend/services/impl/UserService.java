@@ -5,6 +5,9 @@ import com.booking.backend.models.User;
 import com.booking.backend.repository.IRoleRepository;
 import com.booking.backend.repository.IUserRepository;
 import com.booking.backend.services.IUserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -77,7 +80,7 @@ public class UserService implements IUserService {
     // }
 
     @Override
-    public User save(User user) {
+    public User save(User user, String origin) {
         String oldPassword = user.getPassword();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRole().getId() == 2) {
@@ -89,7 +92,8 @@ public class UserService implements IUserService {
         User userSaved = userRepository.save(user);
         System.out.println("USER: " + user.getUsername() + " " + user.getPassword());
         String token = getToken(user.getUsername(), oldPassword);
-        Boolean sendEmail = emailService.sendConfirmationEmail(user.getEmail(), "http://localhost:5173/confirm?token=" + token, user.getUsername());
+        System.out.println("ORIGIN: " + origin);
+        emailService.sendConfirmationEmail(user.getEmail(), origin + "/confirm?token=" + token, user.getUsername());
         return userSaved;
     }
 
@@ -159,5 +163,11 @@ public class UserService implements IUserService {
         } catch (UsernameNotFoundException e) {
             return "Usuario no encontrado";
         }
+    }
+
+    @Override
+    public User save(@Valid User t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 }

@@ -76,8 +76,8 @@ public class UserController {
      * @return The created user.
      */
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.save(user);
+    public User createUser(@RequestBody User user, @RequestHeader("Origin") String origin) {
+        return userService.save(user, origin);
     }
 
     /**

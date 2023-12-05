@@ -1,8 +1,12 @@
 package com.booking.backend.models;
 
+import com.booking.backend.views.Views;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +28,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Services {
     @Id
     private UUID id = UUID.randomUUID();
@@ -54,7 +59,7 @@ public class Services {
     //@Limit(limit = 10)
     @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 10) // Esto limita la cantidad de reviews cargadas
-    @JsonManagedReference
+
     private List<Review> reviews;
 
 

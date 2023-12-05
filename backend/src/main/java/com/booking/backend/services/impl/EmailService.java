@@ -54,10 +54,34 @@ public class EmailService {
    * @return The confirmation account message with the URL.
    */
   public String confirmationAccountMessage(String url, String username, String email) {
-    return "<div style='text-align: center; border-radius: 15px; padding: 20px;font-family: sans-serif; background: rgb(80,74,241); background: linear-gradient(0deg, rgba(80,74,241,1) 0%, rgba(31,0,106,1) 100%);'> <h1 style='color: white'>Bienvenido A GloCast.com</h1><h2 style='color: white'>Nombre de usuario: " + username + "</h2><h2 style='color: white'>Email: " + email + "</h2><p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>Gracias por registrarte. Si los datos anteriores son correctos, por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente boton:</p> <button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: #fff; color: #222; font-weight: bold; cursor:pointer' ><a style='text-decoration: none; color: #222' href='" + url + "' >Confirm email</a></button></div>";
+    return "<div style='text-align: center; border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
+                + "<h1>Bienvenido a GloCast.com</h1>"
+                + "<h2>Nombre de usuario: " + username + "</h2>"
+                + "<h2>Email: " + email + "</h2>"
+                + "<p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>"
+                + "Gracias por registrarte. Si los datos anteriores son correctos, por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente botón:"
+                + "</p>"
+                + "<button style='padding:10px; border-radius:15px; outline:none; border:none; background-color: rgb(120 139 255); color: white; font-weight: bold; cursor:pointer' >"
+                + "<a style='text-decoration: none; color: white' href='" + url + "' >Confirm email</a>"
+                + "</button></div>";
   }
 
-
+ public String bookingInfo( String username, String email, String service, String initialDate, String endingDate, float totalPrice) {
+    return "<div style='text-align: center; border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
+                + "<h1>GloCast.com</h1>"
+  + "<div style='background-color: #fff; border-radius: 15px; border: solid 2px green'>"
+  + "<h3 style='color: #333'>Nombre de usuario: " + username + "</h3>"
+                + "<h3 style='color: #333'>Email: " + email + "</h3>"
+                + "<h3 style='color: #333'>Servicio Reservado: " + service + "</h3>" +
+                "<h3 style='color: #333'>Fecha de Inicio: " + initialDate + "</h3>" +
+                 "<h3 style='color: #333'>Fecha de Finalización: " + endingDate + "</h3>" + 
+  "<h3 style='font-size: 32px; text-align: center; margin-bottom: 20px; color: #009900;'>Precio Total: " + totalPrice + "</h3>" + 
+  "</div>"
+                
+                + "<p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>"
+                + "¡Gracias por confiar en nosotros para tu reserva! Estamos emocionados por la oportunidad de atenderte. Tu reserva ha sido confirmada con éxito. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros. ¡Esperamos verte pronto!"
+                + "</p>";
+  }
   /**
    * Sends a confirmation email to the specified recipient's email address with a confirmation URL.
    *
@@ -65,7 +89,26 @@ public class EmailService {
    * @param url The URL to be included in the email.
    * @return True if the email was sent successfully, false otherwise.
    */
-  public Boolean sendConfirmationEmail(String to, String url, String username) {
-    return sendEmail(to, "Confirm your email", this.confirmationAccountMessage(url, username, to));
+  @Async("asyncTaskExecutor")
+  public void sendConfirmationEmail(String to, String url, String username) {
+    sendEmail(to, "Confirm your email", this.confirmationAccountMessage(url, username, to));
+  }
+
+  /**
+   * Sends a booking confirmation email to the specified recipient.
+   *
+   * @param to           the recipient's email address
+   * @param username     the username of the recipient
+   * @param email        the email address of the recipient
+   * @param service      the name of the service booked
+   * @param initialDate  the initial date of the booking
+   * @param endingDate   the ending date of the booking
+   * @param totalPrice   the total price of the booking
+   * @return             true if the booking confirmation email was sent successfully, false otherwise
+   */
+    @Async("asyncTaskExecutor")
+  public void sendBookingEmail(String username, String email, String service, String initialDate, String endingDate, float totalPrice) {
+      sendEmail(email, "Reserva confirmada", this.bookingInfo(username, email, service, initialDate, endingDate, totalPrice));
   }
 }
+

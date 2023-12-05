@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import com.booking.backend.services.impl.CharacteristicsService;
 import com.booking.backend.services.impl.ServiceImageService;
 import com.booking.backend.services.impl.TypeOfServiceService;
+import com.booking.backend.views.Views.ServiceReduced;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -206,9 +208,8 @@ public class ServiceService implements IServiceService {
      * @param id The ID of the service to retrieve.
      * @return The service with the specified ID, or null if not found.
      */
-    public Optional<Services> findById(UUID id) {
-
-        return serviceRepository.findById(id);
+    public Optional<ServiceReduced> findById(UUID id, Boolean reduced) {
+        return serviceRepository.findServiceReducedById(id);
     }
 
     /**
@@ -320,6 +321,11 @@ public class ServiceService implements IServiceService {
             e.getLocalizedMessage();
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Optional<Services> findById(UUID id) {
+        return serviceRepository.findById(id);
     }
 
 }

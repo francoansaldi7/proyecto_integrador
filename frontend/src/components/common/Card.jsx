@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import ShareButton from "./ShareButton";
 import Favorite from "./Favorite";
+import React, { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 /* eslint-disable react/prop-types */
 function Card({
@@ -15,6 +17,18 @@ function Card({
   disccount = false,
   rating = 1,
 }) {
+
+  const { isLoggedIn } = useContext(AuthContext);
+  
+  const handleReserveClick = () => {
+    const userIsLoggedIn = isLoggedIn();
+
+    if (userIsLoggedIn.isLoggedIn) {
+      window.location.href = `/details/${id}`;
+    } else {
+      window.location.href = "/login";   
+    }
+  };
 
   return (
     <div
@@ -66,13 +80,16 @@ function Card({
             {rating}
           </span>
         </div>
-        <div className="flex px-5 absolute top-2 right-0">
+        <div className={`flex gap-6 px-5 absolute top-2 ${disccount ? "left-0" : " right-0"}`}>
           <ShareButton
             id={id}
             name={title}
             description={description}
             image={img}
           />
+        <Favorite
+        serviceId={id}
+        />
         </div>
         <div className="flex flex-row mb-2">
           <p className="relative text-gray-500 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">
@@ -96,19 +113,15 @@ function Card({
               por hora
             </span>
           </span>
-          <Link
-            to=""
+          <button
             className="h-[40px] text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm sm:px-5 px-2 py-2.5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800"
+            onClick={handleReserveClick}
           >
             Reservar ahora!
-          </Link>
+          </button>
         </div>
       </div>
-      <div className="flex justify-end m-5">
-        <Favorite
-        serviceId={id}
-        />
-      </div>
+      
     </div>
  
 

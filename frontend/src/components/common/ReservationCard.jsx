@@ -20,7 +20,7 @@ function ReservationCard({
 
   return (
     <div
-      className={`w-full relative flex flex-col justify-evenly max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${
+      className={` w-full relative flex flex-col justify-evenly max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-primary-dark dark:border-purple-700 ${
         moreBig ? "scale-125" : ""
       } transition duration-500`}
     >
@@ -77,7 +77,7 @@ function ReservationCard({
           />
         </div>
         <div className="flex flex-row mb-2">
-          <p className="relative text-gray-500 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">
+          <p className="relative text-gray-500 dark:text-gray-400 text-sm pb-5 max-h-[40px] overflow-hidden w-[80%]">
             {description}
           </p>
 
@@ -85,7 +85,7 @@ function ReservationCard({
             to={`/details/${id}`}
             state={{ img, title, description, price }}
           >
-            <p className="mt-5 text-primary pointer hover:underline hover:text-secondary mt-4">
+            <p className="mt-5 text-primary dark:text-purple-700 pointer hover:underline hover:text-secondary mt-4">
               ... mas
             </p>
           </Link>
@@ -100,7 +100,7 @@ function ReservationCard({
           </span>          
         </div>
       </div>
-      <div className="flex justify-end m-5">
+      <div className="flex justify-end m-5 dark:text-green-500 font-bold">
         Desde {startingDatetime} hasta {endingDatetime}
       </div>
     </div>
