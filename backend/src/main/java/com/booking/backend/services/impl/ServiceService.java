@@ -309,17 +309,13 @@ public class ServiceService implements IServiceService {
 
     @Async
     public void updateRatingOfService(Services service){
-        try {
+       
             float newRating = reviewRepository.findAvgRatingByServiceId(service.getId()).orElse(0.0f);
     
             service.setRating(newRating);
     
             serviceRepository.save(service);
-        } catch (InterruptedException e) {
-            e.getCause();
-            e.getLocalizedMessage();
-            e.printStackTrace();
-        }
+       
     }
 
     @Override
