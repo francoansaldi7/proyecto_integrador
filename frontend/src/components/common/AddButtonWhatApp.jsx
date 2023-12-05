@@ -11,7 +11,7 @@ const AddButtonWhatApp = () => {
             ariaLabel="SpeedDial basic example"
             sx={{ position: 'absolute', bottom: 16, right: 16 }}
             icon=
-             {<a href="https://wa.me/+5493517010836?text=Hola,%20En%20que%20puedo%20ayudarte?" target="_blank" rel="noreferrer">
+             {<a href="https://wa.me/+5493517010836?text=Hola,%20necesito%20más%20información%20" target="_blank" rel="noreferrer">
             <img src={WhatsappIcon} alt=""></img>
           </a>}
           >

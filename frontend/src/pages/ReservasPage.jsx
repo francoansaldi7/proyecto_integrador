@@ -14,7 +14,7 @@ const ReservarPage = () => {
   const { getUser, saveReservation } = useContext(GlobalContext);
   const { isLoggedIn } = useContext(AuthContext);
 
-const [isLoading, setIsLoading]= useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
   const title = params.get("title");
@@ -24,7 +24,7 @@ const [isLoading, setIsLoading]= useState(false)
   const from = params.get("from");
   const to = params.get("to");
   const dayQuantity = params.get("dayQuantity");
-const id = params.get("id");
+  const id = params.get("id");
 
   const user = isLoggedIn();
 
@@ -36,18 +36,17 @@ const id = params.get("id");
     setUserCompleted(data);
     console.log(data);
     return data;
-  }
+  };
 
-  const handleSubmit = async() =>{
-    setIsLoading(true)
-    const reservation = new Reservation(id, user.userId, null, from, to)
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    const reservation = new Reservation(id, user.userId, null, from, to);
     try {
       await saveReservation(reservation);
       setIsLoading(false);
       toast.success("¡Reserva realizada exitosamente!");
       toast.success("¡Se envío un correo con los datos de tu reserva!");
       // redirigir a la página con las reservas del usuario
-
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -61,9 +60,11 @@ const id = params.get("id");
 
   return (
     <div className="grid grid-rows-[1fr_3fr_3fr] w-full min-h-screen bg-gray-950 pt-[200px] text-white">
-      <div className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition 
-       "></div>
-            <ToastContainer
+      <div
+        className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition 
+       "
+      ></div>
+      <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -184,19 +185,23 @@ const id = params.get("id");
             {" "}
             ${pricePerHour * 8 * dayQuantity}
           </h4>
-         
-    <button onClick={handleSubmit} className="bg-secondary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+          <Link to ="/ReservationHistory"
+          className="bg-secondary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex justify-center"   
+          >
+          <button
+            onClick={handleSubmit}>
             Reservar Ahora!
           </button>
-         <Link to="/#section2"className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 flex justify-center" >
-            <button>
-              Cancelar Reserva!
-            </button>
-            
           </Link>
-          </div>
+          <Link
+            to="/"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 flex justify-center"
+          >
+            <button>Cancelar Reserva!</button>
+          </Link>
         </div>
       </div>
+    </div>
   );
 };
 

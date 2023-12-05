@@ -1,6 +1,5 @@
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+
 import { Link } from "react-router-dom";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
 import ShareButton from "./ShareButton";
 import { useState } from "react";
 import ReviewPopup from "./ReviewPopUp";
@@ -86,7 +85,7 @@ function ReservationCard({
         )}
         {id ? (
           <Link
-            to={`/details/${id}`}
+            to={`/details/${serviceId}`}
             state={{ img, title, description, price, rating, id }}
           >
             <img
@@ -105,7 +104,7 @@ function ReservationCard({
       </div>
       <div className="px-5 py-5 mt-[-10px]">
         <Link
-          to={`/details/${id}`}
+          to={`/details/${serviceId}`}
           state={{ img, title, description, price, rating, id }}
         >
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -132,7 +131,7 @@ function ReservationCard({
           </p>
 
           <Link
-            to={`/details/${id}`}
+            to={`/details/${serviceId}`}
             state={{ img, title, description, price }}
           >
             <p className="mt-5 text-primary dark:text-purple-700 pointer hover:underline hover:text-secondary mt-4">
