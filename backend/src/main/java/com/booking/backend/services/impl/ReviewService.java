@@ -1,13 +1,18 @@
 package com.booking.backend.services.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.lang.Thread;
 
 import com.booking.backend.models.Services;
 import com.booking.backend.models.User;
 import com.booking.backend.repository.IReviewRepository;
 import com.booking.backend.repository.IServiceRepository;
+import com.booking.backend.repository.IUserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.booking.backend.models.Review;
@@ -17,21 +22,36 @@ public class ReviewService {
 
     private final IReviewRepository reviewRepository;
     private final IServiceRepository serviceRepository;
+    private final IUserRepository userRepository;
+    private final ServiceService serviceService;
 
     @Autowired
-    public ReviewService(IReviewRepository reviewRepository, IServiceRepository serviceRepository) {
+    public ReviewService(IReviewRepository reviewRepository, IServiceRepository serviceRepository,
+            IUserRepository userRepository, ServiceService serviceService) {
         this.reviewRepository = reviewRepository;
         this.serviceRepository = serviceRepository;
+        this.userRepository = userRepository;
+        this.serviceService = serviceService;
     }
 
-
     public Review saveReview(Review review) {
-        double avgRating = reviewRepository.findAvgRatingByServiceId(review.getService().getId());
-        Services service = review.getService();
-        service.setRating((float) avgRating);
-        serviceRepository.save(service);
+        if(review.getRating() <= 0 || review.getRating() > 5 ) {
+            throw new RuntimeException("La puntuación debe estar entre 0 y 5");
+        }
+        Services service = serviceRepository.findById(review.getService().getId())
+                .orElseThrow(() -> new RuntimeException("No se encontró el servicio"));
 
-        return reviewRepository.save(review);
+        User user = userRepository.findById(review.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("No se encontró el usuario"));
+
+        LocalDate date = LocalDate.now();
+
+        review.setDate(date);
+        review.setService(service);
+        review.setUser(user);
+        Review savedReview = reviewRepository.save(review);
+        serviceService.updateRatingOfService(service);
+        return savedReview;
     }
 
     /**
@@ -49,18 +69,16 @@ public class ReviewService {
             Review updated = new Review(
                     existingReview.getId(),
                     updatedReview.getComment(),
-                    updatedReview.getDescription(),
+                    updatedReview.getCommentTitle(),
                     updatedReview.getRating(),
                     updatedReview.getDate(),
                     updatedReview.getUser(),
-                    updatedReview.getService()
-            );
+                    updatedReview.getService());
 
             return reviewRepository.save(updated);
         }
         throw new RuntimeException("No se encontró la review");
     }
-
 
     public Review getReview(UUID id) {
         return reviewRepository.findById(id).orElse(null);
@@ -70,4 +88,6 @@ public class ReviewService {
         return reviewRepository.findAll();
 
     }
+
+    
 }

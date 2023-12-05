@@ -12,6 +12,7 @@ import ShowServiceAvailability from "../components/common/ShowServiceAvailabilit
 import ShareButton from '../components/common/ShareButton';
 import Reviews from '../components/common/Reviews';
 import ReviewPopUp from '../components/common/ReviewPopUp';
+import ReviewPopup from "../components/common/ReviewPopUp";
 
 
 function CardDetails() {
@@ -20,20 +21,11 @@ function CardDetails() {
   const [service, setService] = useState(null);
   const [reviews, setReviews] = useState([]);
   // Estado para controlar la visibilidad del popup de comentario
-  //const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
-  const handleOpenReviewPopup = () => {
-    setIsReviewPopupOpen(true);
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
+  const handleOpenOrCloseReviewPopup = () => {
+    setIsReviewPopupOpen(!isReviewPopupOpen);
   };
-  const handleCloseReviewPopup = () => {
-    setIsReviewPopupOpen(false);
-  };
-  const handleReviewSubmit = (data) => {
-    // Lógica para enviar la reseña al backend
-    // ...
 
-    // Cerrar el popup después de enviar la reseña
-    handleCloseReviewPopup();
-  };
   const navigate = useNavigate();
   //extraer id de la url
   const id = useLocation().pathname.split("/").pop();
@@ -66,30 +58,7 @@ function CardDetails() {
     console.log("handleCarrousel");
   };
 
-  useEffect(() => {
-    // Lógica para obtener las reseñas del producto
-    const fetchReviews = async () => {
-      try {
-        const reviewsData = await getReviewsForProduct(productId);
-        setReviews(reviewsData);
-      } catch (error) {
-        console.error('Error al obtener reseñas:', error);
-      }
-    };
 
-    fetchReviews();
-  }, [productId]);
-
-  
-// Función para abrir el popup de comentario
-const handleOpenReviewPopup = () => {
-  setIsReviewPopupOpen(true);
-};
-
-
-const handleCloseReviewPopup = () => {
-  setIsReviewPopupOpen(false);
-};
 const handleReviewSubmit = async (reviewData) => {
   try {
     // Realiza la llamada a la API para enviar la reseña
@@ -109,7 +78,7 @@ const handleReviewSubmit = async (reviewData) => {
   } catch (error) {
     console.error('Error al enviar la reseña:', error);
   }
-  handleCloseReviewPopup();
+  handleOpenOrCloseReviewPopup();
   };
 
   
@@ -176,7 +145,7 @@ const handleReviewSubmit = async (reviewData) => {
 <div className="p-10 m-10 rounded-md bg-secondary-dark shadow-md shadow-black/30">
         <h1 className="font-bold text-white text-2xl pb-2">Reseñas</h1>
         <hr className="pb-4" />
-       //integra el componente Reviews
+      
         <Reviews
           averageRating={service?.averageRating}
           totalReviews={service?.reviews.length}
@@ -185,13 +154,12 @@ const handleReviewSubmit = async (reviewData) => {
       </div>
       <button
         className="text-white bg-primary-dark hover:bg-primary/70 p-2 rounded-md"
-        onClick={handleOpenReviewPopup}
+        onClick={handleOpenOrCloseReviewPopup}
       >
         Hacer comentario
       </button>
-//muestra el comentario si está abierto
       {isReviewPopupOpen && (
-        <ReviewPopup onClose={handleCloseReviewPopup} onSubmit={handleReviewSubmit} />
+        <ReviewPopup onClose={handleOpenOrCloseReviewPopup} onSubmit={handleReviewSubmit} />
       )}        
       
       <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">

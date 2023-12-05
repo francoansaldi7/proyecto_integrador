@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.booking.backend.datasource.S3DataSource;
@@ -27,6 +28,7 @@ import com.booking.backend.models.Characteristic;
 import com.booking.backend.models.ServiceImage;
 import com.booking.backend.models.Services;
 import com.booking.backend.models.TypesOfServices;
+import com.booking.backend.repository.IReviewRepository;
 import com.booking.backend.repository.IServiceImageRepository;
 import com.booking.backend.repository.IServiceReduced;
 import com.booking.backend.repository.IServiceRepository;
@@ -56,6 +58,9 @@ public class ServiceService implements IServiceService {
 
     @Autowired
     private CharacteristicsService characteristicsService;
+
+    @Autowired
+    private IReviewRepository reviewRepository;
 
     /**
      * Saves the service.
@@ -299,6 +304,22 @@ public class ServiceService implements IServiceService {
        return true;
     
         
+    }
+
+    @Async
+    public void updateRatingOfService(Services service){
+        try {
+            Thread.sleep(20000);
+            float newRating = reviewRepository.findAvgRatingByServiceId(service.getId()).orElse(0.0f);
+    
+            service.setRating(newRating);
+    
+            serviceRepository.save(service);
+        } catch (InterruptedException e) {
+            e.getCause();
+            e.getLocalizedMessage();
+            e.printStackTrace();
+        }
     }
 
 }

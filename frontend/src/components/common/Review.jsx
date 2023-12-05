@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 const Review = ({ review }) => {
   return (
@@ -10,5 +10,14 @@ const Review = ({ review }) => {
     </div>
   );
 };
+
+Review.propTypes = {
+  review: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string
+  })
+}
 
 export default Review;

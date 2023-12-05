@@ -1,6 +1,9 @@
 package com.booking.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,10 +50,11 @@ public class Services {
 
 
     @OneToMany(mappedBy = "service")
-    @OrderBy("createdAt DESC")
+    @OrderBy("date DESC")
     //@Limit(limit = 10)
     @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 10) // Esto limita la cantidad de reviews cargadas
+    @JsonManagedReference
     private List<Review> reviews;
 
 

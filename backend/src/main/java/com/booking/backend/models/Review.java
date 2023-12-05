@@ -3,22 +3,28 @@ package com.booking.backend.models;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @AllArgsConstructor
-
+@NoArgsConstructor
+@Setter
 public class Review {
     @Id
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     private String comment;
-    private String description;
+    private String commentTitle;
     private float rating;
     private LocalDate date;
 
@@ -28,10 +34,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
+    @JsonBackReference
     private Services service;
-
-    public Review(UUID id) {
-        this.id = id;
-    }
 
 }

@@ -1,7 +1,7 @@
-import React from 'react';
 import Review from './Review';
+import Proptypes from 'prop-types';
 
-const Reviews = ({ averageRating, totalReviews, reviews }) => {
+const Reviews = ({ averageRating = 0, totalReviews = 0, reviews = [] }) => {
   return (
     <div className="reviews-container">
       <div className="average-rating">
@@ -18,5 +18,11 @@ const Reviews = ({ averageRating, totalReviews, reviews }) => {
     </div>
   );
 };
+
+Reviews.propTypes = {
+  averageRating: Proptypes.number,
+  totalReviews: Proptypes.number,
+  reviews: Proptypes.array,
+}
 
 export default Reviews;
