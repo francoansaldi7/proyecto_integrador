@@ -75,7 +75,7 @@ function Card({
         <div className="flex items-center mt-2 mb-5 ml-0 mr-0 w-70">
           <Rating name="rating" precision={0.1} readOnly value={rating} />
           <span className="w-30 bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-            {rating}
+            {Math.round(rating * 100) / 100}
           </span>
         </div>
         <div className={`flex gap-6 px-5 absolute top-2 ${disccount ? "left-0" : " right-0"}`}>
