@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Card from "../components/common/Card";
 import AboutUs from "../pages/AboutUs";
@@ -23,6 +23,9 @@ import ServicesSearchBar from "../components/common/ServicesSearchBar";
 import AddButtonWhatApp from "../components/common/AddButtonWhatApp";
 
 function Home() {
+  useLayoutEffect(()=>{
+    window.scrollTo(0,0)
+  })
   const {unorganizedServices, getAllServices ,setServices, loadingServices} = useContext(GlobalContext);
   const [thereAreFewCards, setThereAreFewCards] = useState(true);
   // Map service to bring 4 or 5 random cards to slider + remove harcoded cards

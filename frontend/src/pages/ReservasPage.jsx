@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ReservarPage = () => {
+  
   const { getUser, saveReservation } = useContext(GlobalContext);
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -193,8 +194,8 @@ const ReservarPage = () => {
             Reservar Ahora!
           </button>
           </Link>
-          <Link
-            to="/"
+
+          <Link to="/"
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 flex justify-center"
           >
             <button>Cancelar Reserva!</button>
