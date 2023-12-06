@@ -47,7 +47,7 @@ function ReservationHistory() {
 
                 </div>
                 <div className='bg-gray-900 h-[.5px] w-full mb-5'></div>
-            <div className="card-container flex justify-around gap-4 flex-col items-center overflow-auto dark">
+            <div className="card-container flex flex-wrap justify-around gap-4 flex-col items-center overflow-auto dark">
                 {userReservationHistory.map((reservation) => {
                     
                     return reservation.status.id == 1 && (
