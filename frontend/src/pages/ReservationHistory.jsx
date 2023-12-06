@@ -35,10 +35,12 @@ function ReservationHistory() {
         draggable
         pauseOnHover
         theme="dark"
-      />
-        <div className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition "></div>
-        <div className="flex flex-col justify-around gap-5 min-h-[130vh] e md:max-lg:flex bg-gray-950 p-5 ">
-            <h1 className='text-white text-8xl z-10 font-extrabold text-center'>Mis Reservas</h1>
+        />
+
+        <div className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition"></div>
+
+        <div className="flex flex-col justify-around gap-5 min-h-[130vh] e md:max-lg:flex bg-gray-950 p-5 pt-[150px] pb-[100px]">
+            <h1 className='text-purple-500 underline underline-offset-8 text-6xl z-10 font-bold text-center'>Mis Reservas</h1>
             <div className="status-section w-full ">
                 <div className="container relative inline">
                     <h4 className='text-white text-2xl font-bold inline'>Confirmadas</h4>
@@ -68,7 +70,7 @@ function ReservationHistory() {
             </div>
             </div>
 
-            <div className="status-section w-full ">
+            <div className="status-section w-full mt-20">
                 <div className="container relative inline">
                     <h4 className='text-white text-2xl font-bold inline'>Pendientes</h4>
                 <div className='bg-orange-500 h-2 w-2 rounded-full absolute top-[-10px] right-[-10px] z-10 animate-ping'></div>

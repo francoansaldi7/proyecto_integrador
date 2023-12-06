@@ -59,7 +59,7 @@ function Register() {
         draggable
         pauseOnHover
         theme="dark"
-      />
+        />
             <Formik 
             validationSchema={validationSchema}
             initialValues={{name: "", username: "", email: "", password: "", confirmPassword: ""}}
@@ -79,7 +79,7 @@ function Register() {
                 
             }) => (
             
-            <div className='xl:gap-2 flex flex-col rounded-md p-2 bg-gray-800 p-5 max-w-[800px] w-full'>
+            <div className='xl:gap-2 flex flex-col rounded-md bg-gray-800 p-5 max-w-[800px] w-full'>
             <h2 className="text-white text-2xl text-center">Crear cuenta</h2>
             <form className="flex flex-col justify-center gap-1 text-primary" noValidate onSubmit={handleSubmit}>
                 
@@ -140,9 +140,9 @@ function Register() {
 
                 <p className="text-red-500">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
 
-                <button onSubmit={()=>onSubmitRegistre()} className="mt-3 text-white  bg-primary self-center p-5 rounded-md hover:cursor-pointer" type="submit" disabled={!isValid}>Registrarse</button>
+                <button onSubmit={()=>onSubmitRegistre()} className="mt-3 text-white bg-primary self-center p-3 rounded-md hover:cursor-pointer" type="submit" disabled={!isValid}>Registrarse</button>
             </form>
-            <p className="mt-3 ml-16 text-white">¿Ya tienes una cuenta? <Link to="/Login" className='underline'>Iniciar sesión</Link></p>
+            <p className="mt-3 ml-16 text-white 2xl:ml-[250px] lg:ml-[260px] md:ml-[160px] sm:ml-4 min-[912px]:ml-[240px] min-[540px]:ml-[60px] min-[820px]:ml-[190px] min-[375px]:ml-4 min-[414px]:ml-4 min-[390px]:ml-4 min-[430px]:ml-4 min-[360px]:ml-4 min-[280px]:ml-4">¿Ya tienes una cuenta? <Link to="/Login" className='underline'>Iniciar sesión</Link></p>
             </div> 
             )}
             </Formik>

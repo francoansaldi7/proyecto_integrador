@@ -47,7 +47,7 @@ const ShowServiceAvailability = ({selected, setSelected}) => {
 
   return (
     <div className="flex flex-col gap-4 w-full md:max-w-[70%]">
-      <div className="p-2 flex w-full gap-2 justify-between">
+      <div className="p-2 flex w-full gap-10 justify-between">
         <DayPicker
           className=" w-full p-2 bg-secondary-dark dark:bg-slate-500 rounded-lg  z-10 m-0 outline outline-1 outline-purple-900 text-white"
           mode="range"

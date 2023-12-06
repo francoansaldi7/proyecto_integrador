@@ -94,7 +94,7 @@ function CardDetails() {
       <div className="fixed top-[107px] left-[2vw] bg-secondary bg-gradient-to-b from-gray-900 to-primary-dark w-[96vw] h-[calc(100vh-110px)] flex justify-between flex-col rounded-lg gap-10 z-50  overflow-y-auto ">
         <div className="w-full bg-secondary-dark flex justify-between rounded-mg md:w-[100%] min-[375px]:justify-center md:justify-start">
           <div className="flex items-center">
-            <h1 className="text-3xl text-white font-bold p-10 ml-[-30px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
+            <h1 className="text-3xl text-white font-bold p-10 ml-[-10px] min-[375px]:text-sm md:text-2xl min-[412px]:text-xl min-[280px]:text-sm">
               {service?.title}
             </h1>
             <Favorite serviceId={id}/>
@@ -145,14 +145,10 @@ function CardDetails() {
           <h3 className="text-5xl font-bold text-pink-200">{service?.title}</h3>
           <h4 className="text-pink-200 mt-2">${service?.pricePerHour}/por hora</h4>
         </div>
-
-
-
- 
       
       <div className="flex items-center gap-2 p-2 min-[375px]:gap-0 min-[375px]:p-0 min-[375px]:ml-10 md:ml-10 min-[280px]:text-white min-[280px]:ml-10 min-[540px]:ml-10 min-[412px]:ml-10 min-[393px]:ml-10">
         {service && <Rating name="rating" precision={0.1} readOnly value={service?.rating}/>}
- 
+
             <span className="text-gray-700 dark:text-gray-600 font-semibold mr-20 md:ml-2 md:text-white md:text-lg min-[412px]:text-white min-[412px]:ml-2 min-[280px]:text-white min-[280px]:ml-1">
               {Math.round(service?.rating *100)/100}
             </span>
@@ -175,10 +171,7 @@ function CardDetails() {
 
           </div>
         </div>
-   
-   
-
-
+  
         <div className="availability flex justify-center">
           <ShowServiceAvailability selected={selected} setSelected={setSelected}/>
         </div>
@@ -189,15 +182,15 @@ function CardDetails() {
 
         </div>
         <div className="flex justify-center space-x-2 hover:cursor-pointer bg-secondary-dark/100 p-2 rounded-md text-white">
-          <PoliciesAndConditions />
+          <PoliciesAndConditions /> 
         </div>
 
         
               
-        <div className="flex fixed bottom-6 left-[48%] z-50">
+        <div className="flex fixed bottom-6 left-[48%] z-50 mb-4">
 
           <button onClick={()=>{handleReserveClick(service?.id ,service?.title, service?.description, selected, service?.pricePerHour, service.imgProfileUrl);}} > <Link 
-            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900  font-bold rounded-lg text-sm p-5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors  border border-purple-700 shadow-2xl shadow-purple-600 hover:shadow-lg  hover:shadow-purple-500">
+            className="w-[120px] text-white bg-secondary-dark hover:bg-purple-900 font-bold rounded-lg text-sm p-5 text-center dark:bg-primary-dark dark:hover:bg-secondary-dark dark:focus:ring-violet-800 transition-colors border border-purple-700 shadow-2xl shadow-purple-600 hover:shadow-lg hover:shadow-purple-500">
             Reservar ahora!
           </Link> </button>
           

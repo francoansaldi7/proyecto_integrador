@@ -18,7 +18,6 @@ function ProfileDropdown({initials}) {
     setAnchorEl(null);
   };
 
- 
   return (
     <div>
       <Button
@@ -32,6 +31,7 @@ function ProfileDropdown({initials}) {
       </Button>
       <Menu
         id="basic-menu"
+        className='mt-1'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

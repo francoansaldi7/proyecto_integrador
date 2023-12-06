@@ -25,7 +25,7 @@ function ReservationCard({
   }
   return (
     <>
-             {isLoading && (
+        {isLoading && (
         <div className="fixed flex z-[100000000] w-full h-full bg-[rgba(0,0,0,0.4)] justify-center items-center">
           <svg
             className="w-20 h-20"
@@ -151,11 +151,11 @@ function ReservationCard({
       </div>
       <div className="flex flex-col gap-2 p-5 items-center dark:text-purple-400 font-bold">
         <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleShowReviewPopup}>Comentar</button>
-        Desde {startingDatetime} hasta {endingDatetime}
+        <p className="mt-2">Desde {startingDatetime} hasta {endingDatetime}</p>
       </div>
       {showReviewPopUp && <ReviewPopup onClose={handleShowReviewPopup} serviceId={serviceId} setIsLoading={setIsLoading}/>}
     </div>
- 
+
 </>
   );
 

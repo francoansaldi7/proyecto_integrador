@@ -138,14 +138,14 @@ function Login() {
               <button
                 onSubmit={() => onSubmitLogin()}
                 type="submit"
-                className="mt-3 text-white  bg-primary self-center p-5 rounded-md hover:cursor-pointer"
+                className="mt-3 text-white  bg-primary self-center p-3 rounded-md hover:cursor-pointer"
                 disabled={!isValid}
               >
                 Ingresar
               </button>
             </form>
-            <p className="text-center text-white underline">
-              ¿Aún no tienes cuenta?<Link to="/Register"> Registrate</Link>
+            <p className="text-center text-white 2xl:mt-4 lg:mt-4 md:mt-4 sm:mt-4 min-[375px]:mt-4 min-[414px]:mt-4 min-[390px]:mt-4 min-[430px]:mt-4 min-[360px]:mt-4 min-[280px]:mt-4">
+              ¿Aún no tienes cuenta?<Link to="/Register"><span className="underline ml-1">Registrate</span></Link>
             </p>
           </div>
         )}

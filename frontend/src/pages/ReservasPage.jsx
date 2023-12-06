@@ -60,11 +60,8 @@ const ReservarPage = () => {
   }, []);
 
   return (
-    <div className="grid grid-rows-[1fr_3fr_3fr] w-full min-h-screen bg-gray-950 pt-[200px] text-white">
-      <div
-        className="background-shape absolute  h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition 
-       "
-      ></div>
+    <div className="grid grid-rows-[1fr_3fr_3fr] w-full min-h-screen bg-gray-950 pt-[150px] text-white pb-16">
+      <div className="background-shape absolute h-96 w-96 rounded-full bg-primary-dark blur-3xl right-[50%] animate-slowFadeAndPosition"></div>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -122,7 +119,7 @@ const ReservarPage = () => {
           </svg>
         </div>
       )}
-      <div className="date-info bg-primary-dark w-full h-[100px] px-5 rounded-md grid grid-cols-[2fr_2fr_2fr_2fr] items-center justify-items-center z-10 border border-purple-700">
+      <div className="date-info bg-primary-dark ml-10 w-[95vw] h-[100px] px-5 rounded-md grid grid-cols-[2fr_2fr_2fr_2fr] items-center justify-items-center z-10 border border-purple-700">
         <div className="service-info flex flex-row basis-1/2 col-span-[1/2] gap-4">
           <img
             className="rounded-full max-h-full max-w-[25%] object-cover"
