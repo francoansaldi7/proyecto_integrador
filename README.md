@@ -60,9 +60,8 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 * Table of Contents
 * Technologies Used
 * Features
-* Installation
+* Access the app
 * Usage
-* API Documentation
 * Database Schema
 * Testing
 * Contributing
@@ -130,19 +129,15 @@ Other libraries & resources:
 4. _Customer Support:_ Direct communication channels to address user and professionals concerns.
 5. _Commission Management:_ Set commission rates, manage payments to professionals, and handle transaction fees.
 
-## Installation
+## Access the app
 
-TO DO - Check how to run the project in AWS, or locally 
+Click on the following [link](http://dh-c13-2023-team1-proyecto-integrador.s3-website-us-west-2.amazonaws.com/)
 
 ## Usage
 
 TO DO - Explain how to use your application, including any user guides or tutorials.
 Provide examples or screenshots of how the application works.
 
-## API Documentation
-
-TO DO - If your project includes an API, document the endpoints, request methods, and response formats.
-Include sample API requests and responses.
 
 ## Database Schema
 
@@ -283,9 +278,8 @@ GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí
 * Tabla de Contenidos
 * Tecnologías Utilizadas
 * Funcionalidades
-* Instalación
+* Acceso a la app
 * Uso
-* Documentación de la API
 * Esquema de la Base de Datos
 * Pruebas
 * Contribuciones
@@ -355,17 +349,12 @@ Características para **Administradores**:
 4. _Soporte al Cliente:_ Canales de comunicación directa para atender preocupaciones de usuarios y profesionales.
 5. _Gestión de Comisiones:_ Establecer tasas de comisión, gestionar pagos a profesionales y manejar tarifas de transacción.
 
-## Instalación
-POR HACER: Proporcionar instrucciones paso a paso sobre cómo instalar y configurar tu proyecto localmente.
-Incluye cualquier requisito previo o dependencia que necesite ser instalada.
+## Acceso a la app
+Ingresar al siguiente [link](http://dh-c13-2023-team1-proyecto-integrador.s3-website-us-west-2.amazonaws.com/)
 
 ## Uso
 POR HACER: Explicar cómo usar tu aplicación, incluyendo cualquier guía del usuario o tutoriales.
 Proporciona ejemplos o capturas de pantalla de cómo funciona la aplicación.
-
-## Documentación de la API
-POR HACER: Si tu proyecto incluye una API, documenta los puntos finales, métodos de solicitud y formatos de respuesta.
-Incluye solicitudes y respuestas de muestra de la API.
 
 ## Esquema de la Base de Datos
 
