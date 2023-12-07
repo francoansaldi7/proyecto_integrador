@@ -78,7 +78,7 @@ public class EmailService {
                   + "<h3 style='font-size: 32px; text-align: center; margin-bottom: 20px; color: #2e9ad1;'>Precio Total: " + totalPrice + "</h3>"
                 + "</div>"
                 + "<p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>"
-                  + "¡Gracias por confiar en nosotros para tu reserva! Estamos emocionados por la oportunidad de atenderte. Tu reserva ha sido confirmada con éxito. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros. ¡Esperamos verte pronto!"
+                  + "¡Gracias por confiar en nosotros! Tu reserva ha sido confirmada con éxito. No dudes en ponerte en contacto con nosotros ante cualquier duda."
                 + "</p>";
     }
   /**
