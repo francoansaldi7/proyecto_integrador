@@ -70,7 +70,7 @@ public class EmailService {
         return "<div style='border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
                 + "<h1>GloCast.com</h1>"
                 + "<div style='color:white;'>"
-                  + "<h3 >Nombre de usuario: " + username + "</h3>"
+                  + "<h3>Nombre de usuario: " + username + "</h3>"
                   + "<h3>Email: " + email + "</h3>"
                   + "<h3>Servicio Reservado: " + service + "</h3>"
                   + "<h3>Fecha de Inicio: " + initialDate + "</h3>"
