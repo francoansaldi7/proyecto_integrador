@@ -61,7 +61,6 @@ GloCast is where creativity meets innovation, and we're here to transform the wa
 * Technologies Used
 * Features
 * Access the app
-* Usage
 * Database Schema
 * Testing
 * Contributing
@@ -133,11 +132,6 @@ Other libraries & resources:
 
 Click on the following [link](http://dh-c13-2023-team1-proyecto-integrador.s3-website-us-west-2.amazonaws.com/)
 
-## Usage
-
-TO DO - Explain how to use your application, including any user guides or tutorials.
-Provide examples or screenshots of how the application works.
-
 
 ## Database Schema
 
@@ -145,8 +139,9 @@ Provide examples or screenshots of how the application works.
 
 ## Testing
 
-TO DO - Describe the testing process, frameworks, and libraries used for testing.
-Provide information on how to run tests.
+![casos prueba](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/f255ab1e-71d4-40f8-94a8-3a22169b0f0a)
+![casos prueba 1](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/51a4fcd3-921f-41a0-9539-da86b1c9b1c2)
+![casos prueba 2](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/5831b462-9a77-4c5f-92d5-f1fde60ea302)
 
 --- 
 ## Contributing
@@ -279,7 +274,6 @@ GloCast es donde la creatividad se encuentra con la innovación, y estamos aquí
 * Tecnologías Utilizadas
 * Funcionalidades
 * Acceso a la app
-* Uso
 * Esquema de la Base de Datos
 * Pruebas
 * Contribuciones
@@ -352,17 +346,16 @@ Características para **Administradores**:
 ## Acceso a la app
 Ingresar al siguiente [link](http://dh-c13-2023-team1-proyecto-integrador.s3-website-us-west-2.amazonaws.com/)
 
-## Uso
-POR HACER: Explicar cómo usar tu aplicación, incluyendo cualquier guía del usuario o tutoriales.
-Proporciona ejemplos o capturas de pantalla de cómo funciona la aplicación.
 
 ## Esquema de la Base de Datos
 
 ![GloCast DB](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/896e7ed7-6509-44a7-a400-0ed666b002c9)
 
 ## Pruebas
-POR HACER: Describe el proceso de pruebas, frameworks y bibliotecas utilizadas para las pruebas.
-Proporciona información sobre cómo ejecutar pruebas.
+
+![casos prueba](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/f255ab1e-71d4-40f8-94a8-3a22169b0f0a)
+![casos prueba 1](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/51a4fcd3-921f-41a0-9539-da86b1c9b1c2)
+![casos prueba 2](https://github.com/francoansaldi7/proyecto_integrador/assets/106043508/5831b462-9a77-4c5f-92d5-f1fde60ea302)
 
 ---
 
