@@ -66,22 +66,21 @@ public class EmailService {
                 + "</button></div>";
   }
 
- public String bookingInfo( String username, String email, String service, String initialDate, String endingDate, float totalPrice) {
-    return "<div style='text-align: center; border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
+  public String confirmationReservation(String username, String email, String service, String initialDate, String endingDate, float totalPrice) {
+        return "<div style='border-radius: 15px; padding: 20px; font-family: sans-serif; background: linear-gradient(180deg,rgb(117 87 141), #3003e1 100%); color:white;'>"
                 + "<h1>GloCast.com</h1>"
-  + "<div style='background-color: #fff; border-radius: 15px; border: solid 2px green'>"
-  + "<h3 style='color: #333'>Nombre de usuario: " + username + "</h3>"
-                + "<h3 style='color: #333'>Email: " + email + "</h3>"
-                + "<h3 style='color: #333'>Servicio Reservado: " + service + "</h3>" +
-                "<h3 style='color: #333'>Fecha de Inicio: " + initialDate + "</h3>" +
-                 "<h3 style='color: #333'>Fecha de Finalización: " + endingDate + "</h3>" + 
-  "<h3 style='font-size: 32px; text-align: center; margin-bottom: 20px; color: #009900;'>Precio Total: " + totalPrice + "</h3>" + 
-  "</div>"
-                
+                + "<div style='color:white;'>"
+                  + "<h3 >Nombre de usuario: " + username + "</h3>"
+                  + "<h3>Email: " + email + "</h3>"
+                  + "<h3>Servicio Reservado: " + service + "</h3>"
+                  + "<h3>Fecha de Inicio: " + initialDate + "</h3>"
+                  + "<h3>Fecha de Finalización: " + endingDate + "</h3>"
+                  + "<h3 style='font-size: 32px; text-align: center; margin-bottom: 20px; color: #2e9ad1;'>Precio Total: " + totalPrice + "</h3>"
+                + "</div>"
                 + "<p style='font-size: 18px; text-align: center; margin-bottom: 20px; color: #d7d5ff;'>"
-                + "¡Gracias por confiar en nosotros para tu reserva! Estamos emocionados por la oportunidad de atenderte. Tu reserva ha sido confirmada con éxito. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros. ¡Esperamos verte pronto!"
+                  + "¡Gracias por confiar en nosotros para tu reserva! Estamos emocionados por la oportunidad de atenderte. Tu reserva ha sido confirmada con éxito. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros. ¡Esperamos verte pronto!"
                 + "</p>";
-  }
+    }
   /**
    * Sends a confirmation email to the specified recipient's email address with a confirmation URL.
    *
@@ -108,7 +107,7 @@ public class EmailService {
    */
     @Async("asyncTaskExecutor")
   public void sendBookingEmail(String username, String email, String service, String initialDate, String endingDate, float totalPrice) {
-      sendEmail(email, "Reserva confirmada", this.bookingInfo(username, email, service, initialDate, endingDate, totalPrice));
+      sendEmail(email, "Reserva confirmada", this.confirmationReservation(username, email, service, initialDate, endingDate, totalPrice));
   }
 }
 
