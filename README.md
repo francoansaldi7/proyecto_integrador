@@ -97,7 +97,7 @@ Other libraries & resources:
 * [Styled-components](https://styled-components.com/)
 * [YUP](https://www.npmjs.com/package/yup)
 
-* [Chat GPT](https://chat.openai.com/) was used to generate sample data
+* [Chat GPT](https://chat.openai.com/) was used to generate sample data, project name, translations, and to make certain processes simpler and faster.
 
 ## Features
 
@@ -311,7 +311,7 @@ Otras bibliotecas y recursos:
 * [Styled-components](https://styled-components.com/)
 * [YUP](https://www.npmjs.com/package/yup)
   
-* [Chat GPT](https://chat.openai.com/) fue utilizado para generar datos de muestra
+* [Chat GPT](https://chat.openai.com/) fue utilizado para generar datos de muestra, el nombre del proyecto, traducciones, y para agilizar algunos procesos
 
 
 ## Funcionalidades
