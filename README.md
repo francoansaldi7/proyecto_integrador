@@ -201,13 +201,15 @@ We would like to express our gratitude for the support and education that we hav
 
 Students that contributed on this project: 
 
-* Carmen Zeballos - czeballosricci@gmail.com
-* Franco Ansaldi - fansaldi7@gmail.com 
-* Deivid Gonzalez - deividgonzalezdev@gmail.com
-* Ana Ferreira - ana.ferreirabna@gmail.com
+* Carmen Zeballos - czeballosricci@gmail.com - Linkedin: https://www.linkedin.com/in/carmen-zeballos-53b62418?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+* Franco Ansaldi - fansaldi7@gmail.com - Linkedin: https://www.linkedin.com/in/franco-ansaldi/
+* Deivid Gonzalez - deividgonzalezdev@gmail.com - Linkedin: https://www.linkedin.com/in/deivid-gonz%C3%A1lez-1b5bbb228/
+* Ana Ferreira - ana.ferreirabna@gmail.com - Linkedin: https://www.linkedin.com/in/ana-ferreira-uy/
 * Enzo Clavijo - enzoclavijo07@gmail.com
-* Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com
-* Agustin Bruno - sav_agus@hotmail.com
+* Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com - Linkedin: https://www.linkedin.com/in/sofía-pereyra/
+* Agustin Bruno - sav_agus@hotmail.com - Linkedin: https://www.linkedin.com/in/sergio-agust%C3%ADn-bruno-166952223/
+
+* 
 
 --- 
 
@@ -418,10 +420,10 @@ Nos gustaría expresar nuestra gratitud por el apoyo y la educación que hemos r
 
 Estudiantes que contribuyeron en este proyecto:
 
-* Carmen Zeballos - czeballosricci@gmail.com
-* Franco Ansaldi - fansaldi7@gmail.com 
-* Deivid Gonzalez - deividgonzalezdev@gmail.com
-* Ana Ferreira - ana.ferreirabna@gmail.com
+* Carmen Zeballos - czeballosricci@gmail.com - Linkedin: https://www.linkedin.com/in/carmen-zeballos-53b62418?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+* Franco Ansaldi - fansaldi7@gmail.com - Linkedin: https://www.linkedin.com/in/franco-ansaldi/
+* Deivid Gonzalez - deividgonzalezdev@gmail.com - Linkedin: https://www.linkedin.com/in/deivid-gonz%C3%A1lez-1b5bbb228/
+* Ana Ferreira - ana.ferreirabna@gmail.com - Linkedin: https://www.linkedin.com/in/ana-ferreira-uy/
 * Enzo Clavijo - enzoclavijo07@gmail.com
-* Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com
-* Agustin Bruno - sav_agus@hotmail.com
+* Sofía Lourdes Pereyra - sofi.pereyra23@gmail.com - Linkedin: https://www.linkedin.com/in/sofía-pereyra/
+* Agustin Bruno - sav_agus@hotmail.com - Linkedin: https://www.linkedin.com/in/sergio-agust%C3%ADn-bruno-166952223/
